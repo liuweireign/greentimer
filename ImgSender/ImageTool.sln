@@ -1,0 +1,26 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 9.00
+# Visual Studio 2005
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ImageTool", "ImageTool\ImageTool.vcproj", "{A0BC25FC-BCF9-4684-BFBA-9A2AB00000B2}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "gdiplus", "gdiplus\gdiplus.vcproj", "{1B0FEB65-201F-4EBC-A150-87081573D370}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Win32 = Debug|Win32
+		Release|Win32 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A0BC25FC-BCF9-4684-BFBA-9A2AB00000B2}.Debug|Win32.ActiveCfg = Debug|Win32
+		{A0BC25FC-BCF9-4684-BFBA-9A2AB00000B2}.Debug|Win32.Build.0 = Debug|Win32
+		{A0BC25FC-BCF9-4684-BFBA-9A2AB00000B2}.Release|Win32.ActiveCfg = Release|Win32
+		{A0BC25FC-BCF9-4684-BFBA-9A2AB00000B2}.Release|Win32.Build.0 = Release|Win32
+		{1B0FEB65-201F-4EBC-A150-87081573D370}.Debug|Win32.ActiveCfg = Debug|Win32
+		{1B0FEB65-201F-4EBC-A150-87081573D370}.Debug|Win32.Build.0 = Debug|Win32
+		{1B0FEB65-201F-4EBC-A150-87081573D370}.Release|Win32.ActiveCfg = Release|Win32
+		{1B0FEB65-201F-4EBC-A150-87081573D370}.Release|Win32.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
