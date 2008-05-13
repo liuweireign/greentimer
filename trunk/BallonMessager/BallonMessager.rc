@@ -99,9 +99,10 @@ IDR_MENU_ICON MENU
 BEGIN
     POPUP "文件服务器"
     BEGIN
-        MENUITEM "退出(&Q)",                      ID_QUIT
-        MENUITEM "显示/隐藏(&S)",                   ID_RESUME
         MENUITEM "关于...(&A)",                   ID_APP_ABOUT
+        MENUITEM "显示/隐藏主界面(&S)",                ID_RESUME
+        MENUITEM SEPARATOR
+        MENUITEM "退出(&Q)",                      ID_QUIT
     END
 END
 

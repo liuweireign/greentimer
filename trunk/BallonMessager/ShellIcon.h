@@ -13,7 +13,7 @@ public:
        CShellIcon()
        {
               //m_appName.LoadString(IDS_APPNAME);
-		   m_appName = _T("ShellIcon");
+		   m_appName = _T("整点报时器");
             m_msgTaskbarRestart = RegisterWindowMessage(TEXT("TaskbarCreated"));
        }
 
