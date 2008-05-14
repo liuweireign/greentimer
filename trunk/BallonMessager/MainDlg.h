@@ -7,6 +7,7 @@
 #include "ShellIcon.h"
 #include "MyIconMenu.h"
 //#include "AboutDlg.h"
+#include "OpinionDlg.h"
 
 #include <atlctrls.h>
 #include <atldlgs.h>
@@ -45,6 +46,7 @@ public:
 		COMMAND_ID_HANDLER(ID_APP_ABOUT, OnAppAbout)
 		COMMAND_ID_HANDLER(IDOK, OnOK)
 		COMMAND_ID_HANDLER(IDCANCEL, OnCancel)
+		COMMAND_ID_HANDLER(ID_APP_OPINION, OnBtnOpinion)
 		MESSAGE_HANDLER(WM_TIMER, OnTimer)
 		CHAIN_MSG_MAP(CMyShellIcon)
 	END_MSG_MAP()
@@ -98,6 +100,13 @@ public:
 	LRESULT OnAppAbout(WORD /*wNotifyCode*/, WORD /*wID*/, HWND /*hWndCtl*/, BOOL& /*bHandled*/)
 	{
 		CAboutDlg dlg;
+		dlg.DoModal();
+		return 0;
+	}
+
+	LRESULT OnBtnOpinion(WORD /*wNotifyCode*/, WORD /*wID*/, HWND /*hWndCtl*/, BOOL& /*bHandled*/)
+	{
+		COpinionDlg dlg;
 		dlg.DoModal();
 		return 0;
 	}
@@ -161,7 +170,7 @@ public:
 			GetPrivateProfileString("tips",key,strDefaultTips,buffer,sizeof(buffer),strFileName);
 
 			WTL::CString strNow;
-			strNow.Format("现在时间： %d 点整。\r\n\r\n%s",iNowHour,buffer);
+			strNow.Format("现在时间： %d 点 %d 分。\r\n\r\n%s",iNowHour,buffer);
 			BalloonToolTips(strNow);
 			_iLastRemindHour = iNowHour;
 		}

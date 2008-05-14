@@ -240,6 +240,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\OpinionDlg.h"
+				>
+			</File>
+			<File
 				RelativePath=".\resource.h"
 				>
 			</File>
@@ -267,5 +271,9 @@
 		</Filter>
 	</Files>
 	<Globals>
+		<Global
+			Name="RESOURCE_FILE"
+			Value="BallonMessager.rc"
+		/>
 	</Globals>
 </VisualStudioProject>

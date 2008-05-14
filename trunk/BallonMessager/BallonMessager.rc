@@ -48,6 +48,7 @@ BEGIN
     LTEXT           "本程序运行后，遇到整点即弹出提示。",IDC_STATIC,7,7,152,27
     LTEXT           "合理安排时间，提高工作效率！",IDC_STATIC,7,22,120,10
     RTEXT           "（提示语句可通过tips.ini文件自定义）",IDC_STATIC,7,46,150,12
+    PUSHBUTTON      "设置...(&s)",ID_APP_OPINION,164,28,50,14
 END
 
 
@@ -89,6 +90,41 @@ END
 LANGUAGE LANG_CHINESE, SUBLANG_CHINESE_SIMPLIFIED
 #pragma code_page(936)
 #endif //_WIN32
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Dialog
+//
+
+IDD_DLG_SETUP DIALOGEX 0, 0, 228, 137
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Dialog"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    DEFPUSHBUTTON   "确定",IDOK,171,7,50,14
+    PUSHBUTTON      "取消",IDCANCEL,171,24,50,14
+    EDITTEXT        IDC_EDT_INPUT,41,7,128,18,ES_AUTOHSCROLL
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// DESIGNINFO
+//
+
+#ifdef APSTUDIO_INVOKED
+GUIDELINES DESIGNINFO 
+BEGIN
+    IDD_DLG_SETUP, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 221
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 130
+    END
+END
+#endif    // APSTUDIO_INVOKED
+
 
 /////////////////////////////////////////////////////////////////////////////
 //
