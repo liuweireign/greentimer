@@ -170,7 +170,13 @@ public:
 			GetPrivateProfileString("tips",key,strDefaultTips,buffer,sizeof(buffer),strFileName);
 
 			WTL::CString strNow;
-			strNow.Format("现在时间： %d 点 %d 分。\r\n\r\n%s",iNowHour,buffer);
+			
+			//modify by tianzuo,2008-5-14. 
+			//bug NO.1 found by jameyu,2008-5-14
+			//strNow.Format("现在时间： %d 点整。\r\n\r\n%s",iNowHour,buffer);
+			strNow.Format("现在时间： %d 点 %d 分。\r\n\r\n%s",iNowHour,tm.GetMinute() ,buffer);
+			//end modify by tianzuo,2008-5-14. 
+
 			BalloonToolTips(strNow);
 			_iLastRemindHour = iNowHour;
 		}
