@@ -1,6 +1,7 @@
 #pragma once
 #define WM_ICON WM_USER + 180
 #define NM_ICON_INFO WM_ICON + 1
+#define NIIF_USER 0x4
 static CString g_childInfo;
 template <class T, class MenuT = CIconMenu<T>, int MenuID = IDR_ICONMENU>
 class CShellIcon : public MenuT
@@ -13,7 +14,7 @@ public:
        CShellIcon()
        {
               //m_appName.LoadString(IDS_APPNAME);
-		   m_appName = _T("整点报时器");
+		   m_appName = _T("小小报时器");
             m_msgTaskbarRestart = RegisterWindowMessage(TEXT("TaskbarCreated"));
        }
 
@@ -34,14 +35,17 @@ public:
               m_data.uCallbackMessage = WM_ICON;
               m_data.dwInfoFlags = NIIF_USER;
 			  m_data.uTimeout = 10*1000;	//气泡提示的最短时间，10秒。操作系统规定最短的时间10秒。
-              strcpy_s(m_data.szInfoTitle,64, m_appName);
-              strcpy_s(m_data.szTip, m_appName);
+              //strcpy_s(m_data.szInfoTitle,64, m_appName);
+              //strcpy_s(m_data.szTip, m_appName);
+			  strcpy(m_data.szInfoTitle, m_appName);
+			  strcpy(m_data.szTip, m_appName);
               return Shell_NotifyIcon(NIM_ADD, &m_data);
        }
  
        void ModifyToolTips(LPCTSTR info)
        {
-              strcpy_s(m_data.szInfo, info);
+              //strcpy_s(m_data.szInfo, info);
+		   strcpy(m_data.szInfo, info);
        }
  
        BOOL DispalyToolTips()
