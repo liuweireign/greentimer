@@ -79,7 +79,8 @@ public:
 
 		CreateShellIcon();
 
-		_iLastRemindHour = 0;
+		_iLastRemindMin = -1;
+		_bFirstTimeUp = true;
 
 		SetTimer(0,3*1000,NULL);
 
@@ -133,7 +134,8 @@ public:
 	}
 public:
 	//LRESULT OnTimer(UINT /*uMsg*/, WPARAM /*wParam*/, LPARAM /*lParam*/, BOOL& /*bHandled*/);
-	int _iLastRemindHour;
+	int _iLastRemindMin;
+	bool _bFirstTimeUp;
 
 
 	// 取得程序运行的目录（以反斜线\结尾）
@@ -160,17 +162,28 @@ public:
 		//整点报时功能。
 		CTime tm = CTime::GetCurrentTime();
 		int iNowHour = tm.GetHour();
-		if (iNowHour!=_iLastRemindHour)
-		{
-			WTL::CString strFileName = GetAppDirectory()+"tips.ini";
-			char *strDefaultTips = "合理安排时间，做个高效的人。";
-			char buffer[2*1024];
-			char key[16];
-			itoa(iNowHour,key,10);
-			GetPrivateProfileString("tips",key,strDefaultTips,buffer,sizeof(buffer),strFileName);
+		int iNowMin = tm.GetMinute();
 
+		WTL::CString strFileName = GetAppDirectory()+"tips.ini";
+		char *strDefaultTips = "合理安排时间，做个高效的人。";
+		char *strEmptyTips = "";
+		char buffer[2*1024];
+		char hour[8]={0};
+		itoa(iNowHour,hour,10);
+		char min[8]={0};
+		itoa(iNowMin,min,10);
+
+		WTL::CString key = hour;
+		key += "-";
+		key += min;
+
+		int iCharsRt = GetPrivateProfileString("tips",key,strEmptyTips,buffer,sizeof(buffer),strFileName);
+
+		//有没有为现在这个时间设定提醒呢？现在这个提示显示过没有？
+		if (iCharsRt != 0 && iNowMin != _iLastRemindMin)
+		{
 			WTL::CString strNow;
-			
+
 			//modify by tianzuo,2008-5-14. 
 			//bug NO.1 found by jameyu,2008-5-14
 			//strNow.Format("现在时间： %d 点整。\r\n\r\n%s",iNowHour,buffer);
@@ -178,7 +191,19 @@ public:
 			//end modify by tianzuo,2008-5-14. 
 
 			BalloonToolTips(strNow);
-			_iLastRemindHour = iNowHour;
+			_iLastRemindMin = iNowMin;
+			_bFirstTimeUp = false;
+		}
+		//没有为当前时间设定提醒，显示一下欢迎信息
+		else
+		{
+			if (_bFirstTimeUp)
+			{
+				WTL::CString strMsg;
+				strMsg.Format("现在时间： %d 点 %d 分。\r\n\r\n%s",iNowHour,tm.GetMinute() ,strDefaultTips);
+				BalloonToolTips(strMsg);
+				_bFirstTimeUp = false;
+			}
 		}
 
 		return 0;

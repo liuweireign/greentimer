@@ -13,7 +13,7 @@
 #undef APSTUDIO_READONLY_SYMBOLS
 
 /////////////////////////////////////////////////////////////////////////////
-// 非特定语言(系统默认值) resources
+// 非特定语言(系统默认) resources
 
 #if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_NEUSD)
 #ifdef _WIN32
@@ -26,17 +26,21 @@ LANGUAGE LANG_NEUTRAL, SUBLANG_SYS_DEFAULT
 // Dialog
 //
 
-IDD_ABOUTBOX DIALOGEX 0, 0, 178, 94
-STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
+IDD_ABOUTBOX DIALOGEX 0, 0, 226, 119
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | 
+    WS_SYSMENU
 CAPTION "关于GreenTimer"
 FONT 8, "MS Shell Dlg", 0, 0, 0x0
 BEGIN
-    DEFPUSHBUTTON   "OK",IDOK,121,73,50,14
+    DEFPUSHBUTTON   "OK",IDOK,169,98,50,14
     LTEXT           "skymountain 2008",IDC_STATIC,28,37,78,13
     ICON            IDR_MAINFRAME,IDC_STATIC,7,14,21,20
-    GROUPBOX        "",IDC_STATIC,7,7,164,65
-    LTEXT           "整点报时器 v1.0",IDC_STATIC,28,22,90,11
-    LTEXT           "http://code.google.com/p/greentimer/",IDC_STATIC,28,54,134,13
+    GROUPBOX        "",IDC_STATIC,7,7,212,84
+    LTEXT           "小小报时器 V0.9",IDC_STATIC,28,22,90,11
+    LTEXT           "http://code.google.com/p/greentimer/",IDC_STATIC,27,70,
+                    134,13
+    LTEXT           "Enhaced by Jame Yu, yurihua@gmail.com",IDC_STATIC,28,53,
+                    134,8
 END
 
 IDD_MAINDLG DIALOGEX 0, 0, 221, 65
@@ -45,9 +49,11 @@ CAPTION "GreenTimer 绿色整点报时器"
 FONT 8, "MS Shell Dlg", 0, 0, 0x0
 BEGIN
     PUSHBUTTON      "&About...",ID_APP_ABOUT,164,44,50,14
-    LTEXT           "本程序运行后，遇到整点即弹出提示。",IDC_STATIC,7,7,152,27
+    LTEXT           "本程序运行后，遇到整点即弹出提示。",IDC_STATIC,7,7,152,
+                    27
     LTEXT           "合理安排时间，提高工作效率！",IDC_STATIC,7,22,120,10
-    RTEXT           "（提示语句可通过tips.ini文件自定义）",IDC_STATIC,7,46,150,12
+    RTEXT           "（提示语句可通过tips.ini文件自定义）",IDC_STATIC,7,46,
+                    150,12
     PUSHBUTTON      "设置...(&s)",ID_APP_OPINION,164,28,50,14
 END
 
@@ -63,9 +69,9 @@ BEGIN
     IDD_ABOUTBOX, DIALOG
     BEGIN
         LEFTMARGIN, 7
-        RIGHTMARGIN, 171
+        RIGHTMARGIN, 219
         TOPMARGIN, 7
-        BOTTOMMARGIN, 87
+        BOTTOMMARGIN, 112
     END
 
     IDD_MAINDLG, DIALOG
@@ -78,7 +84,7 @@ BEGIN
 END
 #endif    // APSTUDIO_INVOKED
 
-#endif    // 非特定语言(系统默认值) resources
+#endif    // 非特定语言(系统默认) resources
 /////////////////////////////////////////////////////////////////////////////
 
 
@@ -96,14 +102,26 @@ LANGUAGE LANG_CHINESE, SUBLANG_CHINESE_SIMPLIFIED
 // Dialog
 //
 
-IDD_DLG_SETUP DIALOGEX 0, 0, 228, 137
-STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
-CAPTION "Dialog"
+IDD_DLG_SETUP DIALOGEX 0, 0, 249, 138
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | 
+    WS_SYSMENU
+CAPTION "增加提醒"
 FONT 8, "MS Shell Dlg", 400, 0, 0x1
 BEGIN
-    DEFPUSHBUTTON   "确定",IDOK,171,7,50,14
-    PUSHBUTTON      "取消",IDCANCEL,171,24,50,14
-    EDITTEXT        IDC_EDT_INPUT,41,7,128,18,ES_AUTOHSCROLL
+    EDITTEXT        IDC_HOUR,28,22,40,14,ES_AUTOHSCROLL | ES_NUMBER
+    CONTROL         "",IDC_SPIN1,"msctls_updown32",UDS_SETBUDDYINT | 
+                    UDS_ALIGNRIGHT | UDS_AUTOBUDDY | UDS_ARROWKEYS,68,22,11,
+                    14
+    EDITTEXT        IDC_MINUTE,99,22,40,14,ES_AUTOHSCROLL | ES_NUMBER
+    CONTROL         "",IDC_SPIN2,"msctls_updown32",UDS_SETBUDDYINT | 
+                    UDS_ALIGNRIGHT | UDS_AUTOBUDDY | UDS_ARROWKEYS,139,22,11,
+                    14
+    EDITTEXT        IDC_EDT_INPUT,28,60,141,71,ES_AUTOHSCROLL
+    DEFPUSHBUTTON   "确定",IDOK,192,99,50,14
+    PUSHBUTTON      "取消",IDCANCEL,192,117,50,14
+    LTEXT           "时:",IDC_STATIC,12,25,12,8
+    LTEXT           "分:",IDC_STATIC,82,25,12,8
+    LTEXT           "提醒消息:",IDC_STATIC,12,45,36,8
 END
 
 
@@ -118,9 +136,9 @@ BEGIN
     IDD_DLG_SETUP, DIALOG
     BEGIN
         LEFTMARGIN, 7
-        RIGHTMARGIN, 221
+        RIGHTMARGIN, 242
         TOPMARGIN, 7
-        BOTTOMMARGIN, 130
+        BOTTOMMARGIN, 131
     END
 END
 #endif    // APSTUDIO_INVOKED
@@ -135,10 +153,10 @@ IDR_MENU_ICON MENU
 BEGIN
     POPUP "文件服务器"
     BEGIN
-        MENUITEM "关于...(&A)",                   ID_APP_ABOUT
-        MENUITEM "显示/隐藏主界面(&S)",                ID_RESUME
+        MENUITEM "关于...(&A)",                 ID_APP_ABOUT
+        MENUITEM "显示/隐藏主界面(&S)",         ID_RESUME
         MENUITEM SEPARATOR
-        MENUITEM "退出(&Q)",                      ID_QUIT
+        MENUITEM "退出(&Q)",                    ID_QUIT
     END
 END
 
@@ -233,7 +251,7 @@ VS_VERSION_INFO VERSIONINFO
 BEGIN
     BLOCK "StringFileInfo"
     BEGIN
-        BLOCK "040904B0"
+        BLOCK "040904b0"
         BEGIN
             VALUE "FileDescription", "BallonMessager Module"
             VALUE "FileVersion", "1, 0, 0, 1"
@@ -342,14 +360,4 @@ END
 #endif    // 英语(美国) resources
 /////////////////////////////////////////////////////////////////////////////
 
-
-
-#ifndef APSTUDIO_INVOKED
-/////////////////////////////////////////////////////////////////////////////
-//
-// Generated from the TEXTINCLUDE 3 resource.
-//
-
-/////////////////////////////////////////////////////////////////////////////
-#endif    // not APSTUDIO_INVOKED
 
