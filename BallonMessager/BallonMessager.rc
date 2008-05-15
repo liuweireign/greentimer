@@ -26,20 +26,20 @@ LANGUAGE LANG_NEUTRAL, SUBLANG_SYS_DEFAULT
 // Dialog
 //
 
-IDD_ABOUTBOX DIALOGEX 0, 0, 226, 119
+IDD_ABOUTBOX DIALOGEX 0, 0, 226, 111
 STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | 
     WS_SYSMENU
-CAPTION "关于GreenTimer"
+CAPTION "关于绿色报时器"
 FONT 8, "MS Shell Dlg", 0, 0, 0x0
 BEGIN
-    DEFPUSHBUTTON   "OK",IDOK,169,98,50,14
-    LTEXT           "skymountain 2008",IDC_STATIC,28,37,78,13
-    ICON            IDR_MAINFRAME,IDC_STATIC,7,14,21,20
-    GROUPBOX        "",IDC_STATIC,7,7,212,84
-    LTEXT           "小小报时器 V0.9",IDC_STATIC,28,22,90,11
+    DEFPUSHBUTTON   "OK",IDOK,169,90,50,14
+    LTEXT           "skymountain 2008",IDC_STATIC,27,37,78,13
+    ICON            IDR_MAINFRAME,IDC_STATIC,27,14,21,20
+    GROUPBOX        "",IDC_STATIC,7,3,212,84
+    LTEXT           "绿色报时器 V1.1",IDC_STATIC,51,22,90,11
     LTEXT           "http://code.google.com/p/greentimer/",IDC_STATIC,27,70,
                     134,13
-    LTEXT           "Enhaced by Jame Yu, yurihua@gmail.com",IDC_STATIC,28,53,
+    LTEXT           "Enhaced by Jame Yu, yurihua@gmail.com",IDC_STATIC,27,53,
                     134,8
 END
 
@@ -54,7 +54,7 @@ BEGIN
     LTEXT           "合理安排时间，提高工作效率！",IDC_STATIC,7,22,120,10
     RTEXT           "（提示语句可通过tips.ini文件自定义）",IDC_STATIC,7,46,
                     150,12
-    PUSHBUTTON      "设置...(&s)",ID_APP_OPINION,164,28,50,14
+    PUSHBUTTON      "增加提醒...(&s)",ID_APP_OPINION,164,28,50,14
 END
 
 
@@ -71,7 +71,7 @@ BEGIN
         LEFTMARGIN, 7
         RIGHTMARGIN, 219
         TOPMARGIN, 7
-        BOTTOMMARGIN, 112
+        BOTTOMMARGIN, 104
     END
 
     IDD_MAINDLG, DIALOG
@@ -154,6 +154,8 @@ BEGIN
     POPUP "文件服务器"
     BEGIN
         MENUITEM "关于...(&A)",                 ID_APP_ABOUT
+        MENUITEM SEPARATOR
+        MENUITEM "增加提醒...(&N)",             ID_APP_OPINION
         MENUITEM "显示/隐藏主界面(&S)",         ID_RESUME
         MENUITEM SEPARATOR
         MENUITEM "退出(&Q)",                    ID_QUIT
