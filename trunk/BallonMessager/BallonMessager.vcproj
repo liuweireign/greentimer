@@ -71,7 +71,7 @@
 		<Configuration
 			Name="Release|Win32"
 			OutputDirectory="Release"
-			IntermediateDirectory="Release"
+			IntermediateDirectory="Release_obj"
 			ConfigurationType="1"
 			UseOfATL="0"
 			ATLMinimizesCRunTimeLibraryUsage="FALSE"
@@ -89,6 +89,7 @@
 				Name="VCCustomBuildTool"/>
 			<Tool
 				Name="VCLinkerTool"
+				OutputFile="$(OutDir)/GreenTimer_v1.1.exe"
 				LinkIncremental="1"
 				SubSystem="2"
 				TargetMachine="1"/>
