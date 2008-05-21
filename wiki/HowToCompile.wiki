@@ -1,5 +1,5 @@
+#summary 如何编译GreenTimer?
 #labels Phase-Implementation
-#如何编译GreenTimer?
 
 = Introduction =
 
