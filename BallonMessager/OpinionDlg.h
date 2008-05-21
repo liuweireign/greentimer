@@ -20,12 +20,21 @@ public:
 		//当前时间,用来作初始值
 		CTime tm = CTime::GetCurrentTime();
 		int iNowHour = tm.GetHour();
-		char hour[16];
-		itoa(iNowHour,hour,10);
-
 		int iNowMin = tm.GetMinute();
+
+		int iSetHour = iNowHour;
+		int iSetMin = iNowMin + 10; //提前十分钟，GreenTimer认为：没有用户会为当前时间设定提醒的
+		if (iSetMin > 59)
+		{
+			iSetMin -= 60;
+			iSetHour += 1;
+		}
+
+		char hour[16];
+		itoa(iSetHour,hour,10);
+
 		char min[16];
-		itoa(iNowMin,min,10);
+		itoa(iSetMin,min,10);
 
 		//在对话框启动的时候，给编辑框设定初始值
 		CWindow WndHour = GetDlgItem(IDC_HOUR);
@@ -52,7 +61,7 @@ public:
 	LRESULT OnBnClickedOk(WORD /*wNotifyCode*/, WORD wID, HWND /*hWndCtl*/, BOOL& /*bHandled*/)
 	{
 		//当点击“OK”按钮的时候，取出编辑框的值并用对话框显示出来。
-		CWindow WndInput = GetDlgItem(IDC_EDT_INPUT);
+		CEdit WndInput = GetDlgItem(IDC_EDT_INPUT);
 		TCHAR strMsg[1024];
 
 		CWindow WndHour = GetDlgItem(IDC_HOUR);
@@ -65,42 +74,53 @@ public:
 		WndMin.GetWindowText(strMin,3);
 		WndInput.GetWindowText(strMsg,1024);
 
-		WTL::CString strTime = strHour;
-		strTime += "-";
-		strTime += strMin;
-
-		//确认一下:
-		WTL::CString strFileName = GetAppDirectory()+"tips.ini";
-
-		char buffer[1024];
-		WTL::CString strEmptyTips = "";
-		int iCharsRt = GetPrivateProfileString("tips",strTime,strEmptyTips,buffer,sizeof(buffer),strFileName);
-
-		//以前有没有为现在这个时间设定提醒呢？
-		if (iCharsRt != 0)
-			//以前已经为指定时间设定提醒,那就要用户确认一下了
+		//检查用户是不是忘记输入提示信息了
+		if (strMsg[0]==0)
 		{
-			WTL::CString strConfirm;
-			strConfirm.Format("您曾经要求在： %s 点 %s 分提醒您：\r\n\r\n\"%s\"\r\n\r\n您要替换这个提醒吗？",strHour,strMin ,buffer);
+			MessageBox("您忘记在提示信息处输入提示信息了。","您忘了输入提示信息",MB_OK);
+			WndInput.SetFocus();
+			WndInput.SetWindowText("请在这里输入提示信息"); 
+			WndInput.SetSel(0, -1);
+		}
+		else
+		{
+			WTL::CString strTime = strHour;
+			strTime += "-";
+			strTime += strMin;
 
-			if(IDOK==MessageBox(strConfirm,"确认一下",MB_OKCANCEL))
+			//确认一下:
+			WTL::CString strFileName = GetAppDirectory()+"tips.ini";
+
+			char buffer[1024];
+			WTL::CString strEmptyTips = "";
+			int iCharsRt = GetPrivateProfileString("tips",strTime,strEmptyTips,buffer,sizeof(buffer),strFileName);
+
+			//以前有没有为现在这个时间设定提醒呢？
+			if (iCharsRt != 0)
+				//以前已经为指定时间设定提醒,那就要用户确认一下了
 			{
-				//WTL::CString strFileName = GetAppDirectory()+"tips.ini";
+				WTL::CString strConfirm;
+				strConfirm.Format("您曾经要求在： %s 点 %s 分提醒您：\r\n\r\n\"%s\"\r\n\r\n您要替换这个提醒吗？",strHour,strMin ,buffer);
+
+				if(IDOK==MessageBox(strConfirm,"确认一下",MB_OKCANCEL))
+				{
+					//WTL::CString strFileName = GetAppDirectory()+"tips.ini";
+					WritePrivateProfileString ("tips", 
+						strTime, 
+						strMsg, 
+						strFileName); 
+					EndDialog(wID);
+				}
+			}
+			//以前没有为现在这个时间设定提醒，那就直接添加吧。
+			else
+			{
 				WritePrivateProfileString ("tips", 
 					strTime, 
 					strMsg, 
 					strFileName); 
 				EndDialog(wID);
 			}
-		}
-		//以前没有为现在这个时间设定提醒，那就直接添加吧。
-		else
-		{
-			WritePrivateProfileString ("tips", 
-				strTime, 
-				strMsg, 
-				strFileName); 
-			EndDialog(wID);
 		}
 
 		return 0;
