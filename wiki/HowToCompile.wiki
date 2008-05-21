@@ -1,0 +1,17 @@
+#labels Phase-Implementation
+#如何编译GreenTimer?
+
+= Introduction =
+
+如何编译GreenTimer?
+
+
+= Details =
+
+1、GreenTimer使用VC++2003开发，所以你必须要安装有VC++2003或更高版本。
+
+2、然后，你需要安装WTL。
+   注意：WTL可以在源码包中的compile_resource目录下找到。
+   下载WTL后，双击自解压到任意一个目录，然后把到WTL下的include目录添加为VC++的include目录下（工具->选项->项目->vc++目录->包含文件）。
+
+3、OK，直接按F5就可以编译运行了。祝你顺利！
