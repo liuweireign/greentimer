@@ -75,7 +75,12 @@ public:
 		WndInput.GetWindowText(strMsg,1024);
 
 		//检查用户是不是忘记输入提示信息了
-		if (strMsg[0]==0)
+		ATL::CString strTrimpedMsg = strMsg;
+
+		//只输入空格不算 :)
+		strTrimpedMsg.Trim();
+
+		if (strTrimpedMsg.GetLength()==0)
 		{
 			MessageBox("您忘记在提示信息处输入提示信息了。","您忘了输入提示信息",MB_OK);
 			WndInput.SetFocus();
@@ -107,7 +112,7 @@ public:
 					//WTL::CString strFileName = GetAppDirectory()+"tips.ini";
 					WritePrivateProfileString ("tips", 
 						strTime, 
-						strMsg, 
+						strTrimpedMsg, 
 						strFileName); 
 					EndDialog(wID);
 				}
@@ -117,7 +122,7 @@ public:
 			{
 				WritePrivateProfileString ("tips", 
 					strTime, 
-					strMsg, 
+					strTrimpedMsg, 
 					strFileName); 
 				EndDialog(wID);
 			}
