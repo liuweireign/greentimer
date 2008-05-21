@@ -17,24 +17,10 @@ public:
 	{
 		CenterWindow(GetParent());
 
-		//当前时间,用来作初始值
-		CTime tm = CTime::GetCurrentTime();
-		int iNowHour = tm.GetHour();
-		int iNowMin = tm.GetMinute();
-
-		int iSetHour = iNowHour;
-		int iSetMin = iNowMin + 10; //提前十分钟，GreenTimer认为：没有用户会为当前时间设定提醒的
-		if (iSetMin > 59)
-		{
-			iSetMin -= 60;
-			iSetHour += 1;
-		}
-
 		char hour[16];
-		itoa(iSetHour,hour,10);
-
 		char min[16];
-		itoa(iSetMin,min,10);
+
+		GetDefaultFillTime(hour, min);
 
 		//在对话框启动的时候，给编辑框设定初始值
 		CWindow WndHour = GetDlgItem(IDC_HOUR);
@@ -64,8 +50,8 @@ public:
 		CEdit WndInput = GetDlgItem(IDC_EDT_INPUT);
 		TCHAR strMsg[1024];
 
-		CWindow WndHour = GetDlgItem(IDC_HOUR);
-		CWindow WndMin = GetDlgItem(IDC_MINUTE);
+		CEdit WndHour = GetDlgItem(IDC_HOUR);
+		CEdit WndMin = GetDlgItem(IDC_MINUTE);
 
 		TCHAR strHour[3]={0};
 		TCHAR strMin[3]={0};
@@ -74,18 +60,65 @@ public:
 		WndMin.GetWindowText(strMin,3);
 		WndInput.GetWindowText(strMsg,1024);
 
+		int iHour = atoi(strHour);
+		int iMin = atoi(strMin);
+
 		//检查用户是不是忘记输入提示信息了
 		ATL::CString strTrimpedMsg = strMsg;
 
 		//只输入空格不算 :)
 		strTrimpedMsg.Trim();
 
-		if (strTrimpedMsg.GetLength()==0)
+		//没有填提示消息
+		if (strTrimpedMsg.GetLength()==0 || strTrimpedMsg == ATL::CString("请在这里输入提示信息"))
 		{
 			MessageBox("您忘记在提示信息处输入提示信息了。","您忘了输入提示信息",MB_OK);
 			WndInput.SetFocus();
 			WndInput.SetWindowText("请在这里输入提示信息"); 
 			WndInput.SetSel(0, -1);
+		}
+		//没有填小时数
+		else if (strlen(strHour) == 0)
+		{
+			MessageBox("应该啥时候提醒您做这件事呀？小时数为空。","您忘记了输入小时数",MB_OK);
+			WndHour.SetFocus();
+
+			char hour[16];
+			char min[16];
+
+			GetDefaultFillTime(hour, min);
+
+			WndHour.SetWindowText(hour);
+			//WndMin.SetWindowText(min);
+			WndHour.SetSel(0,-1);
+		}
+		else if (iHour > 23)
+		{
+			MessageBox("小时数不应该大于23，小时数应该在0-23之间。","楼主，您搞错时间了吧？",MB_OK);
+			WndHour.SetFocus();
+			WndHour.SetSel(0,-1);
+		}
+		//没有填分钟数
+		else if (strlen(strMin) == 0)
+		{
+			MessageBox("应该啥时候提醒您做这件事呀？分钟数为空。","您忘了输入分钟数",MB_OK);
+			WndMin.SetFocus();
+
+			char hour[16];
+			char min[16];
+
+			GetDefaultFillTime(hour, min);
+
+			WndMin.SetWindowText(min);
+			//WndHour.SetWindowText(hour);
+
+			WndMin.SetSel(0,-1);
+		}
+		else if (iMin > 59)
+		{
+			MessageBox("分钟数应该在0-59之间。","楼主，您搞错时间了吧？",MB_OK);
+			WndMin.SetFocus();
+			WndMin.SetSel(0,-1);
 		}
 		else
 		{
@@ -146,5 +179,29 @@ public:
 			buf[iIndex]='\0';	//截断，获得路径名(去掉最后的'\')
 		}
 		return (char *)buf;
+	}
+
+	//计算默认填充到设置框的时间
+	// *hour 和 *min指向的buffer要有一定的空间.
+	void GetDefaultFillTime(char *hour, char *min)
+	{
+		//当前时间,用来作初始值
+		CTime tm = CTime::GetCurrentTime();
+		int iNowHour = tm.GetHour();
+		int iNowMin = tm.GetMinute();
+
+		int iSetHour = iNowHour;
+		int iSetMin = iNowMin + 10; //提前十分钟，GreenTimer认为：没有用户会为当前时间设定提醒的
+		if (iSetMin > 59)
+		{
+			iSetMin -= 60;
+			iSetHour += 1;
+		}
+
+		//char hour[16];
+		itoa(iSetHour,hour,10);
+
+		//char min[16];
+		itoa(iSetMin,min,10);
 	}
 };
