@@ -1,0 +1,23 @@
+#summary GreenTimer的使用方法
+#labels Phase-Deploy
+
+= Introduction =
+
+GreenTimer的使用方法：如何安装，如何编辑提醒等。
+
+
+= Details =
+
+1、如何安装？
+GreenTimer是绿色软件，无需安装。要使用它，只要下载GreenTimer（http://code.google.com/p/greentimer/downloads/list），然后双击运行其中的GreenTimer.exe文件即可。
+注意：为了能让它开机自动运行，可以把它拖放到启动菜单中（“开始”-->“程序”-->“启动”）。
+
+2、怎么运行后没看到界面？
+GreenTimer默认不显示主界面，启动后仅会在托盘区显示一个图标。遇到预先设定的时间，它会在托盘区弹出一个提醒气球。这个气球在十秒钟之后自动关闭。
+GreenTimer在启动后几秒钟内，会在托盘区显示一条提醒语句。
+双击GreenTimer的托盘图标，可以进入主界面。
+
+
+3、怎么编辑提醒时间和语句？
+双击托盘区图标可以进入主界面。在“增加提醒”面板中，可以添加新的提醒。
+另外，你也可以通过编辑tips.ini文件来手动修改提醒设置。
