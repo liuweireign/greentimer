@@ -4,7 +4,7 @@
 = Introduction =
 
 如何编译GreenTimer?
-
+（注意，你如果不是开发人员，不必看这篇文字）
 
 = Details =
 
