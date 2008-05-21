@@ -69,7 +69,7 @@ public:
 		//只输入空格不算 :)
 		strTrimpedMsg.Trim();
 
-		//没有填提示消息
+		//没有填提示消息,或里面是我们自动填充的消息,不行
 		if (strTrimpedMsg.GetLength()==0 || strTrimpedMsg == ATL::CString("请在这里输入提示信息"))
 		{
 			MessageBox("您忘记在提示信息处输入提示信息了。","您忘了输入提示信息",MB_OK);
@@ -77,7 +77,7 @@ public:
 			WndInput.SetWindowText("请在这里输入提示信息"); 
 			WndInput.SetSel(0, -1);
 		}
-		//没有填小时数
+		//没有填小时数,不行
 		else if (strlen(strHour) == 0)
 		{
 			MessageBox("应该啥时候提醒您做这件事呀？小时数为空。","您忘记了输入小时数",MB_OK);
@@ -92,13 +92,14 @@ public:
 			//WndMin.SetWindowText(min);
 			WndHour.SetSel(0,-1);
 		}
+		//小时数不符合要求,不行
 		else if (iHour > 23)
 		{
 			MessageBox("小时数不应该大于23，小时数应该在0-23之间。","楼主，您搞错时间了吧？",MB_OK);
 			WndHour.SetFocus();
 			WndHour.SetSel(0,-1);
 		}
-		//没有填分钟数
+		//没有填分钟数,不行
 		else if (strlen(strMin) == 0)
 		{
 			MessageBox("应该啥时候提醒您做这件事呀？分钟数为空。","您忘了输入分钟数",MB_OK);
@@ -114,12 +115,14 @@ public:
 
 			WndMin.SetSel(0,-1);
 		}
+		//分钟数不符合要求,不行
 		else if (iMin > 59)
 		{
 			MessageBox("分钟数应该在0-59之间。","楼主，您搞错时间了吧？",MB_OK);
 			WndMin.SetFocus();
 			WndMin.SetSel(0,-1);
 		}
+		//似乎都没有问题
 		else
 		{
 			WTL::CString strTime = strHour;
