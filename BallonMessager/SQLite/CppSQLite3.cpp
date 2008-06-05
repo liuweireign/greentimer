@@ -28,6 +28,13 @@
 #include "stdafx.h"
 #include "CppSQLite3.h"
 #include <cstdlib>
+#include <atlenc.h>
+#include <comutil.h>
+#include <atlstr.h>
+
+#pragma comment(lib, "comsuppw.lib")
+#pragma comment(lib, "kernel32.lib")
+
 
 
 // Named constant for passing to CppSQLite3Exception when passing it a string
@@ -1117,16 +1124,9 @@ CppSQLite3DB& CppSQLite3DB::operator=(const CppSQLite3DB& db)
 	return *this;
 }
 
-#include <atlenc.h>
-#include <comutil.h>
-
-#pragma comment(lib, "comsuppw.lib")
-#pragma comment(lib, "kernel32.lib")
-
-
 //----------------------------------------------	
 //modified by robet.li
-BOOL HasChineseChar(const CString &destStr)
+BOOL HasChineseChar(const ATL::CString &destStr)
 {
 	BOOL bHasChinsesChar = FALSE;
 	int nLen = destStr.GetLength();
