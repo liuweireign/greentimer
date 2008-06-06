@@ -24,6 +24,9 @@ bool ITask::IsTimeNow()
 				//±‹√‚÷ÿ∏¥‘À––°£
 				if (tmNow.GetYear()==LastRunTime.GetYear() 
 					&& tmNow.GetMonth()==LastRunTime.GetMonth()
+					&& tmNow.GetDay()==LastRunTime.GetDay()
+					&& tmNow.GetHour()==LastRunTime.GetHour()
+					&& tmNow.GetMinute()==LastRunTime.GetMinute()
 					)
 				{
 					return false;

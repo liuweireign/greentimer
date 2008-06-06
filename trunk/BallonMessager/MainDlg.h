@@ -9,6 +9,7 @@
 //#include "AboutDlg.h"
 #include "OpinionDlg.h"
 #include "TaskDB.h"
+#include "TaskViewDlg.h"
 
 #include <atlctrls.h>
 #include <atldlgs.h>
@@ -48,6 +49,7 @@ public:
 		COMMAND_ID_HANDLER(IDOK, OnOK)
 		COMMAND_ID_HANDLER(IDCANCEL, OnCancel)
 		COMMAND_ID_HANDLER(ID_APP_OPINION, OnBtnOpinion)
+		COMMAND_ID_HANDLER(ID_CMD_TASKVIEW, OnTaskView)
 		MESSAGE_HANDLER(WM_TIMER, OnTimer)
 		CHAIN_MSG_MAP(CMyShellIcon)
 	END_MSG_MAP()
@@ -111,6 +113,13 @@ public:
 	LRESULT OnBtnOpinion(WORD /*wNotifyCode*/, WORD /*wID*/, HWND /*hWndCtl*/, BOOL& /*bHandled*/)
 	{
 		COpinionDlg dlg;
+		dlg.DoModal();
+		return 0;
+	}
+
+	LRESULT OnTaskView(WORD /*wNotifyCode*/, WORD /*wID*/, HWND /*hWndCtl*/, BOOL& /*bHandled*/)
+	{
+		TaskViewDlg dlg;
 		dlg.DoModal();
 		return 0;
 	}
