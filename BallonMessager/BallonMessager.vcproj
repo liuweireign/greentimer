@@ -35,6 +35,7 @@
 				AdditionalDependencies="sqlite3.lib comsupp.lib"
 				LinkIncremental="2"
 				AdditionalLibraryDirectories="sqlite;"
+				DelayLoadDLLs="sqlite;"
 				GenerateDebugInformation="TRUE"
 				SubSystem="2"
 				TargetMachine="1"/>
@@ -82,6 +83,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				AdditionalOptions="/EHsc"
+				AdditionalIncludeDirectories=".\;"
 				PreprocessorDefinitions="WIN32;_WINDOWS;STRICT;NDEBUG"
 				ExceptionHandling="FALSE"
 				RuntimeLibrary="0"
@@ -92,8 +94,10 @@
 				Name="VCCustomBuildTool"/>
 			<Tool
 				Name="VCLinkerTool"
+				AdditionalDependencies="sqlite3.lib comsupp.lib"
 				OutputFile="$(OutDir)/GreenTimer_v1.1.exe"
 				LinkIncremental="1"
+				AdditionalLibraryDirectories="sqlite;"
 				SubSystem="2"
 				TargetMachine="1"/>
 			<Tool
@@ -174,6 +178,9 @@
 				RelativePath=".\AboutDlg.h">
 			</File>
 			<File
+				RelativePath=".\Atl_dhtml\atldhtmldlg.h">
+			</File>
+			<File
 				RelativePath=".\ContextMenu.h">
 			</File>
 			<File
@@ -207,6 +214,9 @@
 				RelativePath=".\TaskDB.h">
 			</File>
 			<File
+				RelativePath=".\TaskViewDlg.h">
+			</File>
+			<File
 				RelativePath=".\ThreadLock.h">
 			</File>
 		</Filter>
@@ -220,6 +230,10 @@
 				RelativePath=".\BallonMessager.rc">
 			</File>
 		</Filter>
+		<File
+			RelativePath=".\res\html1.htm"
+			DeploymentContent="TRUE">
+		</File>
 	</Files>
 	<Globals>
 		<Global

@@ -176,7 +176,7 @@ bool TaskDB::SaveToDB( const char *strDB )
 	else
 	{
 		//Çå¿Õ¾ÉÊý¾Ý
-		dbTask.execDML("select * from T_task;");
+		dbTask.execDML("delete from T_task;");
 	}
 
 	std::vector<ITask>::iterator it = m_vecTask.begin();

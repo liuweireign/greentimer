@@ -55,6 +55,7 @@ BEGIN
     RTEXT           "（提示语句可通过tips.ini文件自定义）",IDC_STATIC,7,46,
                     150,12
     PUSHBUTTON      "增加提醒...(&s)",ID_APP_OPINION,164,28,50,14
+    PUSHBUTTON      "浏览任务...(&b)",ID_CMD_TASKVIEW,164,14,50,14
 END
 
 
@@ -223,6 +224,16 @@ BEGIN
     LTEXT           "提醒消息:",IDC_STATIC,12,45,36,8
 END
 
+IDD_DLG_TASKVIEW DIALOGEX 0, 0, 186, 90
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | 
+    WS_SYSMENU
+CAPTION "任务列表"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    DEFPUSHBUTTON   "确定",IDOK,129,7,50,14
+    PUSHBUTTON      "取消",IDCANCEL,129,24,50,14
+END
+
 
 /////////////////////////////////////////////////////////////////////////////
 //
@@ -238,6 +249,14 @@ BEGIN
         RIGHTMARGIN, 242
         TOPMARGIN, 7
         BOTTOMMARGIN, 131
+    END
+
+    IDD_DLG_TASKVIEW, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 179
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 83
     END
 END
 #endif    // APSTUDIO_INVOKED
@@ -261,6 +280,13 @@ BEGIN
     END
 END
 
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// HTML
+//
+
+IDR_HTM_TASKVIEW        HTML                    "res\\html1.htm"
 #endif    // 中文(中华人民共和国) resources
 /////////////////////////////////////////////////////////////////////////////
 
