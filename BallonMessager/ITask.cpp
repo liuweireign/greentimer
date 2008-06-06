@@ -13,10 +13,25 @@ bool ITask::IsTimeNow()
 	switch(Type)
 	{
 	case TT_DAILY:
-		CTime tmNow = CTime::GetCurrentTime();
-		if (tmNow.GetHour()==TaskTime.GetHour() && tmNow.GetMinute()==TaskTime.GetMinute())
 		{
-			return true;
+			CTime tmNow = CTime::GetCurrentTime();
+			
+
+			//每日运行任务，只要时间和分钟正确即可。
+			if (tmNow.GetHour()==TaskTime.GetHour() 
+				&& tmNow.GetMinute()==TaskTime.GetMinute())
+			{
+				//避免重复运行。
+				if (tmNow.GetYear()==LastRunTime.GetYear() 
+					&& tmNow.GetMonth()==LastRunTime.GetMonth()
+					)
+				{
+					return false;
+				}
+
+				//OK,是运行时间
+				return true;
+			}
 		}
 		break;
 	}

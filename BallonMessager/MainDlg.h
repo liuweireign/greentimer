@@ -8,6 +8,7 @@
 #include "MyIconMenu.h"
 //#include "AboutDlg.h"
 #include "OpinionDlg.h"
+#include "TaskDB.h"
 
 #include <atlctrls.h>
 #include <atldlgs.h>
@@ -81,6 +82,8 @@ public:
 
 		_iLastRemindMin = -1;
 		_bFirstTimeUp = true;
+
+		g_TaskDB.ReadFromDB(GetAppDirectory() + "task.db");
 
 		SetTimer(0,3*1000,NULL);
 
@@ -158,6 +161,17 @@ public:
 
 	LRESULT OnTimer(UINT /*uMsg*/, WPARAM /*wParam*/, LPARAM /*lParam*/, BOOL& /*bHandled*/)
 	{
+		//////////////////////////////////////////////////////////////////////////
+		ITask task;
+		if (g_TaskDB.FindTaskRunNow(task))
+		{
+			BalloonToolTips(task.Tip);
+			task.LastRunTime = CTime::GetCurrentTime();
+			g_TaskDB.UpdateTask(task);
+			g_TaskDB.SaveToDB(GetAppDirectory()+"task.db");
+			return 0;
+		}
+		//////////////////////////////////////////////////////////////////////////
 		//GetPrivateProfileString(strSection,strKey,"COM3",buffer,sizeof(buffer),strFileName);  
 		//整点报时功能。
 		CTime tm = CTime::GetCurrentTime();
