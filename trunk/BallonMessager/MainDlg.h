@@ -10,6 +10,7 @@
 #include "OpinionDlg.h"
 #include "TaskDB.h"
 #include "TaskViewDlg.h"
+#include "SimpleTaskViewDlg.h"
 
 #include <atlctrls.h>
 #include <atldlgs.h>
@@ -119,7 +120,8 @@ public:
 
 	LRESULT OnTaskView(WORD /*wNotifyCode*/, WORD /*wID*/, HWND /*hWndCtl*/, BOOL& /*bHandled*/)
 	{
-		TaskViewDlg dlg;
+		//TaskViewDlg dlg;
+		CSimpleTaskViewDlg dlg;
 		dlg.DoModal();
 		return 0;
 	}
