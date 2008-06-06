@@ -2,18 +2,20 @@
 #include <ATLComTime.h>
 #include "SQLite/CppSQLite3.h"
 
+TaskDB g_TaskDB;
+
 //////////////////////////////////////////////////////////////////////////
 //时间与字符串互相转换函数
-CString TimeToString(CTime t)
+ATL::CString TimeToString(CTime t)
 {
-	CString strDateTime;
+	ATL::CString strDateTime;
 	strDateTime.Format("%d-%02d-%02d %02d:%02d:%02d", 
 		t.GetYear(), t.GetMonth(), t.GetDay(),
 		t.GetHour(), t.GetMinute(), t.GetSecond());
 	return strDateTime;
 }
 
-CTime StringToTime(CString strTime)
+CTime StringToTime(ATL::CString strTime)
 {;  
 	COleDateTime   tm;  
 	tm.ParseDateTime(strTime);  
@@ -26,7 +28,7 @@ CTime StringToTime(CString strTime)
 
 bool WriteTaskToDB(CppSQLite3DB &dbTask, const ITask &task)
 {
-	CString strTime = TimeToString(CTime::GetCurrentTime());
+	ATL::CString strTime = TimeToString(CTime::GetCurrentTime());
 	CppSQLite3Buffer strSql;
 
 	//"id integer PRIMARY KEY AUTOINCREMENT, "	//任务唯一id
@@ -35,7 +37,7 @@ bool WriteTaskToDB(CppSQLite3DB &dbTask, const ITask &task)
 	//	"last_run_time char[32], "	//最后执行时间
 	//	"task_create_time char[32], "	//任务创建时间
 	//	"tip char[2048] );"			//提示语句
-	strSql.format("insert into T_task values(NULL,%d, '%q','%q','%q');",
+	strSql.format("insert into T_task values(NULL,%d, '%q','%q','%q','%q');",
 		task.Type,
 		TimeToString(task.TaskTime),
 		TimeToString(task.LastRunTime),
@@ -67,6 +69,8 @@ TaskDB::~TaskDB(void)
 
 bool TaskDB::ReadFromDB( const char *strDB )
 {
+	LOCK_THIS_RANGE(m_cs);
+
 	//打开数据
 	CppSQLite3DB dbTask;
 	dbTask.open(strDB);
@@ -95,6 +99,7 @@ bool TaskDB::ReadFromDB( const char *strDB )
 
 bool TaskDB::SaveToDB( const char *strDB )
 {
+	LOCK_THIS_RANGE(m_cs);
 	//打开数据
 	CppSQLite3DB dbTask;
 	dbTask.open(strDB);
@@ -127,6 +132,8 @@ bool TaskDB::SaveToDB( const char *strDB )
 
 int TaskDB::AddTask(const ITask &task )
 {
+	LOCK_THIS_RANGE(m_cs);
+
 	int id = 0;
 	if (!m_vecTask.empty())
 	{
@@ -139,6 +146,8 @@ int TaskDB::AddTask(const ITask &task )
 
 bool TaskDB::RemoveTask( int idTask )
 {
+	LOCK_THIS_RANGE(m_cs);
+
 	std::vector<ITask>::iterator it = m_vecTask.begin();
 	for (;it!=m_vecTask.end();it++)
 	{
@@ -153,6 +162,8 @@ bool TaskDB::RemoveTask( int idTask )
 
 void TaskDB::GetTaskList( std::vector<int> &vecIdOut )
 {
+	LOCK_THIS_RANGE(m_cs);
+
 	vecIdOut.clear();
 	std::vector<ITask>::iterator it = m_vecTask.begin();
 	for (;it!=m_vecTask.end();it++)
@@ -161,29 +172,62 @@ void TaskDB::GetTaskList( std::vector<int> &vecIdOut )
 	}
 }
 
-ITask * TaskDB::GetTask( int idTask )
+bool TaskDB::GetTask(int idTask,ITask &task)
 {
+	LOCK_THIS_RANGE(m_cs);
+
 	std::vector<ITask>::iterator it = m_vecTask.begin();
 	for (;it!=m_vecTask.end();it++)
 	{
 		if(idTask==(*it).Id)
 		{
-			return &(*it);
+			task = *it;
+			return true;
 		}
 	}
-	return NULL;
+	return false;
 }
 
-ITask * TaskDB::TaskRunNow()
+bool TaskDB::FindTaskRunNow(ITask &task)
 {
+	LOCK_THIS_RANGE(m_cs);
+
 	std::vector<ITask>::iterator it = m_vecTask.begin();
 	for (;it!=m_vecTask.end();it++)
 	{
-		ITask *pTask = &(*it);
-		if (pTask->IsTimeNow())
+		if ((*it).IsTimeNow())
 		{
-			return pTask;
+			task = *it;
+			return true;
 		}
 	}
-	return NULL;
+	return false;
+}
+
+bool TaskDB::AddDailyTask( int iHour, int iMinute, ATL::CString strMessage )
+{
+	ITask task;
+	task.Type = ITask::TT_DAILY;
+	task.CreateTime = CTime::GetCurrentTime();
+	task.TaskTime = CTime(2000,1,1,iHour,iMinute,0);
+	task.LastRunTime = task.CreateTime;
+	task.Tip = strMessage;
+	AddTask(task);
+	return false;
+}
+
+bool TaskDB::UpdateTask( const ITask &task )
+{
+	LOCK_THIS_RANGE(m_cs);
+
+	std::vector<ITask>::iterator it = m_vecTask.begin();
+	for (;it!=m_vecTask.end();it++)
+	{
+		if(task.Id==(*it).Id)
+		{
+			*it = task;
+			return true;
+		}
+	}
+	return false;
 }

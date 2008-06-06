@@ -163,6 +163,9 @@
 			<File
 				RelativePath=".\TaskDB.cpp">
 			</File>
+			<File
+				RelativePath=".\ThreadLock.cpp">
+			</File>
 		</Filter>
 		<Filter
 			Name="Header Files"
@@ -202,6 +205,9 @@
 			</File>
 			<File
 				RelativePath=".\TaskDB.h">
+			</File>
+			<File
+				RelativePath=".\ThreadLock.h">
 			</File>
 		</Filter>
 		<Filter

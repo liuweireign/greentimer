@@ -2,6 +2,8 @@
 #include <atltime.h>
 #include <string>
 
+#include "TaskDB.h"
+
 class COpinionDlg : public CDialogImpl<COpinionDlg>
 {
 public:
@@ -156,6 +158,10 @@ public:
 			//以前没有为现在这个时间设定提醒，那就直接添加吧。
 			else
 			{
+				
+				g_TaskDB.AddDailyTask(atoi(strHour), atoi(strMin),strMsg);
+				g_TaskDB.SaveToDB(GetAppDirectory() + "task.db");
+
 				WritePrivateProfileString ("tips", 
 					strTime, 
 					strTrimpedMsg, 

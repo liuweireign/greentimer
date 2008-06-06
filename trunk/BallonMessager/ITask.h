@@ -22,7 +22,7 @@ public:
 	CTime TaskTime;
 	CTime LastRunTime;
 	CTime CreateTime;
-	CString Tip;
+	ATL::CString Tip;
 
 	bool IsTimeNow();
 };
@@ -33,7 +33,7 @@ class TaskDaily
 public:
 	int Hour;
 	int Minute;
-	CString strTip;
+	ATL::CString strTip;
 };
 
 ////仅运行一次的任务
