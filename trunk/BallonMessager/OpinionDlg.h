@@ -127,47 +127,49 @@ public:
 		//似乎都没有问题
 		else
 		{
-			WTL::CString strTime = strHour;
-			strTime += "-";
-			strTime += strMin;
+			//////////////////////////////////////////////////////////////////////////
+			//tianzuo,2008-6-6,改为数据库储存
+			g_TaskDB.AddDailyTask(atoi(strHour), atoi(strMin),strMsg);
+			g_TaskDB.SaveToDB(GetAppDirectory() + "task.db");
+			//////////////////////////////////////////////////////////////////////////
 
-			//确认一下:
-			WTL::CString strFileName = GetAppDirectory()+"tips.ini";
+			//WTL::CString strTime = strHour;
+			//strTime += "-";
+			//strTime += strMin;
 
-			char buffer[1024];
-			WTL::CString strEmptyTips = "";
-			int iCharsRt = GetPrivateProfileString("tips",strTime,strEmptyTips,buffer,sizeof(buffer),strFileName);
+			////确认一下:
+			//WTL::CString strFileName = GetAppDirectory()+"tips.ini";
 
-			//以前有没有为现在这个时间设定提醒呢？
-			if (iCharsRt != 0)
-				//以前已经为指定时间设定提醒,那就要用户确认一下了
-			{
-				WTL::CString strConfirm;
-				strConfirm.Format("您曾经要求在： %s 点 %s 分提醒您：\r\n\r\n\"%s\"\r\n\r\n您要替换这个提醒吗？",strHour,strMin ,buffer);
+			//char buffer[1024];
+			//WTL::CString strEmptyTips = "";
+			//int iCharsRt = GetPrivateProfileString("tips",strTime,strEmptyTips,buffer,sizeof(buffer),strFileName);
 
-				if(IDOK==MessageBox(strConfirm,"确认一下",MB_OKCANCEL))
-				{
-					//WTL::CString strFileName = GetAppDirectory()+"tips.ini";
-					WritePrivateProfileString ("tips", 
-						strTime, 
-						strTrimpedMsg, 
-						strFileName); 
-					EndDialog(wID);
-				}
-			}
-			//以前没有为现在这个时间设定提醒，那就直接添加吧。
-			else
-			{
-				
-				g_TaskDB.AddDailyTask(atoi(strHour), atoi(strMin),strMsg);
-				g_TaskDB.SaveToDB(GetAppDirectory() + "task.db");
+			////以前有没有为现在这个时间设定提醒呢？
+			//if (iCharsRt != 0)
+			//	//以前已经为指定时间设定提醒,那就要用户确认一下了
+			//{
+			//	WTL::CString strConfirm;
+			//	strConfirm.Format("您曾经要求在： %s 点 %s 分提醒您：\r\n\r\n\"%s\"\r\n\r\n您要替换这个提醒吗？",strHour,strMin ,buffer);
 
-				WritePrivateProfileString ("tips", 
-					strTime, 
-					strTrimpedMsg, 
-					strFileName); 
-				EndDialog(wID);
-			}
+			//	if(IDOK==MessageBox(strConfirm,"确认一下",MB_OKCANCEL))
+			//	{
+			//		//WTL::CString strFileName = GetAppDirectory()+"tips.ini";
+			//		WritePrivateProfileString ("tips", 
+			//			strTime, 
+			//			strTrimpedMsg, 
+			//			strFileName); 
+			//		EndDialog(wID);
+			//	}
+			//}
+			////以前没有为现在这个时间设定提醒，那就直接添加吧。
+			//else
+			//{
+			//	WritePrivateProfileString ("tips", 
+			//		strTime, 
+			//		strTrimpedMsg, 
+			//		strFileName); 
+			//	EndDialog(wID);
+			//}
 		}
 
 		return 0;

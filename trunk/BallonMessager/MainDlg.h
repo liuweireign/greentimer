@@ -174,51 +174,51 @@ public:
 		//////////////////////////////////////////////////////////////////////////
 		//GetPrivateProfileString(strSection,strKey,"COM3",buffer,sizeof(buffer),strFileName);  
 		//整点报时功能。
-		CTime tm = CTime::GetCurrentTime();
-		int iNowHour = tm.GetHour();
-		int iNowMin = tm.GetMinute();
+		//CTime tm = CTime::GetCurrentTime();
+		//int iNowHour = tm.GetHour();
+		//int iNowMin = tm.GetMinute();
 
-		WTL::CString strFileName = GetAppDirectory()+"tips.ini";
-		char *strDefaultTips = "合理安排时间，做个高效的人。";
-		char *strEmptyTips = "";
-		char buffer[2*1024];
-		char hour[8]={0};
-		itoa(iNowHour,hour,10);
-		char min[8]={0};
-		itoa(iNowMin,min,10);
+		//WTL::CString strFileName = GetAppDirectory()+"tips.ini";
+		//char *strDefaultTips = "合理安排时间，做个高效的人。";
+		//char *strEmptyTips = "";
+		//char buffer[2*1024];
+		//char hour[8]={0};
+		//itoa(iNowHour,hour,10);
+		//char min[8]={0};
+		//itoa(iNowMin,min,10);
 
-		WTL::CString key = hour;
-		key += "-";
-		key += min;
+		//WTL::CString key = hour;
+		//key += "-";
+		//key += min;
 
-		int iCharsRt = GetPrivateProfileString("tips",key,strEmptyTips,buffer,sizeof(buffer),strFileName);
+		//int iCharsRt = GetPrivateProfileString("tips",key,strEmptyTips,buffer,sizeof(buffer),strFileName);
 
-		//有没有为现在这个时间设定提醒呢？现在这个提示显示过没有？
-		if (iCharsRt != 0 && iNowMin != _iLastRemindMin)
-		{
-			WTL::CString strNow;
+		////有没有为现在这个时间设定提醒呢？现在这个提示显示过没有？
+		//if (iCharsRt != 0 && iNowMin != _iLastRemindMin)
+		//{
+		//	WTL::CString strNow;
 
-			//modify by tianzuo,2008-5-14. 
-			//bug NO.1 found by jameyu,2008-5-14
-			//strNow.Format("现在时间： %d 点整。\r\n\r\n%s",iNowHour,buffer);
-			strNow.Format("现在时间： %d 点 %d 分。\r\n\r\n%s",iNowHour,tm.GetMinute() ,buffer);
-			//end modify by tianzuo,2008-5-14. 
+		//	//modify by tianzuo,2008-5-14. 
+		//	//bug NO.1 found by jameyu,2008-5-14
+		//	//strNow.Format("现在时间： %d 点整。\r\n\r\n%s",iNowHour,buffer);
+		//	strNow.Format("现在时间： %d 点 %d 分。\r\n\r\n%s",iNowHour,tm.GetMinute() ,buffer);
+		//	//end modify by tianzuo,2008-5-14. 
 
-			BalloonToolTips(strNow);
-			_iLastRemindMin = iNowMin;
-			_bFirstTimeUp = false;
-		}
-		//没有为当前时间设定提醒，显示一下欢迎信息
-		else
-		{
-			if (_bFirstTimeUp)
-			{
-				WTL::CString strMsg;
-				strMsg.Format("现在时间： %d 点 %d 分。\r\n\r\n%s",iNowHour,tm.GetMinute() ,strDefaultTips);
-				BalloonToolTips(strMsg);
-				_bFirstTimeUp = false;
-			}
-		}
+		//	BalloonToolTips(strNow);
+		//	_iLastRemindMin = iNowMin;
+		//	_bFirstTimeUp = false;
+		//}
+		////没有为当前时间设定提醒，显示一下欢迎信息
+		//else
+		//{
+		//	if (_bFirstTimeUp)
+		//	{
+		//		WTL::CString strMsg;
+		//		strMsg.Format("现在时间： %d 点 %d 分。\r\n\r\n%s",iNowHour,tm.GetMinute() ,strDefaultTips);
+		//		BalloonToolTips(strMsg);
+		//		_bFirstTimeUp = false;
+		//	}
+		//}
 
 		return 0;
 	}
