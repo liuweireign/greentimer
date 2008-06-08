@@ -290,3 +290,74 @@ bool TaskDB::UpdateTask( const ITask &task )
 	}
 	return false;
 }
+// 按任务类型及执行时间查询任务
+bool TaskDB::GetTask(CTime taskTime, int taskType, ITask &task)
+{
+	LOCK_THIS_RANGE(m_cs);
+
+	std::vector<ITask>::iterator it = m_vecTask.begin();
+	for (;it!=m_vecTask.end();it++)
+	{
+		if(taskTime == (*it).TaskTime &&
+			taskType == (*it).Type
+			)
+		{
+			task = *it;
+			return true;
+		}
+	}
+	return false;
+}
+
+// 通过时间和类型查询任务,时、分用字符串表示
+bool TaskDB::GetTask(WTL::CString strHour, WTL::CString strMin, int taskType, ITask & task)
+{
+	LOCK_THIS_RANGE(m_cs);
+
+	std::vector<ITask>::iterator it = m_vecTask.begin();
+	for (;it!=m_vecTask.end();it++)
+	{
+		int iHour = atoi(strHour);
+		int iMin = atoi(strMin);
+
+		ITask theTask;
+		theTask = *it;
+
+		CTime taskTime = theTask.TaskTime;
+
+		if(iHour == taskTime.GetHour() &&
+			iMin == taskTime.GetMinute() &&
+			taskType == theTask.Type
+			)
+		{
+			task = *it;
+			return true;
+		}
+	}
+	return false;
+}
+
+// 通过时间查询任务，时、分用int方式表示
+bool TaskDB::GetTask(int iHour, int iMin, int taskType, ITask & task)
+{
+	LOCK_THIS_RANGE(m_cs);
+
+	std::vector<ITask>::iterator it = m_vecTask.begin();
+	for (;it!=m_vecTask.end();it++)
+	{
+		ITask theTask;
+		theTask = *it;
+
+		CTime taskTime = theTask.TaskTime;
+
+		if(iHour == taskTime.GetHour() &&
+			iMin == taskTime.GetMinute() &&
+			taskType == theTask.Type
+			)
+		{
+			task = *it;
+			return true;
+		}
+	}
+	return false;
+}
