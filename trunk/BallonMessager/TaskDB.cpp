@@ -98,7 +98,7 @@ bool TaskDB::ReadFromDB( const char *strDB )
 		//17-55 = 下班时间到。整理一下手头的工作，用愉快的心情回家吧。
 		//18-55 = 在工作还是在娱乐？保重身体哦。
 		//19-55 = 在工作还是在娱乐？如果在家就出去散散步吧。
-		//10-55 = 有些事情，是可以留到明天再做的
+		//20-55 = 有些事情，是可以留到明天再做的
 		//21-55 = 总结一下今天的工作，写一下日记，准备休息啦！
 		//22-55 = 夜了，拉灯，睡觉！
 		//23-55 = 注意身体，多休息。
@@ -122,7 +122,7 @@ bool TaskDB::ReadFromDB( const char *strDB )
 		AddDailyTask(17,55,"下班时间到。整理一下手头的工作，用愉快的心情回家吧。");
 		AddDailyTask(18,55,"在工作还是在娱乐？保重身体哦。");
 		AddDailyTask(19,55,"在工作还是在娱乐？如果在家就出去散散步吧。");
-		AddDailyTask(10,55,"有些事情，是可以留到明天再做的");
+		AddDailyTask(20,55,"有些事情，是可以留到明天再做的");
 		AddDailyTask(21,55,"总结一下今天的工作，写一下日记，准备休息啦！");
 		AddDailyTask(22,55,"夜了，拉灯，睡觉！");
 		AddDailyTask(23,55,"注意身体，多休息。");
@@ -312,29 +312,10 @@ bool TaskDB::GetTask(CTime taskTime, int taskType, ITask &task)
 // 通过时间和类型查询任务,时、分用字符串表示
 bool TaskDB::GetTask(WTL::CString strHour, WTL::CString strMin, int taskType, ITask & task)
 {
-	LOCK_THIS_RANGE(m_cs);
+	int iHour = atoi(strHour);
+	int iMin = atoi(strMin);
 
-	std::vector<ITask>::iterator it = m_vecTask.begin();
-	for (;it!=m_vecTask.end();it++)
-	{
-		int iHour = atoi(strHour);
-		int iMin = atoi(strMin);
-
-		ITask theTask;
-		theTask = *it;
-
-		CTime taskTime = theTask.TaskTime;
-
-		if(iHour == taskTime.GetHour() &&
-			iMin == taskTime.GetMinute() &&
-			taskType == theTask.Type
-			)
-		{
-			task = *it;
-			return true;
-		}
-	}
-	return false;
+	return GetTask(iHour, iMin, taskType, task);
 }
 
 // 通过时间查询任务，时、分用int方式表示
