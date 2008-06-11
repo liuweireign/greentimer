@@ -32,9 +32,9 @@
 				Name="VCCustomBuildTool"/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="sqlite3.lib comsupp.lib"
+				AdditionalDependencies="sqlite3.lib comsupp.lib cwebpage.lib"
 				LinkIncremental="2"
-				AdditionalLibraryDirectories="sqlite;"
+				AdditionalLibraryDirectories="sqlite;cwebpage;"
 				DelayLoadDLLs="sqlite;"
 				GenerateDebugInformation="TRUE"
 				SubSystem="2"
@@ -141,6 +141,9 @@
 			Name="Source Files"
 			Filter="cpp;c;cxx;def;odl;idl;hpj;bat;asm">
 			<File
+				RelativePath=".\AddTodayTaskDlg.cpp">
+			</File>
+			<File
 				RelativePath=".\BallonMessager.cpp">
 			</File>
 			<File
@@ -181,6 +184,9 @@
 				RelativePath=".\AboutDlg.h">
 			</File>
 			<File
+				RelativePath=".\AddTodayTaskDlg.h">
+			</File>
+			<File
 				RelativePath=".\Atl_dhtml\atldhtmldlg.h">
 			</File>
 			<File
@@ -188,6 +194,9 @@
 			</File>
 			<File
 				RelativePath=".\SQLite\CppSQLite3.h">
+			</File>
+			<File
+				RelativePath=".\cwebpage\cwebpage.h">
 			</File>
 			<File
 				RelativePath=".\ITask.h">

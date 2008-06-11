@@ -134,7 +134,7 @@ bool TaskDB::ReadFromDB( const char *strDB )
 	{
 		ITask task;
 		task.Id = q.getIntField("id");
-		task.Type = q.getIntField("type");
+		task.Type = (ITask::TaskType)q.getIntField("type");
 		task.TaskTime = StringToTime(q.getStringField("time"));
 		task.LastRunTime = StringToTime(q.getStringField("last_run_time"));
 		task.CreateTime = StringToTime(q.getStringField("task_create_time"));
