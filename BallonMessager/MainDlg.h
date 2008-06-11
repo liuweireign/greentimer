@@ -11,6 +11,7 @@
 #include "TaskDB.h"
 #include "TaskViewDlg.h"
 #include "SimpleTaskViewDlg.h"
+#include "AddTodayTaskDlg.h"
 
 #include <atlctrls.h>
 #include <atldlgs.h>
@@ -51,6 +52,7 @@ public:
 		COMMAND_ID_HANDLER(IDCANCEL, OnCancel)
 		COMMAND_ID_HANDLER(ID_APP_OPINION, OnBtnOpinion)
 		COMMAND_ID_HANDLER(ID_CMD_TASKVIEW, OnTaskView)
+		COMMAND_ID_HANDLER(ID_APP_TODAYTASK, OnBtnTodayTask)
 		MESSAGE_HANDLER(WM_TIMER, OnTimer)
 		CHAIN_MSG_MAP(CMyShellIcon)
 	END_MSG_MAP()
@@ -122,6 +124,13 @@ public:
 	{
 		//TaskViewDlg dlg;
 		CSimpleTaskViewDlg dlg;
+		dlg.DoModal();
+		return 0;
+	}
+
+	LRESULT OnBtnTodayTask(WORD /*wNotifyCode*/, WORD /*wID*/, HWND /*hWndCtl*/, BOOL& /*bHandled*/)
+	{
+		CAddTodayTaskDlg dlg;
 		dlg.DoModal();
 		return 0;
 	}
