@@ -4,12 +4,12 @@
 //
 #define ID_BTN_ADD                      4
 #define ID_BTN_DEL                      5
-#define IDCANCEL4                       6
 #define ID_BTN_EDIT                     6
 #define IDD_ABOUTBOX                    100
 #define IDD_SIMPLETASKVIEWDLG           101
 #define IDD_ADDTODAYTASKDLG             102
 #define IDD_TASKLISTDIALOG              103
+#define IDD_TASKMODIFYDIALOG            104
 #define IDR_MAINFRAME                   128
 #define IDD_MAINDLG                     129
 #define IDR_MENU_ICON                   201
@@ -23,7 +23,12 @@
 #define IDC_SPIN2                       1004
 #define IDC_EDIT1                       1005
 #define IDC_EDT_TODAYTASK               1005
+#define IDC_EDT_ID                      1005
+#define IDC_EDT_TYPE                    1006
 #define IDC_LST_TASK                    1007
+#define IDC_EDT_TIME                    1007
+#define IDC_EDIT4                       1008
+#define IDC_EDT_TIPS                    1008
 #define ID_32775                        32775
 #define ID_32776                        32776
 #define ID_32777                        32777
@@ -45,6 +50,6 @@
 #define _APS_NEXT_RESOURCE_VALUE        205
 #define _APS_NEXT_COMMAND_VALUE         32785
 #define _APS_NEXT_CONTROL_VALUE         1008
-#define _APS_NEXT_SYMED_VALUE           104
+#define _APS_NEXT_SYMED_VALUE           105
 #endif
 #endif

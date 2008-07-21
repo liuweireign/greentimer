@@ -147,7 +147,7 @@ public:
 					//////////////////////////////////////////////////////////////////////////
 					//tianzuo,2008-6-6,改为数据库储存
 					g_TaskDB.AddDailyTask(atoi(strHour), atoi(strMin),strMsg);
-					g_TaskDB.SaveToDB(GlobeFuns::GetAppDirectory() + "task.db");
+					g_TaskDB.SaveToDB();
 					EndDialog(wID);
 					//////////////////////////////////////////////////////////////////////////
 				}
@@ -158,7 +158,7 @@ public:
 				//////////////////////////////////////////////////////////////////////////
 				//tianzuo,2008-6-6,改为数据库储存
 				g_TaskDB.AddDailyTask(atoi(strHour), atoi(strMin),strMsg);
-				g_TaskDB.SaveToDB(GlobeFuns::GetAppDirectory() + "task.db");
+				g_TaskDB.SaveToDB();
 				EndDialog(wID);
 				//////////////////////////////////////////////////////////////////////////
 			}
