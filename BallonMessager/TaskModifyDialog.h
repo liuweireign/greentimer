@@ -28,6 +28,7 @@ BEGIN_MSG_MAP(CTaskModifyDialog)
 	MESSAGE_HANDLER(WM_INITDIALOG, OnInitDialog)
 	COMMAND_HANDLER(IDOK, BN_CLICKED, OnClickedOK)
 	COMMAND_HANDLER(IDCANCEL, BN_CLICKED, OnClickedCancel)
+	COMMAND_HANDLER(IDC_BTN_TIMEBROWSE, BN_CLICKED, OnBnClickedBtnTimebrowse)
 	CHAIN_MSG_MAP(CAxDialogImpl<CTaskModifyDialog>)
 END_MSG_MAP()
 
@@ -46,6 +47,8 @@ private:
 	CEdit m_edtType;
 	CEdit m_edtTime;
 	CEdit m_edtTips;
+public:
+	LRESULT OnBnClickedBtnTimebrowse(WORD /*wNotifyCode*/, WORD /*wID*/, HWND /*hWndCtl*/, BOOL& /*bHandled*/);
 };
 
 

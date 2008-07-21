@@ -94,10 +94,10 @@
 				Name="VCCustomBuildTool"/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="sqlite3.lib comsupp.lib"
-				OutputFile="$(OutDir)/GreenTimer_v1.1.exe"
+				AdditionalDependencies="sqlite3.lib comsupp.lib cwebpage.lib"
+				OutputFile="$(OutDir)/GreenTimer_v1.2.exe"
 				LinkIncremental="1"
-				AdditionalLibraryDirectories="sqlite;"
+				AdditionalLibraryDirectories="sqlite;cwebpage;"
 				SubSystem="2"
 				TargetMachine="1"/>
 			<Tool
