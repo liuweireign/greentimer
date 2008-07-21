@@ -150,6 +150,9 @@
 				RelativePath=".\SQLite\CppSQLite3.cpp">
 			</File>
 			<File
+				RelativePath=".\GlobeFuns.cpp">
+			</File>
+			<File
 				RelativePath=".\ITask.cpp">
 			</File>
 			<File
@@ -172,6 +175,9 @@
 			</File>
 			<File
 				RelativePath=".\TaskDB.cpp">
+			</File>
+			<File
+				RelativePath=".\TaskListDialog.cpp">
 			</File>
 			<File
 				RelativePath=".\ThreadLock.cpp">
@@ -197,6 +203,9 @@
 			</File>
 			<File
 				RelativePath=".\cwebpage\cwebpage.h">
+			</File>
+			<File
+				RelativePath=".\GlobeFuns.h">
 			</File>
 			<File
 				RelativePath=".\ITask.h">
@@ -227,6 +236,9 @@
 			</File>
 			<File
 				RelativePath=".\TaskDB.h">
+			</File>
+			<File
+				RelativePath=".\TaskListDialog.h">
 			</File>
 			<File
 				RelativePath=".\TaskViewDlg.h">

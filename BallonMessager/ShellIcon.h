@@ -2,14 +2,14 @@
 #define WM_ICON WM_USER + 180
 #define NM_ICON_INFO WM_ICON + 1
 #define NIIF_USER 0x4
-static CString g_childInfo;
+static ATL::CString g_childInfo;
 template <class T, class MenuT = CIconMenu<T>, int MenuID = IDR_ICONMENU>
 class CShellIcon : public MenuT
 {
 private:
        NOTIFYICONDATA m_data;
        UINT m_msgTaskbarRestart;
-	   WTL::CString m_appName;
+	   ATL::CString m_appName;
 public:
        CShellIcon()
        {

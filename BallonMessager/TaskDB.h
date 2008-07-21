@@ -32,7 +32,7 @@ public:
 	// 按任务类型及执行时间查询任务
 	bool GetTask(CTime taskTime, int taskType, ITask &task);
 	// 通过时间和类型查询任务,时、分用字符串表示
-	bool GetTask(WTL::CString strHour, WTL::CString strMin, int taskType, ITask & task);
+	bool GetTask(ATL::CString strHour, ATL::CString strMin, int taskType, ITask & task);
 	// 通过时间查询任务，时、分用int方式表示
 	bool GetTask(int iHour, int iMin, int taskType, ITask & task);
 };

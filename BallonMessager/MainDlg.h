@@ -12,6 +12,7 @@
 #include "TaskViewDlg.h"
 #include "SimpleTaskViewDlg.h"
 #include "AddTodayTaskDlg.h"
+#include "TaskListDialog.h"
 
 #include <atlctrls.h>
 #include <atldlgs.h>
@@ -123,7 +124,8 @@ public:
 	LRESULT OnTaskView(WORD /*wNotifyCode*/, WORD /*wID*/, HWND /*hWndCtl*/, BOOL& /*bHandled*/)
 	{
 		//TaskViewDlg dlg;
-		CSimpleTaskViewDlg dlg;
+		//CSimpleTaskViewDlg dlg;
+		CTaskListDialog dlg;
 		dlg.DoModal();
 		return 0;
 	}
@@ -162,7 +164,7 @@ public:
 
 
 	// 取得程序运行的目录（以反斜线\结尾）
-	WTL::CString GetAppDirectory(bool bEndWithBackSlash=true)
+	ATL::CString GetAppDirectory(bool bEndWithBackSlash=true)
 	{
 		//取系统路径
 		char buf[_MAX_PATH];
@@ -198,7 +200,7 @@ public:
 		//int iNowHour = tm.GetHour();
 		//int iNowMin = tm.GetMinute();
 
-		//WTL::CString strFileName = GetAppDirectory()+"tips.ini";
+		//ATL::CString strFileName = GetAppDirectory()+"tips.ini";
 		//char *strDefaultTips = "合理安排时间，做个高效的人。";
 		//char *strEmptyTips = "";
 		//char buffer[2*1024];
@@ -207,7 +209,7 @@ public:
 		//char min[8]={0};
 		//itoa(iNowMin,min,10);
 
-		//WTL::CString key = hour;
+		//ATL::CString key = hour;
 		//key += "-";
 		//key += min;
 
@@ -216,7 +218,7 @@ public:
 		////有没有为现在这个时间设定提醒呢？现在这个提示显示过没有？
 		//if (iCharsRt != 0 && iNowMin != _iLastRemindMin)
 		//{
-		//	WTL::CString strNow;
+		//	ATL::CString strNow;
 
 		//	//modify by tianzuo,2008-5-14. 
 		//	//bug NO.1 found by jameyu,2008-5-14
@@ -233,7 +235,7 @@ public:
 		//{
 		//	if (_bFirstTimeUp)
 		//	{
-		//		WTL::CString strMsg;
+		//		ATL::CString strMsg;
 		//		strMsg.Format("现在时间： %d 点 %d 分。\r\n\r\n%s",iNowHour,tm.GetMinute() ,strDefaultTips);
 		//		BalloonToolTips(strMsg);
 		//		_bFirstTimeUp = false;
