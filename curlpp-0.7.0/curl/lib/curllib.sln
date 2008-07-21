@@ -1,21 +1,20 @@
-Microsoft Visual Studio Solution File, Format Version 8.00
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "curllib", "curllib.vcproj", "{DEC740C3-CBA3-4846-963C-A458ABF6DB75}"
-	ProjectSection(ProjectDependencies) = postProject
-	EndProjectSection
+﻿
+Microsoft Visual Studio Solution File, Format Version 9.00
+# Visual Studio 2005
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "curllib", "curllib.vcproj", "{9D4C780C-BB92-48BB-A736-CC319C23CACD}"
 EndProject
 Global
-	GlobalSection(SolutionConfiguration) = preSolution
-		Debug = Debug
-		Release = Release
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Win32 = Debug|Win32
+		Release|Win32 = Release|Win32
 	EndGlobalSection
-	GlobalSection(ProjectConfiguration) = postSolution
-		{DEC740C3-CBA3-4846-963C-A458ABF6DB75}.Debug.ActiveCfg = Debug|Win32
-		{DEC740C3-CBA3-4846-963C-A458ABF6DB75}.Debug.Build.0 = Debug|Win32
-		{DEC740C3-CBA3-4846-963C-A458ABF6DB75}.Release.ActiveCfg = Release|Win32
-		{DEC740C3-CBA3-4846-963C-A458ABF6DB75}.Release.Build.0 = Release|Win32
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{9D4C780C-BB92-48BB-A736-CC319C23CACD}.Debug|Win32.ActiveCfg = Debug|Win32
+		{9D4C780C-BB92-48BB-A736-CC319C23CACD}.Debug|Win32.Build.0 = Debug|Win32
+		{9D4C780C-BB92-48BB-A736-CC319C23CACD}.Release|Win32.ActiveCfg = Release|Win32
+		{9D4C780C-BB92-48BB-A736-CC319C23CACD}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
-	GlobalSection(ExtensibilityGlobals) = postSolution
-	EndGlobalSection
-	GlobalSection(ExtensibilityAddIns) = postSolution
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
 	EndGlobalSection
 EndGlobal
