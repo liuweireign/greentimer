@@ -310,7 +310,7 @@ bool TaskDB::GetTask(CTime taskTime, int taskType, ITask &task)
 }
 
 // 通过时间和类型查询任务,时、分用字符串表示
-bool TaskDB::GetTask(WTL::CString strHour, WTL::CString strMin, int taskType, ITask & task)
+bool TaskDB::GetTask(ATL::CString strHour, ATL::CString strMin, int taskType, ITask & task)
 {
 	int iHour = atoi(strHour);
 	int iMin = atoi(strMin);

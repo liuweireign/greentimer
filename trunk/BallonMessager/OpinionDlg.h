@@ -3,6 +3,7 @@
 #include <string>
 
 #include "TaskDB.h"
+#include "GlobeFuns.h"
 
 class COpinionDlg : public CDialogImpl<COpinionDlg>
 {
@@ -135,7 +136,7 @@ public:
 			if (bHaveRecordAlready)
 				//以前已经为指定时间设定提醒,那就要用户确认一下了
 			{
-				WTL::CString strConfirm;
+				ATL::CString strConfirm;
 				strConfirm.Format("您曾经要求在： %s 点 %s 分提醒您：\r\n\r\n\"%s\"\r\n\r\n您要替换这个提醒吗？",strHour,strMin ,Tip);
 
 				if(IDOK==MessageBox(strConfirm,"确认一下",MB_OKCANCEL))
@@ -146,7 +147,7 @@ public:
 					//////////////////////////////////////////////////////////////////////////
 					//tianzuo,2008-6-6,改为数据库储存
 					g_TaskDB.AddDailyTask(atoi(strHour), atoi(strMin),strMsg);
-					g_TaskDB.SaveToDB(GetAppDirectory() + "task.db");
+					g_TaskDB.SaveToDB(GlobeFuns::GetAppDirectory() + "task.db");
 					EndDialog(wID);
 					//////////////////////////////////////////////////////////////////////////
 				}
@@ -157,30 +158,13 @@ public:
 				//////////////////////////////////////////////////////////////////////////
 				//tianzuo,2008-6-6,改为数据库储存
 				g_TaskDB.AddDailyTask(atoi(strHour), atoi(strMin),strMsg);
-				g_TaskDB.SaveToDB(GetAppDirectory() + "task.db");
+				g_TaskDB.SaveToDB(GlobeFuns::GetAppDirectory() + "task.db");
 				EndDialog(wID);
 				//////////////////////////////////////////////////////////////////////////
 			}
 		}
 
 		return 0;
-	}
-	// 取得程序运行的目录（以反斜线\结尾）
-	WTL::CString GetAppDirectory(bool bEndWithBackSlash=true)
-	{
-		//取系统路径
-		char buf[_MAX_PATH];
-		::GetModuleFileName(NULL,buf,_MAX_PATH);
-		int iIndex = (int)std::string(buf).rfind('\\');
-		if(bEndWithBackSlash)
-		{
-			buf[iIndex+1]='\0';	//截断，获得路径名(保留最后的'\')
-		}
-		else
-		{
-			buf[iIndex]='\0';	//截断，获得路径名(去掉最后的'\')
-		}
-		return (char *)buf;
 	}
 
 	//计算默认填充到设置框的时间

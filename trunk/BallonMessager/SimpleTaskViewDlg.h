@@ -65,7 +65,7 @@ static ATL::CString GetTaskListDesc()
 
 	std::vector<int> vecId;
 	g_TaskDB.GetTaskList(vecId);
-	for (int i=0;i<vecId.size();i++)
+	for (int i=0;i<(int)vecId.size();i++)
 	{
 		ITask task;
 		if(g_TaskDB.GetTask(vecId[i],task))
@@ -208,7 +208,7 @@ END_MSG_MAP()
 	{
 		register IHTMLElement *		elem;
 		IHTMLDocument2 *			htmlDoc2;
-		IHTMLWindow2 *				htmlWin2;
+		//IHTMLWindow2 *				htmlWin2;
 		VARIANT						varDisp;
 
 		// Wait for the browser to achieve its READYSTATE_COMPLETE (before we

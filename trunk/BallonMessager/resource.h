@@ -2,12 +2,16 @@
 // Microsoft Visual C++ generated include file.
 // Used by BallonMessager.rc
 //
+#define ID_BTN_ADD                      4
+#define ID_BTN_DEL                      5
+#define IDCANCEL4                       6
+#define ID_BTN_EDIT                     6
 #define IDD_ABOUTBOX                    100
 #define IDD_SIMPLETASKVIEWDLG           101
 #define IDD_ADDTODAYTASKDLG             102
+#define IDD_TASKLISTDIALOG              103
 #define IDR_MAINFRAME                   128
 #define IDD_MAINDLG                     129
-#define IDS_STRING129                   129
 #define IDR_MENU_ICON                   201
 #define IDD_DLG_SETUP                   202
 #define IDD_DLG_TASKVIEW                203
@@ -18,8 +22,8 @@
 #define IDC_MINUTE                      1003
 #define IDC_SPIN2                       1004
 #define IDC_EDIT1                       1005
-#define IDC_EDT_TASKLIST                1005
 #define IDC_EDT_TODAYTASK               1005
+#define IDC_LST_TASK                    1007
 #define ID_32775                        32775
 #define ID_32776                        32776
 #define ID_32777                        32777
@@ -40,7 +44,7 @@
 #ifndef APSTUDIO_READONLY_SYMBOLS
 #define _APS_NEXT_RESOURCE_VALUE        205
 #define _APS_NEXT_COMMAND_VALUE         32785
-#define _APS_NEXT_CONTROL_VALUE         1007
-#define _APS_NEXT_SYMED_VALUE           103
+#define _APS_NEXT_CONTROL_VALUE         1008
+#define _APS_NEXT_SYMED_VALUE           104
 #endif
 #endif

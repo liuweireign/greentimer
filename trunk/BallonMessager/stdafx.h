@@ -13,12 +13,17 @@
 
 #include <atlbase.h>
 #include <atlapp.h>
-
-
-
+#include <atlstr.h>
+#include <atlmisc.h>
 extern CAppModule _Module;
 
 #include <atlwin.h>
+
+#include <vector>
+#include <map>
+#include <list>
+#include <set>
+using namespace std;
 
 //#include "resource.h"
 

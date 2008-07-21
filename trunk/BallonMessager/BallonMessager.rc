@@ -54,7 +54,8 @@ BEGIN
     LTEXT           "合理安排时间，提高工作效率！",IDC_STATIC,7,22,120,10
     PUSHBUTTON      "增加提醒...(&s)",ID_APP_OPINION,164,7,50,14
     PUSHBUTTON      "浏览任务...(&b)",ID_CMD_TASKVIEW,164,38,50,14
-    PUSHBUTTON      "今日日程...(&t)",ID_APP_TODAYTASK,164,23,50,14
+    PUSHBUTTON      "今日日程...(&t)",ID_APP_TODAYTASK,164,23,50,14,NOT 
+                    WS_VISIBLE
 END
 
 
@@ -256,6 +257,20 @@ BEGIN
                     IDC_STATIC,7,19,189,10
 END
 
+IDD_TASKLISTDIALOG DIALOGEX 0, 0, 346, 210
+STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "对话框"
+FONT 9, "宋体", 0, 0, 0x0
+BEGIN
+    DEFPUSHBUTTON   "确定",IDOK,289,7,50,16
+    PUSHBUTTON      "取消",IDCANCEL,289,26,50,16
+    CONTROL         "",IDC_LST_TASK,"SysListView32",LVS_REPORT | 
+                    LVS_ALIGNLEFT | WS_BORDER | WS_TABSTOP,7,7,276,196
+    PUSHBUTTON      "增加",ID_BTN_ADD,289,59,50,16
+    PUSHBUTTON      "删除",ID_BTN_DEL,289,79,50,16
+    PUSHBUTTON      "修改",ID_BTN_EDIT,289,100,50,16
+END
+
 
 /////////////////////////////////////////////////////////////////////////////
 //
@@ -293,6 +308,14 @@ BEGIN
         RIGHTMARGIN, 378
         TOPMARGIN, 7
         BOTTOMMARGIN, 192
+    END
+
+    IDD_TASKLISTDIALOG, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 339
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 203
     END
 END
 #endif    // APSTUDIO_INVOKED
