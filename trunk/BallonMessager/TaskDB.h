@@ -12,6 +12,8 @@ class TaskDB
 public:
 	TaskDB(void);
 	~TaskDB(void);
+	bool ReadFromDB();
+	bool SaveToDB();
 	bool ReadFromDB(const char *strDB);
 	bool SaveToDB(const char *strDB);
 

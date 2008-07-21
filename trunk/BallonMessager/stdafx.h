@@ -15,6 +15,7 @@
 #include <atlapp.h>
 #include <atlstr.h>
 #include <atlmisc.h>
+#include <atlctrls.h>
 extern CAppModule _Module;
 
 #include <atlwin.h>

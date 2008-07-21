@@ -89,7 +89,7 @@ public:
 		_iLastRemindMin = -1;
 		_bFirstTimeUp = true;
 
-		g_TaskDB.ReadFromDB(GetAppDirectory() + "task.db");
+		g_TaskDB.ReadFromDB();
 
 		SetTimer(0,3*1000,NULL);
 
@@ -190,7 +190,7 @@ public:
 			BalloonToolTips(task.Tip);
 			task.LastRunTime = CTime::GetCurrentTime();
 			g_TaskDB.UpdateTask(task);
-			g_TaskDB.SaveToDB(GetAppDirectory()+"task.db");
+			g_TaskDB.SaveToDB();
 			return 0;
 		}
 		//////////////////////////////////////////////////////////////////////////

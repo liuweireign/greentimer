@@ -1,6 +1,7 @@
 #include ".\taskdb.h"
 #include <ATLComTime.h>
 #include "SQLite/CppSQLite3.h"
+#include "GlobeFuns.h"
 
 TaskDB g_TaskDB;
 
@@ -147,6 +148,10 @@ bool TaskDB::ReadFromDB( const char *strDB )
 	return true;
 }
 
+bool TaskDB::ReadFromDB()
+{
+	return g_TaskDB.ReadFromDB(GlobeFuns::GetAppDirectory() + "task.db");
+}
 bool TaskDB::SaveToDB( const char *strDB )
 {
 	LOCK_THIS_RANGE(m_cs);
@@ -189,6 +194,10 @@ bool TaskDB::SaveToDB( const char *strDB )
 	return true;
 }
 
+bool TaskDB::SaveToDB()
+{
+	return g_TaskDB.SaveToDB(GlobeFuns::GetAppDirectory() + "task.db");
+}
 int TaskDB::AddTask(const ITask &task )
 {
 	LOCK_THIS_RANGE(m_cs);

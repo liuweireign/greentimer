@@ -46,6 +46,12 @@ public:
 		}
 		return TaskTime.Format("%y-%m-%d %H:%M:%S");
 	}
+	ATL::CString GetIDStr() const
+	{
+		ATL::CString strID;
+		strID.Format("%d",Id);
+		return strID;
+	}
 
 	int Id;
 	TaskType Type;

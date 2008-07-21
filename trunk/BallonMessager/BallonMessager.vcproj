@@ -180,6 +180,9 @@
 				RelativePath=".\TaskListDialog.cpp">
 			</File>
 			<File
+				RelativePath=".\TaskModifyDialog.cpp">
+			</File>
+			<File
 				RelativePath=".\ThreadLock.cpp">
 			</File>
 		</Filter>
@@ -239,6 +242,9 @@
 			</File>
 			<File
 				RelativePath=".\TaskListDialog.h">
+			</File>
+			<File
+				RelativePath=".\TaskModifyDialog.h">
 			</File>
 			<File
 				RelativePath=".\TaskViewDlg.h">
