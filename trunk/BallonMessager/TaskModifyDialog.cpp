@@ -3,6 +3,7 @@
 #include "stdafx.h"
 #include "TaskModifyDialog.h"
 #include "TaskDB.h"
+#include ".\taskmodifydialog.h"
 
 // CTaskModifyDialog
 
@@ -48,5 +49,12 @@ LRESULT CTaskModifyDialog::OnClickedOK( WORD wNotifyCode, WORD wID, HWND hWndCtl
 LRESULT CTaskModifyDialog::OnClickedCancel( WORD wNotifyCode, WORD wID, HWND hWndCtl, BOOL& bHandled )
 {
 	EndDialog(wID);
+	return 0;
+}
+
+LRESULT CTaskModifyDialog::OnBnClickedBtnTimebrowse(WORD /*wNotifyCode*/, WORD /*wID*/, HWND /*hWndCtl*/, BOOL& /*bHandled*/)
+{
+	// TODO: 在此添加控件通知处理程序代码
+
 	return 0;
 }

@@ -286,8 +286,8 @@ BEGIN
                     WS_BORDER
     EDITTEXT        IDC_EDT_TYPE,53,19,69,12,ES_AUTOHSCROLL | ES_READONLY
     EDITTEXT        IDC_EDT_TIME,53,32,70,12,ES_AUTOHSCROLL | ES_READONLY
-    EDITTEXT        IDC_EDT_TIPS,10,54,112,57,ES_MULTILINE | ES_AUTOHSCROLL | 
-                    ES_WANTRETURN
+    EDITTEXT        IDC_EDT_TIPS,10,54,112,57,ES_MULTILINE | ES_AUTOVSCROLL | 
+                    ES_WANTRETURN | WS_VSCROLL
     RTEXT           "ÈÎÎñ±àºÅ:",IDC_STATIC,3,7,42,9
 END
 
@@ -442,8 +442,8 @@ END
 //
 
 VS_VERSION_INFO VERSIONINFO
- FILEVERSION 1,1,0,0
- PRODUCTVERSION 1,1,0,0
+ FILEVERSION 1,2,0,0
+ PRODUCTVERSION 1,2,0,0
  FILEFLAGSMASK 0x3fL
 #ifdef _DEBUG
  FILEFLAGS 0x1L
@@ -461,12 +461,12 @@ BEGIN
             VALUE "Comments", "http://code.google.com/p/greentimer"
             VALUE "CompanyName", "http://code.google.com/p/greentimer"
             VALUE "FileDescription", "Green timer"
-            VALUE "FileVersion", "1, 1, 0, 0"
+            VALUE "FileVersion", "1, 2, 0, 0"
             VALUE "InternalName", "Green timer"
             VALUE "LegalCopyright", "Copyright 2008"
-            VALUE "OriginalFilename", "Greentimer.exe"
+            VALUE "OriginalFilename", "Greentimer1.2.exe"
             VALUE "ProductName", "Green timer"
-            VALUE "ProductVersion", "1, 1, 0, 0"
+            VALUE "ProductVersion", "1, 2, 0, 0"
         END
     END
     BLOCK "VarFileInfo"

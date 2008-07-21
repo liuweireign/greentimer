@@ -1,6 +1,8 @@
 // TaskListDialog.cpp : CTaskListDialog 的实现
 
 #include "stdafx.h"
+#include <algorithm>
+
 #include "TaskListDialog.h"
 #include ".\tasklistdialog.h"
 #include "TaskDB.h"
@@ -52,6 +54,29 @@ LRESULT CTaskListDialog::OnBnClickedBtnEdit(WORD /*wNotifyCode*/, WORD /*wID*/, 
 	return 0;
 }
 
+//class ITaskSort
+//{
+//public:
+//	bool operator()(const ITask *left,const ITask *right)   
+//	{
+//		if (left->Type!=right->Type)
+//		{
+//			return (int)left->Type<(int)right->Type;
+//		}
+//	}
+//};
+bool TaskComp(int idLeft,int idRight)
+{
+	ITask taskLeft,taskRight;
+	g_TaskDB.GetTask(idLeft,taskLeft);
+	g_TaskDB.GetTask(idRight,taskRight);
+	if (taskLeft.Type==taskRight.Type)
+	{
+		return taskLeft.TaskTime<taskRight.TaskTime;
+	}
+	return taskLeft.Type<taskRight.Type;
+}
+
 void CTaskListDialog::ReloadTasks()
 {
 	m_ctlList.SetRedraw(FALSE);
@@ -60,6 +85,9 @@ void CTaskListDialog::ReloadTasks()
 
 	std::vector<int> vecId;
 	g_TaskDB.GetTaskList(vecId);
+	//将任务按类型-时间排序
+	sort(vecId.begin(),vecId.end(),TaskComp);
+
 	for (int i=0;i<(int)vecId.size();i++)
 	{
 		ITask task;
@@ -132,7 +160,7 @@ void CTaskListDialog::ResetTaskList()
 	m_ctlList.InsertColumn(iCol++,_T("提示语句"));
 	CRect rectList;
 	m_ctlList.GetClientRect(rectList);                     //获得当前客户区信息
-	m_ctlList.SetColumnWidth(0,25);        //设置列的宽度。
+	m_ctlList.SetColumnWidth(0,0);        //设置列的宽度。
 	m_ctlList.SetColumnWidth(1,80);
 	m_ctlList.SetColumnWidth(2,50);
 	m_ctlList.SetColumnWidth(3,rectList.Width()-15-50);
