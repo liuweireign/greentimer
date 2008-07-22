@@ -451,8 +451,8 @@ END
 //
 
 VS_VERSION_INFO VERSIONINFO
- FILEVERSION 1,2,0,0
- PRODUCTVERSION 1,2,0,0
+ FILEVERSION 2,0,0,0
+ PRODUCTVERSION 2,0,0,0
  FILEFLAGSMASK 0x3fL
 #ifdef _DEBUG
  FILEFLAGS 0x1L
@@ -470,12 +470,12 @@ BEGIN
             VALUE "Comments", "http://code.google.com/p/greentimer"
             VALUE "CompanyName", "http://code.google.com/p/greentimer"
             VALUE "FileDescription", "Green timer"
-            VALUE "FileVersion", "1, 2, 0, 0"
+            VALUE "FileVersion", "2, 0, 0, 0"
             VALUE "InternalName", "Green timer"
             VALUE "LegalCopyright", "Copyright 2008"
-            VALUE "OriginalFilename", "Greentimer1.2.exe"
+            VALUE "OriginalFilename", "Greentimer2.0.exe"
             VALUE "ProductName", "Green timer"
-            VALUE "ProductVersion", "1, 2, 0, 0"
+            VALUE "ProductVersion", "2, 0, 0, 0"
         END
     END
     BLOCK "VarFileInfo"

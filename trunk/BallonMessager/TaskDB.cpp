@@ -51,6 +51,7 @@ bool WriteTaskToDB(CppSQLite3DB &dbTask, const ITask &task)
 	}
 	catch(CppSQLite3Exception &exp)
 	{
+		exp;
 		ATLTRACE("error:%s\n",exp.errorMessage());
 		ATLASSERT(FALSE);
 		return false;
