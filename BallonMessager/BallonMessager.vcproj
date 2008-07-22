@@ -95,7 +95,7 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalDependencies="sqlite3.lib comsupp.lib cwebpage.lib"
-				OutputFile="$(OutDir)/GreenTimer_v1.2.exe"
+				OutputFile="$(OutDir)/GreenTimer_v2.0.exe"
 				LinkIncremental="1"
 				AdditionalLibraryDirectories="sqlite;cwebpage;"
 				SubSystem="2"

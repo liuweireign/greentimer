@@ -59,29 +59,38 @@ LRESULT CTaskListDialog::OnBnClickedBtnEdit(WORD /*wNotifyCode*/, WORD /*wID*/, 
 	return 0;
 }
 
-//class ITaskSort
-//{
-//public:
-//	bool operator()(const ITask *left,const ITask *right)   
-//	{
-//		if (left->Type!=right->Type)
-//		{
-//			return (int)left->Type<(int)right->Type;
-//		}
-//	}
-//};
+//比较任务大小，以确定显示顺序
 bool TaskComp(int idLeft,int idRight)
 {
 	ITask taskLeft,taskRight;
 	g_TaskDB.GetTask(idLeft,taskLeft);
 	g_TaskDB.GetTask(idRight,taskRight);
+
+	//先比较任务类型（按任务类型分组显示）
 	if (taskLeft.Type==taskRight.Type)
 	{
-		return taskLeft.TaskTime<taskRight.TaskTime;
+		if (taskLeft.Type==ITask::TT_ONCE)	//单次任务
+		{
+			return taskLeft.TaskTime<taskRight.TaskTime;
+		}
+		else if (taskLeft.Type==ITask::TT_DAILY)	//每日任务，比较时分秒
+		{
+			if(taskLeft.TaskTime.GetHour()!=taskRight.TaskTime.GetHour())
+			{
+				return taskLeft.TaskTime.GetHour()<taskRight.TaskTime.GetHour();
+			}
+			return taskLeft.TaskTime.GetMinute()<taskRight.TaskTime.GetMinute();
+		}
+		else
+		{
+			ATLASSERT(FALSE);
+			return true;
+		}
 	}
+
 	return taskLeft.Type<taskRight.Type;
 }
-
+//任务是否已经超时——超时任务默认不显示
 bool IsTaskTimeOut(int id)
 {
 	ITask task;
