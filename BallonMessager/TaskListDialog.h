@@ -31,6 +31,7 @@ BEGIN_MSG_MAP(CTaskListDialog)
 	COMMAND_HANDLER(ID_BTN_DEL, BN_CLICKED, OnBnClickedBtnDel)
 	COMMAND_HANDLER(ID_BTN_EDIT, BN_CLICKED, OnBnClickedBtnEdit)
 	NOTIFY_HANDLER(IDC_LST_TASK, NM_DBLCLK, OnNMDblclkLstTask)
+	COMMAND_HANDLER(IDC_CHK_HIDEOUTTIME, BN_CLICKED, OnBnClickedChkHideouttime)
 	CHAIN_MSG_MAP(CAxDialogImpl<CTaskListDialog>)
 END_MSG_MAP()
 
@@ -48,13 +49,14 @@ END_MSG_MAP()
 	LRESULT OnBnClickedBtnEdit(WORD /*wNotifyCode*/, WORD /*wID*/, HWND /*hWndCtl*/, BOOL& /*bHandled*/);
 private:
 	CListViewCtrl m_ctlList;
-
+	BOOL m_bHideTimeOut;
 private:
 	void ReloadTasks();
 	void ResetTaskList();
 	void GetSelectUser( std::vector<int> &vecSels );
 public:
 	LRESULT OnNMDblclkLstTask(int /*idCtrl*/, LPNMHDR pNMHDR, BOOL& /*bHandled*/);
+	LRESULT OnBnClickedChkHideouttime(WORD /*wNotifyCode*/, WORD /*wID*/, HWND /*hWndCtl*/, BOOL& /*bHandled*/);
 };
 
 

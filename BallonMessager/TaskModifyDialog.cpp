@@ -7,32 +7,60 @@
 
 // CTaskModifyDialog
 
+CTaskModifyDialog::CTaskModifyDialog( int taskid )
+{
+	//ATLASSERT(taskid>0);	//taskid为零代表创建新任务
+	m_taskid = taskid;
+}
 LRESULT CTaskModifyDialog::OnInitDialog( UINT uMsg, WPARAM wParam, LPARAM lParam, BOOL& bHandled )
 {
 	CAxDialogImpl<CTaskModifyDialog>::OnInitDialog(uMsg, wParam, lParam, bHandled);
+	HICON hIcon = (HICON)::LoadImage(_Module.GetResourceInstance(), MAKEINTRESOURCE(IDR_MAINFRAME), 
+		IMAGE_ICON, ::GetSystemMetrics(SM_CXICON), ::GetSystemMetrics(SM_CYICON), LR_DEFAULTCOLOR);
+	SetIcon(hIcon, TRUE);
+	HICON hIconSmall = (HICON)::LoadImage(_Module.GetResourceInstance(), MAKEINTRESOURCE(IDR_MAINFRAME), 
+		IMAGE_ICON, ::GetSystemMetrics(SM_CXSMICON), ::GetSystemMetrics(SM_CYSMICON), LR_DEFAULTCOLOR);
+	SetIcon(hIconSmall, FALSE);
+	CenterWindow();
+
 	m_edtID = GetDlgItem(IDC_EDT_ID);
 	m_edtTips = GetDlgItem(IDC_EDT_TIPS);
 	m_datePicker = GetDlgItem(IDC_DATETIMEPICKER_DATE);
 	m_timePicker = GetDlgItem(IDC_DATETIMEPICKER_TIME);
 
-	ITask task;
-	if(!g_TaskDB.GetTask(m_taskid,task))
-	{
-		return 0;
-	}
-
-	m_edtID.SetWindowText(task.GetIDStr());
-	m_edtTips.SetWindowText(task.Tip);
-
-	SYSTEMTIME st;
-	task.TaskTime.GetAsSystemTime(st);
-	m_datePicker.SetSystemTime(GDT_VALID,&st);
-	m_timePicker.SetSystemTime(GDT_VALID,&st);
-
 	vector<string> vecTaskTypes;
 	ITask::GetTaskTypes(vecTaskTypes);
 	ShowToCombox(IDC_CMB_TASKTYPE,vecTaskTypes);
-	ComboRollTo(IDC_CMB_TASKTYPE,ITask::GetTaskTypeStr(task.Type));
+
+	if (m_taskid==0)	//创建任务
+	{
+		SetWindowText("创建新任务");
+		m_edtID.SetWindowText("(待创建)");
+		m_edtTips.SetWindowText("");
+		SYSTEMTIME st;
+		CTime::GetCurrentTime().GetAsSystemTime(st);
+		m_datePicker.SetSystemTime(GDT_VALID,&st);
+		m_timePicker.SetSystemTime(GDT_VALID,&st);
+		ComboRollTo(IDC_CMB_TASKTYPE,"每天提醒");
+	}
+	else	//修改现有任务
+	{
+		ITask task;
+		if(!g_TaskDB.GetTask(m_taskid,task))
+		{
+			return 0;
+		}
+
+		m_edtID.SetWindowText(task.GetIDStr());
+		m_edtTips.SetWindowText(task.Tip);
+
+		SYSTEMTIME st;
+		task.TaskTime.GetAsSystemTime(st);
+		m_datePicker.SetSystemTime(GDT_VALID,&st);
+		m_timePicker.SetSystemTime(GDT_VALID,&st);
+
+		ComboRollTo(IDC_CMB_TASKTYPE,ITask::GetTaskTypeStr(task.Type));
+	}
 
 	EnableControls();
 
@@ -41,34 +69,63 @@ LRESULT CTaskModifyDialog::OnInitDialog( UINT uMsg, WPARAM wParam, LPARAM lParam
 
 LRESULT CTaskModifyDialog::OnClickedOK( WORD wNotifyCode, WORD wID, HWND hWndCtl, BOOL& bHandled )
 {
+	if (m_taskid==0)
+	{
+		ITask task;
+		task.CreateTime = CTime::GetCurrentTime();
+		task.LastRunTime = 0;
+		task.Type = GetSelTaskType();
+		task.TaskTime = GetSelTime();
+		m_edtTips.GetWindowText(task.Tip);
+		if (task.Type==ITask::TT_ONCE && task.TaskTime<CTime::GetCurrentTime())
+		{
+			MessageBox(_T("很抱歉，我们无法改变历史。请将定时提醒的时刻放在将来。"));
+			return 0;
+		}
+		if (task.Tip.IsEmpty())
+		{
+			MessageBox(_T("提示语句为空。"));
+			return 0;
+		}
+		g_TaskDB.AddTask(task);
+		g_TaskDB.SaveToDB();
+	}
+	else
+	{
+		ITask taskOrigin;
+		if(!g_TaskDB.GetTask(m_taskid,taskOrigin))
+		{
+			MessageBox(_T("任务ID出错，数据无法保存，请与开发人员联系"));
+			return 0;
+		}
+
+		ITask task = taskOrigin;
+
+		task.Type = GetSelTaskType();
+		task.TaskTime = GetSelTime();
+
+		if (task.Type==ITask::TT_ONCE && task.TaskTime<CTime::GetCurrentTime())
+		{
+			MessageBox(_T("很抱歉，我们无法改变历史。请将定时提醒的时刻放在将来。"));
+			return 0;
+		}
+		m_edtTips.GetWindowText(task.Tip);
+		if (task==taskOrigin)
+		{
+			return 0;	//没有做任何更改，不必保存了。
+		}
+		if (task.Tip.IsEmpty())
+		{
+			MessageBox(_T("提示语句为空。"));
+			return 0;
+		}
+		task.LastRunTime = 0;	//修改过后，最后运行时间要置零，否则可能不会提示
+
+		g_TaskDB.UpdateTask(task);
+		g_TaskDB.SaveToDB();
+	}
+
 	EndDialog(wID);
-
-	ITask taskOrigin;
-	if(!g_TaskDB.GetTask(m_taskid,taskOrigin))
-	{
-		MessageBox(_T("任务ID出错，数据无法保存，请与开发人员联系"));
-		return 0;
-	}
-
-	ITask task = taskOrigin;
-
-	task.Type = GetSelTaskType();
-	task.TaskTime = GetSelTime();
-
-	if (task.Type==ITask::TT_ONCE && task.TaskTime<CTime::GetCurrentTime())
-	{
-		MessageBox(_T("很抱歉，我们无法改变历史。请将定时提醒的时刻放在将来。"));
-		return 0;
-	}
-	m_edtTips.GetWindowText(task.Tip);
-	if (task==taskOrigin)
-	{
-		return 0;
-	}
-	task.LastRunTime = 0;	//修改过后，最后运行时间要置零，否则可能不会提示
-
-	g_TaskDB.UpdateTask(task);
-	g_TaskDB.SaveToDB();
 
 	return 0;
 }

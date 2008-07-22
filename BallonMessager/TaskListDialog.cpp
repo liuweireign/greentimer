@@ -15,9 +15,11 @@
 
 LRESULT CTaskListDialog::OnBnClickedBtnAdd(WORD /*wNotifyCode*/, WORD /*wID*/, HWND /*hWndCtl*/, BOOL& /*bHandled*/)
 {
-	COpinionDlg dlg;
-	dlg.DoModal();
-
+	CTaskModifyDialog dlg(0);	//ID为零表示创建新任务
+	if(IDOK!=dlg.DoModal())
+	{
+		return 0;
+	}
 	ReloadTasks();
 	return 0;
 }
@@ -49,7 +51,10 @@ LRESULT CTaskListDialog::OnBnClickedBtnEdit(WORD /*wNotifyCode*/, WORD /*wID*/, 
 	//	return 0;
 	//}
 	CTaskModifyDialog dlg(vecTask[0]);
-	dlg.DoModal();
+	if(IDOK!=dlg.DoModal())
+	{
+		return 0;
+	}
 	ReloadTasks();
 	return 0;
 }
@@ -77,6 +82,17 @@ bool TaskComp(int idLeft,int idRight)
 	return taskLeft.Type<taskRight.Type;
 }
 
+bool IsTaskTimeOut(int id)
+{
+	ITask task;
+	g_TaskDB.GetTask(id,task);
+	if (task.Type==ITask::TT_ONCE && task.TaskTime<CTime::GetCurrentTime())
+	{
+		return true;
+	}
+	return false;
+}
+
 void CTaskListDialog::ReloadTasks()
 {
 	m_ctlList.SetRedraw(FALSE);
@@ -85,8 +101,14 @@ void CTaskListDialog::ReloadTasks()
 
 	std::vector<int> vecId;
 	g_TaskDB.GetTaskList(vecId);
+
 	//将任务按类型-时间排序
 	sort(vecId.begin(),vecId.end(),TaskComp);
+	//删除过时的任务
+	if (m_bHideTimeOut)
+	{
+		vecId.erase(remove_if(vecId.begin(),vecId.end(),IsTaskTimeOut),vecId.end());
+	}
 
 	for (int i=0;i<(int)vecId.size();i++)
 	{
@@ -112,8 +134,22 @@ void CTaskListDialog::ReloadTasks()
 LRESULT CTaskListDialog::OnInitDialog( UINT uMsg, WPARAM wParam, LPARAM lParam, BOOL& bHandled )
 {
 	CAxDialogImpl<CTaskListDialog>::OnInitDialog(uMsg, wParam, lParam, bHandled);
+	
+	HICON hIcon = (HICON)::LoadImage(_Module.GetResourceInstance(), MAKEINTRESOURCE(IDR_MAINFRAME), 
+		IMAGE_ICON, ::GetSystemMetrics(SM_CXICON), ::GetSystemMetrics(SM_CYICON), LR_DEFAULTCOLOR);
+	SetIcon(hIcon, TRUE);
+	HICON hIconSmall = (HICON)::LoadImage(_Module.GetResourceInstance(), MAKEINTRESOURCE(IDR_MAINFRAME), 
+		IMAGE_ICON, ::GetSystemMetrics(SM_CXSMICON), ::GetSystemMetrics(SM_CYSMICON), LR_DEFAULTCOLOR);
+	SetIcon(hIconSmall, FALSE);
+	CenterWindow();
+
+	m_bHideTimeOut = TRUE;
 
 	m_ctlList = GetDlgItem(IDC_LST_TASK);
+
+	CButton btn(GetDlgItem(IDC_CHK_HIDEOUTTIME));
+	//m_bHideTimeOut = btn.GetCheck();
+	btn.SetCheck(m_bHideTimeOut);
 
 	ResetTaskList();
 	ReloadTasks();
@@ -161,8 +197,8 @@ void CTaskListDialog::ResetTaskList()
 	CRect rectList;
 	m_ctlList.GetClientRect(rectList);                     //获得当前客户区信息
 	m_ctlList.SetColumnWidth(0,0);        //设置列的宽度。
-	m_ctlList.SetColumnWidth(1,80);
-	m_ctlList.SetColumnWidth(2,50);
+	m_ctlList.SetColumnWidth(1,70);
+	m_ctlList.SetColumnWidth(2,100);
 	m_ctlList.SetColumnWidth(3,rectList.Width()-15-50);
 	m_ctlList.SetExtendedListViewStyle(LVS_EX_FULLROWSELECT);
 	m_ctlList.DeleteAllItems();
@@ -181,7 +217,19 @@ LRESULT CTaskListDialog::OnNMDblclkLstTask(int /*idCtrl*/, LPNMHDR pNMHDR, BOOL&
 	//	return 0;
 	//}
 	CTaskModifyDialog dlg(vecTask[0]);
-	dlg.DoModal();
+	if(IDOK!=dlg.DoModal())
+	{
+		return 0;
+	}
 	ReloadTasks();
+	return 0;
+}
+
+LRESULT CTaskListDialog::OnBnClickedChkHideouttime(WORD /*wNotifyCode*/, WORD /*wID*/, HWND /*hWndCtl*/, BOOL& /*bHandled*/)
+{
+	CButton btn(GetDlgItem(IDC_CHK_HIDEOUTTIME));
+	m_bHideTimeOut = btn.GetCheck();
+	ReloadTasks();
+
 	return 0;
 }
