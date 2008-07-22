@@ -24,11 +24,12 @@
 #define IDC_EDIT1                       1005
 #define IDC_EDT_TODAYTASK               1005
 #define IDC_EDT_ID                      1005
-#define IDC_EDT_TYPE                    1006
 #define IDC_LST_TASK                    1007
-#define IDC_EDT_TIME                    1007
-#define IDC_EDIT4                       1008
 #define IDC_EDT_TIPS                    1008
+#define IDC_DATETIMEPICKER_DATE         1011
+#define IDC_DATETIMEPICKER2             1012
+#define IDC_DATETIMEPICKER_TIME         1012
+#define IDC_CMB_TASKTYPE                1013
 #define ID_32775                        32775
 #define ID_32776                        32776
 #define ID_32777                        32777
@@ -49,7 +50,7 @@
 #ifndef APSTUDIO_READONLY_SYMBOLS
 #define _APS_NEXT_RESOURCE_VALUE        205
 #define _APS_NEXT_COMMAND_VALUE         32785
-#define _APS_NEXT_CONTROL_VALUE         1008
+#define _APS_NEXT_CONTROL_VALUE         1014
 #define _APS_NEXT_SYMED_VALUE           105
 #endif
 #endif

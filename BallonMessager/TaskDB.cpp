@@ -1,3 +1,4 @@
+#include "stdafx.h"
 #include ".\taskdb.h"
 #include <ATLComTime.h>
 #include "SQLite/CppSQLite3.h"
