@@ -33,14 +33,14 @@ CAPTION "关于绿色报时器"
 FONT 8, "MS Shell Dlg", 0, 0, 0x0
 BEGIN
     DEFPUSHBUTTON   "OK",IDOK,169,90,50,14
-    LTEXT           "skymountain 2008",IDC_STATIC,27,37,78,13
-    ICON            IDR_MAINFRAME,IDC_STATIC,27,14,21,20
+    ICON            IDR_MAINFRAME,IDC_STATIC,27,14,20,20
     GROUPBOX        "",IDC_STATIC,7,3,212,84
     LTEXT           "绿色报时器 V1.1",IDC_STATIC,51,22,90,11
     LTEXT           "http://code.google.com/p/greentimer/",IDC_STATIC,27,70,
                     134,13
     LTEXT           "Enhaced by Jame Yu, yurihua@gmail.com",IDC_STATIC,27,53,
                     134,8
+    LTEXT           "skymountain 2008",IDC_STATIC,27,37,78,13
 END
 
 IDD_MAINDLG DIALOGEX 0, 0, 221, 73
@@ -270,6 +270,9 @@ BEGIN
     CONTROL         "",IDC_LST_TASK,"SysListView32",LVS_REPORT | 
                     LVS_SHOWSELALWAYS | LVS_ALIGNLEFT | WS_BORDER | 
                     WS_TABSTOP,7,7,276,196
+    CONTROL         "隐藏已过时的任务",IDC_CHK_HIDEOUTTIME,"Button",
+                    BS_AUTOCHECKBOX | BS_MULTILINE | WS_TABSTOP,291,133,48,
+                    23
 END
 
 IDD_TASKMODIFYDIALOG DIALOGEX 0, 0, 254, 126
@@ -366,8 +369,9 @@ BEGIN
         MENUITEM "关于...(&A)",                 ID_APP_ABOUT
         MENUITEM SEPARATOR
         MENUITEM "增加提醒...(&N)",             ID_APP_OPINION
-        MENUITEM "显示/隐藏主界面(&S)",         ID_RESUME
+        MENUITEM "浏览任务...(&B)",             ID_CMD_TASKVIEW
         MENUITEM SEPARATOR
+        MENUITEM "显示/隐藏主界面(&S)",         ID_RESUME
         MENUITEM "退出(&Q)",                    ID_QUIT
     END
 END

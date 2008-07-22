@@ -12,11 +12,7 @@ class CTaskModifyDialog :
 	public CAxDialogImpl<CTaskModifyDialog>
 {
 public:
-	CTaskModifyDialog(int taskid)
-	{
-		ATLASSERT(taskid>0);
-		m_taskid = taskid;
-	}
+	CTaskModifyDialog(int taskid);
 
 	~CTaskModifyDialog()
 	{

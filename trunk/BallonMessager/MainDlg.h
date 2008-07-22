@@ -13,6 +13,7 @@
 #include "SimpleTaskViewDlg.h"
 #include "AddTodayTaskDlg.h"
 #include "TaskListDialog.h"
+#include "TaskModifyDialog.h"
 
 #include <atlctrls.h>
 #include <atldlgs.h>
@@ -116,7 +117,9 @@ public:
 
 	LRESULT OnBtnOpinion(WORD /*wNotifyCode*/, WORD /*wID*/, HWND /*hWndCtl*/, BOOL& /*bHandled*/)
 	{
-		COpinionDlg dlg;
+		//COpinionDlg dlg;
+		//dlg.DoModal();
+		CTaskModifyDialog dlg(0);
 		dlg.DoModal();
 		return 0;
 	}

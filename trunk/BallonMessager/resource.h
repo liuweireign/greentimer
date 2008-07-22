@@ -27,9 +27,9 @@
 #define IDC_LST_TASK                    1007
 #define IDC_EDT_TIPS                    1008
 #define IDC_DATETIMEPICKER_DATE         1011
-#define IDC_DATETIMEPICKER2             1012
 #define IDC_DATETIMEPICKER_TIME         1012
 #define IDC_CMB_TASKTYPE                1013
+#define IDC_CHK_HIDEOUTTIME             1014
 #define ID_32775                        32775
 #define ID_32776                        32776
 #define ID_32777                        32777
@@ -49,8 +49,8 @@
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
 #define _APS_NEXT_RESOURCE_VALUE        205
-#define _APS_NEXT_COMMAND_VALUE         32785
-#define _APS_NEXT_CONTROL_VALUE         1014
+#define _APS_NEXT_COMMAND_VALUE         32786
+#define _APS_NEXT_CONTROL_VALUE         1015
 #define _APS_NEXT_SYMED_VALUE           105
 #endif
 #endif
