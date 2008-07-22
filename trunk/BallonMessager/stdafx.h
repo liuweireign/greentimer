@@ -24,6 +24,7 @@ extern CAppModule _Module;
 #include <map>
 #include <list>
 #include <set>
+#include <vector>
 using namespace std;
 
 //#include "resource.h"

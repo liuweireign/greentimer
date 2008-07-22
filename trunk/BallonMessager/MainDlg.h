@@ -187,7 +187,10 @@ public:
 		ITask task;
 		if (g_TaskDB.FindTaskRunNow(task))
 		{
+			//提示
 			BalloonToolTips(task.Tip);
+
+			//记录本次运行时间
 			task.LastRunTime = CTime::GetCurrentTime();
 			g_TaskDB.UpdateTask(task);
 			g_TaskDB.SaveToDB();

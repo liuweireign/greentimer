@@ -4,7 +4,7 @@
 
 #include "resource.h"       // Ö÷·ûºÅ
 #include <atlhost.h>
-
+#include "ITask.h"
 
 // CTaskModifyDialog
 
@@ -28,7 +28,7 @@ BEGIN_MSG_MAP(CTaskModifyDialog)
 	MESSAGE_HANDLER(WM_INITDIALOG, OnInitDialog)
 	COMMAND_HANDLER(IDOK, BN_CLICKED, OnClickedOK)
 	COMMAND_HANDLER(IDCANCEL, BN_CLICKED, OnClickedCancel)
-	COMMAND_HANDLER(IDC_BTN_TIMEBROWSE, BN_CLICKED, OnBnClickedBtnTimebrowse)
+	COMMAND_HANDLER(IDC_CMB_TASKTYPE, CBN_SELCHANGE, OnCbnSelchangeCmbTasktype)
 	CHAIN_MSG_MAP(CAxDialogImpl<CTaskModifyDialog>)
 END_MSG_MAP()
 
@@ -44,11 +44,18 @@ private:
 	int m_taskid;
 
 	CEdit m_edtID;
-	CEdit m_edtType;
-	CEdit m_edtTime;
+	CComboBox m_edtType;
+	//CEdit m_edtTime;
+	CDateTimePickerCtrl m_datePicker;
+	CDateTimePickerCtrl m_timePicker;
 	CEdit m_edtTips;
 public:
-	LRESULT OnBnClickedBtnTimebrowse(WORD /*wNotifyCode*/, WORD /*wID*/, HWND /*hWndCtl*/, BOOL& /*bHandled*/);
+	void ComboRollTo(int idCtrl, const string &strTitle);
+	void ShowToCombox( int idCtrl, vector<string> &vecClass );
+	LRESULT OnCbnSelchangeCmbTasktype(WORD /*wNotifyCode*/, WORD /*wID*/, HWND /*hWndCtl*/, BOOL& /*bHandled*/);
+	void EnableControls();
+	ITask::TaskType GetSelTaskType();
+	CTime GetSelTime();
 };
 
 
