@@ -6,20 +6,10 @@
 
 #include "ShellIcon.h"
 #include "MyIconMenu.h"
-//#include "AboutDlg.h"
-//#include "OpinionDlg.h"
 #include "TaskDB.h"
-//#include "TaskViewDlg.h"
-//#include "SimpleTaskViewDlg.h"
 #include "AddTodayTaskDlg.h"
 #include "TaskListDialog.h"
 #include "TaskModifyDialog.h"
-
-//#include <atlctrls.h>
-//#include <atldlgs.h>
-//#include <atlframe.h>
-//#include <atltime.h>
-//#include <string>
 
 class CMainDlg : 
 	public CDialogImpl<CMainDlg>, 
@@ -86,13 +76,10 @@ public:
 		UIAddChildWindowContainer(m_hWnd);
 
 		CreateShellIcon();
-
-		_iLastRemindMin = -1;
-		_bFirstTimeUp = true;
-
 		g_TaskDB.ReadFromDB();
 
-		SetTimer(0,3*1000,NULL);
+		//每隔一定时间检查一次，看有没有需要运行的任务
+		SetTimer(0,10*1000,NULL);
 
 		return TRUE;
 	}
@@ -160,93 +147,23 @@ public:
 		DestroyWindow();
 		::PostQuitMessage(nVal);
 	}
-public:
-	//LRESULT OnTimer(UINT /*uMsg*/, WPARAM /*wParam*/, LPARAM /*lParam*/, BOOL& /*bHandled*/);
-	int _iLastRemindMin;
-	bool _bFirstTimeUp;
-
-
-	// 取得程序运行的目录（以反斜线\结尾）
-	ATL::CString GetAppDirectory(bool bEndWithBackSlash=true)
-	{
-		//取系统路径
-		char buf[_MAX_PATH];
-		::GetModuleFileName(NULL,buf,_MAX_PATH);
-		int iIndex = (int)std::string(buf).rfind('\\');
-		if(bEndWithBackSlash)
-		{
-			buf[iIndex+1]='\0';	//截断，获得路径名(保留最后的'\')
-		}
-		else
-		{
-			buf[iIndex]='\0';	//截断，获得路径名(去掉最后的'\')
-		}
-		return (char *)buf;
-	}
 
 	LRESULT OnTimer(UINT /*uMsg*/, WPARAM /*wParam*/, LPARAM /*lParam*/, BOOL& /*bHandled*/)
 	{
-		//////////////////////////////////////////////////////////////////////////
+		//查询：有没有任务需要运行了？
 		ITask task;
-		if (g_TaskDB.FindTaskRunNow(task))
+		if (!g_TaskDB.FindTaskRunNow(task))
 		{
-			//提示
-			BalloonToolTips(task.Tip);
-
-			//记录本次运行时间
-			task.LastRunTime = CTime::GetCurrentTime();
-			g_TaskDB.UpdateTask(task);
-			g_TaskDB.SaveToDB();
 			return 0;
 		}
-		//////////////////////////////////////////////////////////////////////////
-		//GetPrivateProfileString(strSection,strKey,"COM3",buffer,sizeof(buffer),strFileName);  
-		//整点报时功能。
-		//CTime tm = CTime::GetCurrentTime();
-		//int iNowHour = tm.GetHour();
-		//int iNowMin = tm.GetMinute();
 
-		//ATL::CString strFileName = GetAppDirectory()+"tips.ini";
-		//char *strDefaultTips = "合理安排时间，做个高效的人。";
-		//char *strEmptyTips = "";
-		//char buffer[2*1024];
-		//char hour[8]={0};
-		//itoa(iNowHour,hour,10);
-		//char min[8]={0};
-		//itoa(iNowMin,min,10);
+		//提示
+		BalloonToolTips(task.Tip);
 
-		//ATL::CString key = hour;
-		//key += "-";
-		//key += min;
-
-		//int iCharsRt = GetPrivateProfileString("tips",key,strEmptyTips,buffer,sizeof(buffer),strFileName);
-
-		////有没有为现在这个时间设定提醒呢？现在这个提示显示过没有？
-		//if (iCharsRt != 0 && iNowMin != _iLastRemindMin)
-		//{
-		//	ATL::CString strNow;
-
-		//	//modify by tianzuo,2008-5-14. 
-		//	//bug NO.1 found by jameyu,2008-5-14
-		//	//strNow.Format("现在时间： %d 点整。\r\n\r\n%s",iNowHour,buffer);
-		//	strNow.Format("现在时间： %d 点 %d 分。\r\n\r\n%s",iNowHour,tm.GetMinute() ,buffer);
-		//	//end modify by tianzuo,2008-5-14. 
-
-		//	BalloonToolTips(strNow);
-		//	_iLastRemindMin = iNowMin;
-		//	_bFirstTimeUp = false;
-		//}
-		////没有为当前时间设定提醒，显示一下欢迎信息
-		//else
-		//{
-		//	if (_bFirstTimeUp)
-		//	{
-		//		ATL::CString strMsg;
-		//		strMsg.Format("现在时间： %d 点 %d 分。\r\n\r\n%s",iNowHour,tm.GetMinute() ,strDefaultTips);
-		//		BalloonToolTips(strMsg);
-		//		_bFirstTimeUp = false;
-		//	}
-		//}
+		//记录本次运行时间
+		task.LastRunTime = CTime::GetCurrentTime();
+		g_TaskDB.UpdateTask(task);
+		g_TaskDB.SaveToDB();
 
 		return 0;
 	}
