@@ -255,10 +255,6 @@
 				RelativePath=".\BallonMessager.rc">
 			</File>
 		</Filter>
-		<File
-			RelativePath=".\res\html1.htm"
-			DeploymentContent="TRUE">
-		</File>
 	</Files>
 	<Globals>
 		<Global

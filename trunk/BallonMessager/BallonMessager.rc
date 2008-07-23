@@ -97,6 +97,46 @@ IDR_MAINFRAME           ICON                    "res\\BallonMessager.ico"
 
 /////////////////////////////////////////////////////////////////////////////
 //
+// Version
+//
+
+VS_VERSION_INFO VERSIONINFO
+ FILEVERSION 2,1,0,0
+ PRODUCTVERSION 2,1,0,0
+ FILEFLAGSMASK 0x3fL
+#ifdef _DEBUG
+ FILEFLAGS 0x1L
+#else
+ FILEFLAGS 0x0L
+#endif
+ FILEOS 0x4L
+ FILETYPE 0x2L
+ FILESUBTYPE 0x0L
+BEGIN
+    BLOCK "StringFileInfo"
+    BEGIN
+        BLOCK "080404b0"
+        BEGIN
+            VALUE "Comments", "http://code.google.com/p/greentimer"
+            VALUE "CompanyName", "http://code.google.com/p/greentimer"
+            VALUE "FileDescription", "绿色报时器"
+            VALUE "FileVersion", "2, 1, 0, 0"
+            VALUE "InternalName", "绿色报时器"
+            VALUE "LegalCopyright", "Copyright 2008"
+            VALUE "OriginalFilename", "Greentimer.exe"
+            VALUE "ProductName", "Green timer"
+            VALUE "ProductVersion", "2, 1, 0, 0"
+        END
+    END
+    BLOCK "VarFileInfo"
+    BEGIN
+        VALUE "Translation", 0x804, 1200
+    END
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
 // String Table
 //
 
@@ -439,46 +479,6 @@ BEGIN
     VK_INSERT,      ID_EDIT_PASTE,          VIRTKEY, SHIFT
     VK_F6,          ID_NEXT_PANE,           VIRTKEY 
     VK_F6,          ID_PREV_PANE,           VIRTKEY, SHIFT
-END
-
-
-/////////////////////////////////////////////////////////////////////////////
-//
-// Version
-//
-
-VS_VERSION_INFO VERSIONINFO
- FILEVERSION 2,1,0,0
- PRODUCTVERSION 2,1,0,0
- FILEFLAGSMASK 0x3fL
-#ifdef _DEBUG
- FILEFLAGS 0x1L
-#else
- FILEFLAGS 0x0L
-#endif
- FILEOS 0x4L
- FILETYPE 0x2L
- FILESUBTYPE 0x0L
-BEGIN
-    BLOCK "StringFileInfo"
-    BEGIN
-        BLOCK "080404b0"
-        BEGIN
-            VALUE "Comments", "http://code.google.com/p/greentimer"
-            VALUE "CompanyName", "http://code.google.com/p/greentimer"
-            VALUE "FileDescription", "绿色报时器"
-            VALUE "FileVersion", "2, 1, 0, 0"
-            VALUE "InternalName", "绿色报时器"
-            VALUE "LegalCopyright", "Copyright 2008"
-            VALUE "OriginalFilename", "Greentimer.exe"
-            VALUE "ProductName", "Green timer"
-            VALUE "ProductVersion", "2, 1, 0, 0"
-        END
-    END
-    BLOCK "VarFileInfo"
-    BEGIN
-        VALUE "Translation", 0x804, 1200
-    END
 END
 
 #endif    // 英语(美国) resources
