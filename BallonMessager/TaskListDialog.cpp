@@ -208,7 +208,7 @@ void CTaskListDialog::ResetTaskList()
 	m_ctlList.SetColumnWidth(0,0);        //设置列的宽度。
 	m_ctlList.SetColumnWidth(1,70);
 	m_ctlList.SetColumnWidth(2,100);
-	m_ctlList.SetColumnWidth(3,rectList.Width()-15-50);
+	m_ctlList.SetColumnWidth(3,rectList.Width()-170);
 	m_ctlList.SetExtendedListViewStyle(LVS_EX_FULLROWSELECT);
 	m_ctlList.DeleteAllItems();
 }
