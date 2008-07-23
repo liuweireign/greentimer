@@ -156,9 +156,6 @@
 				RelativePath=".\ITask.cpp">
 			</File>
 			<File
-				RelativePath=".\SimpleTaskViewDlg.cpp">
-			</File>
-			<File
 				RelativePath=".\stdafx.cpp">
 				<FileConfiguration
 					Name="Debug|Win32">
@@ -224,9 +221,6 @@
 			</File>
 			<File
 				RelativePath=".\ShellIcon.h">
-			</File>
-			<File
-				RelativePath=".\SimpleTaskViewDlg.h">
 			</File>
 			<File
 				RelativePath=".\SQLite\sqlite3.h">
