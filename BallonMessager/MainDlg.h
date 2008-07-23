@@ -84,6 +84,16 @@ public:
 		CreateShellIcon();
 		g_TaskDB.ReadFromDB();
 
+		//如果当前没有任务，显示一下欢迎信息
+		ITask task;
+		if (!g_TaskDB.FindTaskRunNow(task))
+		{
+			CTime tm = CTime::GetCurrentTime();
+			WTL::CString strNow;
+			strNow.Format("合理安排时间，做个高效的人。\r\n\r\n现在时间： %d 点 %d 分。",tm.GetHour(),tm.GetMinute());
+			BalloonToolTips(strNow);
+		}
+
 		//每隔一定时间检查一次，看有没有需要运行的任务
 		SetTimer(0,10*1000,NULL);
 
