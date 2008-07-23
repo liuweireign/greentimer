@@ -10,7 +10,7 @@
 #include "OpinionDlg.h"
 #include "TaskDB.h"
 #include "TaskViewDlg.h"
-#include "SimpleTaskViewDlg.h"
+//#include "SimpleTaskViewDlg.h"
 #include "AddTodayTaskDlg.h"
 #include "TaskListDialog.h"
 #include "TaskModifyDialog.h"
