@@ -83,6 +83,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				AdditionalOptions="/EHsc"
+				Optimization="1"
 				AdditionalIncludeDirectories=".\;"
 				PreprocessorDefinitions="WIN32;_WINDOWS;STRICT;NDEBUG"
 				ExceptionHandling="FALSE"
@@ -156,6 +157,9 @@
 				RelativePath=".\ITask.cpp">
 			</File>
 			<File
+				RelativePath=".\QuickRemind.cpp">
+			</File>
+			<File
 				RelativePath=".\stdafx.cpp">
 				<FileConfiguration
 					Name="Debug|Win32">
@@ -212,6 +216,9 @@
 			</File>
 			<File
 				RelativePath=".\OpinionDlg.h">
+			</File>
+			<File
+				RelativePath=".\QuickRemind.h">
 			</File>
 			<File
 				RelativePath=".\resource.h">
