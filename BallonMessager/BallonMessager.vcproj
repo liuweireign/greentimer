@@ -32,10 +32,10 @@
 				Name="VCCustomBuildTool"/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="sqlite3.lib comsupp.lib cwebpage.lib"
+				AdditionalDependencies="sqlite3.lib comsupp.lib"
 				LinkIncremental="2"
-				AdditionalLibraryDirectories="sqlite;cwebpage;"
-				DelayLoadDLLs="sqlite;"
+				AdditionalLibraryDirectories="sqlite;"
+				DelayLoadDLLs=""
 				GenerateDebugInformation="TRUE"
 				SubSystem="2"
 				TargetMachine="1"/>
@@ -94,10 +94,10 @@
 				Name="VCCustomBuildTool"/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="sqlite3.lib comsupp.lib cwebpage.lib"
+				AdditionalDependencies="sqlite3.lib comsupp.lib"
 				OutputFile="$(OutDir)/GreenTimer_v2.0.exe"
 				LinkIncremental="1"
-				AdditionalLibraryDirectories="sqlite;cwebpage;"
+				AdditionalLibraryDirectories="sqlite;"
 				SubSystem="2"
 				TargetMachine="1"/>
 			<Tool
@@ -203,9 +203,6 @@
 			</File>
 			<File
 				RelativePath=".\SQLite\CppSQLite3.h">
-			</File>
-			<File
-				RelativePath=".\cwebpage\cwebpage.h">
 			</File>
 			<File
 				RelativePath=".\GlobeFuns.h">
