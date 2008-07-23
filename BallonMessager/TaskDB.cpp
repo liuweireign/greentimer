@@ -1,6 +1,8 @@
 #include "stdafx.h"
 #include ".\taskdb.h"
 #include <ATLComTime.h>
+#include <algorithm>
+
 #include "SQLite/CppSQLite3.h"
 #include "GlobeFuns.h"
 
@@ -68,6 +70,10 @@ TaskDB::~TaskDB(void)
 {
 }
 
+bool CompTaskID(const ITask &taskLeft,const ITask &taskRight)
+{
+	return taskLeft.Id<taskRight.Id;
+}
 bool TaskDB::ReadFromDB( const char *strDB )
 {
 	LOCK_THIS_RANGE(m_cs);
@@ -129,6 +135,12 @@ bool TaskDB::ReadFromDB( const char *strDB )
 		AddDailyTask(21,55,"总结一下今天的工作，写一下日记，准备休息啦！");
 		AddDailyTask(22,55,"夜了，拉灯，睡觉！");
 		AddDailyTask(23,55,"注意身体，多休息。");
+
+		//AddTimeTask(CTime(2008,12,25,11,0,0),"圣诞节快乐！\r\n绿色报时器可能有新版本啦，到 http://code.google.com/p/greentimer/ 看看？");
+		CTime tmTime = CTime::GetCurrentTime();
+		tmTime += CTimeSpan(100,0,0,0);
+		AddTimeTask(tmTime,"您使用绿色报时器已经100天了，感谢您对我们的支持！"
+			"现在可能有新版本啦，到 http://code.google.com/p/greentimer/ 看看？");
 		//////////////////////////////////////////////////////////////////////////
 		return true;
 	}
@@ -147,6 +159,8 @@ bool TaskDB::ReadFromDB( const char *strDB )
 
 		q.nextRow();
 	}
+	//数据必须按ID排好顺序，否则后面添加新任务的时候，ID号可能不正确。
+	sort(m_vecTask.begin(),m_vecTask.end(),CompTaskID);
 	return true;
 }
 
@@ -200,7 +214,7 @@ bool TaskDB::SaveToDB()
 {
 	return g_TaskDB.SaveToDB(GlobeFuns::GetAppDirectory() + "task.db");
 }
-int TaskDB::AddTask(const ITask &task )
+bool TaskDB::AddTask(const ITask &task )
 {
 	LOCK_THIS_RANGE(m_cs);
 
@@ -211,7 +225,7 @@ int TaskDB::AddTask(const ITask &task )
 	}
 	m_vecTask.push_back(task);
 	m_vecTask.back().Id = id;
-	return -1;
+	return true;
 }
 
 bool TaskDB::RemoveTask( int idTask )
@@ -280,12 +294,21 @@ bool TaskDB::AddDailyTask( int iHour, int iMinute, ATL::CString strMessage )
 	task.Type = ITask::TT_DAILY;
 	task.CreateTime = CTime::GetCurrentTime();
 	task.TaskTime = CTime(2000,1,1,iHour,iMinute,0);
-	task.LastRunTime = task.CreateTime;
+	task.LastRunTime = 0;
 	task.Tip = strMessage;
-	AddTask(task);
-	return false;
+	return AddTask(task);
 }
 
+bool TaskDB::AddTimeTask( const CTime &tmRuntime, ATL::CString strMessage )
+{
+	ITask task;
+	task.Type = ITask::TT_ONCE;
+	task.CreateTime = CTime::GetCurrentTime();
+	task.TaskTime = tmRuntime;
+	task.LastRunTime = 0;
+	task.Tip = strMessage;
+	return AddTask(task);
+}
 bool TaskDB::UpdateTask( const ITask &task )
 {
 	LOCK_THIS_RANGE(m_cs);
