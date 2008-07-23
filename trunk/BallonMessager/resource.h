@@ -6,7 +6,6 @@
 #define ID_BTN_DEL                      5
 #define ID_BTN_EDIT                     6
 #define IDD_ABOUTBOX                    100
-#define IDD_SIMPLETASKVIEWDLG           101
 #define IDD_ADDTODAYTASKDLG             102
 #define IDD_TASKLISTDIALOG              103
 #define IDD_TASKMODIFYDIALOG            104
@@ -14,8 +13,6 @@
 #define IDD_MAINDLG                     129
 #define IDR_MENU_ICON                   201
 #define IDD_DLG_SETUP                   202
-#define IDD_DLG_TASKVIEW                203
-#define IDR_HTM_TASKVIEW                204
 #define IDC_EDT_INPUT                   1000
 #define IDC_SPIN1                       1001
 #define IDC_HOUR                        1002
