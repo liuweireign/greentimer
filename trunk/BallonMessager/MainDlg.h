@@ -10,6 +10,7 @@
 #include "AddTodayTaskDlg.h"
 #include "TaskListDialog.h"
 #include "TaskModifyDialog.h"
+#include "QuickRemind.h"
 
 class CMainDlg : 
 	public CDialogImpl<CMainDlg>, 
@@ -45,6 +46,11 @@ public:
 		COMMAND_ID_HANDLER(ID_APP_OPINION, OnBtnOpinion)
 		COMMAND_ID_HANDLER(ID_CMD_TASKVIEW, OnTaskView)
 		COMMAND_ID_HANDLER(ID_APP_TODAYTASK, OnBtnTodayTask)
+		COMMAND_ID_HANDLER(ID_CMD_QUICKREMIND, OnBtnQuickRemind)
+		COMMAND_ID_HANDLER(ID_MENU_QUICKREMIND_5MIN, OnBtnQuickRemind)
+		COMMAND_ID_HANDLER(ID_MENU_QUICKREMIND_10MIN, OnBtnQuickRemind)
+		COMMAND_ID_HANDLER(ID_MENU_QUICKREMIND_1HOUR, OnBtnQuickRemind)
+		COMMAND_ID_HANDLER(ID_MENU_QUICKREMIND_TOMORROW, OnBtnQuickRemind)
 		MESSAGE_HANDLER(WM_TIMER, OnTimer)
 		CHAIN_MSG_MAP(CMyShellIcon)
 	END_MSG_MAP()
@@ -123,6 +129,32 @@ public:
 	LRESULT OnBtnTodayTask(WORD /*wNotifyCode*/, WORD /*wID*/, HWND /*hWndCtl*/, BOOL& /*bHandled*/)
 	{
 		CAddTodayTaskDlg dlg;
+		dlg.DoModal();
+		return 0;
+	}
+
+	LRESULT OnBtnQuickRemind(WORD /*wNotifyCode*/, WORD wID, HWND /*hWndCtl*/, BOOL& /*bHandled*/)
+	{
+		int iTime = 10;
+		switch(wID)
+		{
+		case ID_MENU_QUICKREMIND_5MIN:
+			iTime = 5;
+			break;
+		case ID_MENU_QUICKREMIND_10MIN:
+			iTime = 10;
+			break;
+		case ID_MENU_QUICKREMIND_1HOUR:
+			iTime = 60;
+		    break;
+		case ID_MENU_QUICKREMIND_TOMORROW:
+			iTime = 24*60;
+		    break;
+		default:
+			iTime = 10;
+		    break;
+		}
+		CQuickRemind dlg(iTime);
 		dlg.DoModal();
 		return 0;
 	}

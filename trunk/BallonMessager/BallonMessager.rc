@@ -48,14 +48,14 @@ STYLE DS_SETFONT | DS_FIXEDSYS | WS_MINIMIZEBOX | WS_CAPTION | WS_SYSMENU
 CAPTION "绿色报时器"
 FONT 8, "MS Shell Dlg", 0, 0, 0x0
 BEGIN
-    PUSHBUTTON      "&About...",ID_APP_ABOUT,164,52,50,14
-    LTEXT           "本程序运行后，遇到整点即弹出提示。",IDC_STATIC,7,7,152,
-                    27
+    LTEXT           "本程序运行后，遇到整点即弹出提示。",IDC_STATIC,7,7,140,
+                    9
     LTEXT           "合理安排时间，提高工作效率！",IDC_STATIC,7,22,120,10
-    PUSHBUTTON      "增加提醒...(&s)",ID_APP_OPINION,164,7,50,14
-    PUSHBUTTON      "浏览任务...(&b)",ID_CMD_TASKVIEW,164,38,50,14
-    PUSHBUTTON      "今日日程...(&t)",ID_APP_TODAYTASK,164,23,50,14,NOT 
+    PUSHBUTTON      "增加提醒...(&N)",ID_APP_OPINION,155,7,59,14
+    PUSHBUTTON      "浏览任务...(&B)",ID_CMD_TASKVIEW,155,23,59,14
+    PUSHBUTTON      "今日日程...(&t)",ID_APP_TODAYTASK,46,38,50,14,NOT 
                     WS_VISIBLE
+    PUSHBUTTON      "快速提醒...(&Q)",ID_CMD_QUICKREMIND,155,39,59,14
 END
 
 
@@ -253,8 +253,8 @@ BEGIN
                     LVS_SHOWSELALWAYS | LVS_ALIGNLEFT | WS_BORDER | 
                     WS_TABSTOP,7,7,326,196
     CONTROL         "隐藏已过时的任务(&H)",IDC_CHK_HIDEOUTTIME,"Button",
-                    BS_AUTOCHECKBOX | BS_MULTILINE | WS_TABSTOP,339,133,48,
-                    23
+                    BS_AUTOCHECKBOX | BS_MULTILINE | WS_TABSTOP,339,129,48,
+                    27
 END
 
 IDD_TASKMODIFYDIALOG DIALOGEX 0, 0, 254, 126
@@ -279,6 +279,24 @@ BEGIN
     EDITTEXT        IDC_EDT_ID,53,7,58,12,ES_AUTOHSCROLL | ES_READONLY | NOT 
                     WS_BORDER
     RTEXT           "任务编号:",IDC_STATIC,3,7,42,9
+END
+
+IDD_QUICKREMIND DIALOGEX 0, 0, 186, 95
+STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "快速提醒"
+FONT 9, "宋体", 0, 0, 0x0
+BEGIN
+    DEFPUSHBUTTON   "确定",IDOK,129,7,50,16
+    PUSHBUTTON      "取消",IDCANCEL,129,26,50,16
+    EDITTEXT        IDC_EDT_MINITE,18,9,32,12,ES_RIGHT | ES_AUTOHSCROLL | 
+                    ES_NUMBER
+    CONTROL         "",IDC_SPIN_MINUTE,"msctls_updown32",UDS_SETBUDDYINT | 
+                    UDS_ALIGNRIGHT | UDS_AUTOBUDDY | UDS_ARROWKEYS,38,7,11,
+                    14
+    LTEXT           "分钟后提醒我一次。",IDC_STATIC,51,11,73,10
+    LTEXT           "提醒语句：",IDC_STATIC,7,33,103,10
+    EDITTEXT        IDC_EDT_TIPS,7,44,120,44,ES_MULTILINE | ES_AUTOVSCROLL
+    LTEXT           "在",IDC_STATIC,10,10,8,10
 END
 
 
@@ -321,6 +339,14 @@ BEGIN
         TOPMARGIN, 7
         BOTTOMMARGIN, 119
     END
+
+    IDD_QUICKREMIND, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 179
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 88
+    END
 END
 #endif    // APSTUDIO_INVOKED
 
@@ -338,6 +364,17 @@ BEGIN
         MENUITEM SEPARATOR
         MENUITEM "增加提醒...(&N)",             ID_APP_OPINION
         MENUITEM "浏览任务...(&B)",             ID_CMD_TASKVIEW
+        POPUP "快捷提醒(N)"
+        BEGIN
+            MENUITEM "5分钟后提醒我(&F)",           ID_MENU_QUICKREMIND_5MIN
+            MENUITEM "10分钟后提醒我(&T)",          ID_MENU_QUICKREMIND_10MIN
+
+            MENUITEM "一小时后提醒我(&F)",          ID_MENU_QUICKREMIND_1HOUR
+
+            MENUITEM "明天这个时间提醒我(&M)",      ID_MENU_QUICKREMIND_TOMORROW
+
+            MENUITEM "快速提醒...(&M)",             ID_CMD_QUICKREMIND
+        END
         MENUITEM SEPARATOR
         MENUITEM "显示/隐藏主界面(&S)",         ID_RESUME
         MENUITEM "退出(&Q)",                    ID_QUIT
