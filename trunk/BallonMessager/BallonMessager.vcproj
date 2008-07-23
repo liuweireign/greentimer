@@ -193,9 +193,6 @@
 				RelativePath=".\AddTodayTaskDlg.h">
 			</File>
 			<File
-				RelativePath=".\Atl_dhtml\atldhtmldlg.h">
-			</File>
-			<File
 				RelativePath=".\ContextMenu.h">
 			</File>
 			<File
@@ -236,9 +233,6 @@
 			</File>
 			<File
 				RelativePath=".\TaskModifyDialog.h">
-			</File>
-			<File
-				RelativePath=".\TaskViewDlg.h">
 			</File>
 			<File
 				RelativePath=".\ThreadLock.h">

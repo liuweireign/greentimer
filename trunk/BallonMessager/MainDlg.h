@@ -7,19 +7,19 @@
 #include "ShellIcon.h"
 #include "MyIconMenu.h"
 //#include "AboutDlg.h"
-#include "OpinionDlg.h"
+//#include "OpinionDlg.h"
 #include "TaskDB.h"
-#include "TaskViewDlg.h"
+//#include "TaskViewDlg.h"
 //#include "SimpleTaskViewDlg.h"
 #include "AddTodayTaskDlg.h"
 #include "TaskListDialog.h"
 #include "TaskModifyDialog.h"
 
-#include <atlctrls.h>
-#include <atldlgs.h>
-#include <atlframe.h>
-#include <atltime.h>
-#include <string>
+//#include <atlctrls.h>
+//#include <atldlgs.h>
+//#include <atlframe.h>
+//#include <atltime.h>
+//#include <string>
 
 class CMainDlg : 
 	public CDialogImpl<CMainDlg>, 
