@@ -49,8 +49,7 @@ CAPTION "绿色报时器"
 FONT 8, "MS Shell Dlg", 0, 0, 0x0
 BEGIN
     PUSHBUTTON      "增加提醒...(&N)",ID_APP_OPINION,155,7,59,14
-    PUSHBUTTON      "快速提醒...(&Q)",ID_CMD_QUICKREMIND,155,24,59,14
-    PUSHBUTTON      "浏览任务...(&B)",ID_CMD_TASKVIEW,155,41,59,14
+    PUSHBUTTON      "浏览任务...(&B)",ID_CMD_TASKVIEW,155,24,59,14
     LTEXT           "本程序运行后，会在设定的时间弹出提示。",IDC_STATIC,7,7,
                     128,16
     LTEXT           "合理安排时间，提高工作效率！",IDC_STATIC,7,26,120,10
@@ -406,14 +405,12 @@ BEGIN
         MENUITEM "增加提醒...(&N)",             ID_APP_OPINION
         POPUP "快速提醒(N)"
         BEGIN
-            MENUITEM "5分钟后提醒我(&F)",           ID_MENU_QUICKREMIND_5MIN
             MENUITEM "10分钟后提醒我(&T)",          ID_MENU_QUICKREMIND_10MIN
 
             MENUITEM "一小时后提醒我(&F)",          ID_MENU_QUICKREMIND_1HOUR
 
             MENUITEM "明天这个时间提醒我(&M)",      ID_MENU_QUICKREMIND_TOMORROW
 
-            MENUITEM "快速提醒...(&M)",             ID_CMD_QUICKREMIND
         END
         MENUITEM "浏览任务...(&B)",             ID_CMD_TASKVIEW
         MENUITEM SEPARATOR
