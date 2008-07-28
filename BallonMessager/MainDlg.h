@@ -99,9 +99,12 @@ public:
 		//每隔一定时间检查一次，看有没有需要运行的任务
 		SetTimer(0,10*1000,NULL);
 
+		//显示当前是否已设置自启动
 		char buf[_MAX_PATH];
 		::GetModuleFileName(NULL,buf,_MAX_PATH);
 		TSelfStart tss("GreenTimer",buf);
+		CButton btn(GetDlgItem(IDC_CHK_SELFSTART));
+		btn.SetCheck(tss.IsSelfStart());
 
 		return TRUE;
 	}
