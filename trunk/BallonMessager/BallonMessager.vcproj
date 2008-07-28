@@ -186,6 +186,9 @@
 			<File
 				RelativePath=".\ThreadLock.cpp">
 			</File>
+			<File
+				RelativePath=".\TSelfStart.cpp">
+			</File>
 		</Filter>
 		<Filter
 			Name="Header Files"
@@ -243,6 +246,9 @@
 			</File>
 			<File
 				RelativePath=".\ThreadLock.h">
+			</File>
+			<File
+				RelativePath=".\TSelfStart.h">
 			</File>
 		</Filter>
 		<Filter
