@@ -11,6 +11,7 @@
 #include "TaskListDialog.h"
 #include "TaskModifyDialog.h"
 #include "QuickRemind.h"
+#include "TSelfStart.h"
 
 class CMainDlg : 
 	public CDialogImpl<CMainDlg>, 
@@ -51,6 +52,7 @@ public:
 		COMMAND_ID_HANDLER(ID_MENU_QUICKREMIND_10MIN, OnBtnQuickRemind)
 		COMMAND_ID_HANDLER(ID_MENU_QUICKREMIND_1HOUR, OnBtnQuickRemind)
 		COMMAND_ID_HANDLER(ID_MENU_QUICKREMIND_TOMORROW, OnBtnQuickRemind)
+		COMMAND_HANDLER(IDC_CHK_SELFSTART, BN_CLICKED, OnBnClickedChkSelfstart)
 		MESSAGE_HANDLER(WM_TIMER, OnTimer)
 		CHAIN_MSG_MAP(CMyShellIcon)
 	END_MSG_MAP()
@@ -96,6 +98,10 @@ public:
 
 		//每隔一定时间检查一次，看有没有需要运行的任务
 		SetTimer(0,10*1000,NULL);
+
+		char buf[_MAX_PATH];
+		::GetModuleFileName(NULL,buf,_MAX_PATH);
+		TSelfStart tss("GreenTimer",buf);
 
 		return TRUE;
 	}
@@ -206,6 +212,28 @@ public:
 		task.LastRunTime = CTime::GetCurrentTime();
 		g_TaskDB.UpdateTask(task);
 		g_TaskDB.SaveToDB();
+
+		return 0;
+	}
+
+	//自启动选项点击事件
+	LRESULT OnBnClickedChkSelfstart(WORD /*wNotifyCode*/, WORD /*wID*/, HWND /*hWndCtl*/, BOOL& /*bHandled*/)
+	{
+		char buf[_MAX_PATH];
+		::GetModuleFileName(NULL,buf,_MAX_PATH);
+		TSelfStart tss("GreenTimer",buf);
+
+		CButton btn(GetDlgItem(IDC_CHK_SELFSTART));
+		if(btn.GetCheck())
+		{
+			tss.SetSelfStart();
+		}
+		else
+		{
+			tss.RemoveSelfStart();
+		}
+
+		btn.SetCheck(tss.IsSelfStart());
 
 		return 0;
 	}

@@ -30,6 +30,8 @@
 #define IDC_CMB_TASKTYPE                1013
 #define IDC_CHK_HIDEOUTTIME             1014
 #define IDC_SPIN_MINUTE                 1016
+#define IDC_CHECK1                      1017
+#define IDC_CHK_SELFSTART               1017
 #define ID_32775                        32775
 #define ID_32776                        32776
 #define ID_32777                        32777
@@ -56,7 +58,7 @@
 #ifndef APSTUDIO_READONLY_SYMBOLS
 #define _APS_NEXT_RESOURCE_VALUE        205
 #define _APS_NEXT_COMMAND_VALUE         32797
-#define _APS_NEXT_CONTROL_VALUE         1017
+#define _APS_NEXT_CONTROL_VALUE         1018
 #define _APS_NEXT_SYMED_VALUE           106
 #endif
 #endif
