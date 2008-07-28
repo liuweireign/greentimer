@@ -35,7 +35,7 @@ BEGIN
     DEFPUSHBUTTON   "OK",IDOK,169,90,50,14
     ICON            IDR_MAINFRAME,IDC_STATIC,27,14,20,20
     GROUPBOX        "",IDC_STATIC,7,3,212,84
-    LTEXT           "绿色报时器 V1.1",IDC_STATIC,51,22,90,11
+    LTEXT           "绿色报时器 V2.1",IDC_STATIC,51,22,90,11
     LTEXT           "http://code.google.com/p/greentimer/",IDC_STATIC,27,70,
                     134,13
     LTEXT           "Enhaced by Jame Yu, yurihua@gmail.com",IDC_STATIC,27,53,
