@@ -59,23 +59,24 @@ bool TSelfStart::IsSelfStart()
 
 bool TSelfStart::RemoveSelfStart()
 {
-	HKEY   hRegKey;   
+	HKEY   hRegKey;
 	string str="Software\\Microsoft\\Windows\\CurrentVersion\\Run";  
 	if(::RegOpenKeyEx(HKEY_LOCAL_MACHINE,   str.c_str(), 0, KEY_ALL_ACCESS,  &hRegKey)   !=   ERROR_SUCCESS)
 	{
 		return false;
 	}
-	if(::RegSetValueEx(   hRegKey,  
-		m_strName.c_str(),  
-		0,  
-		REG_SZ,  
-		NULL,  
-		0)   !=   ERROR_SUCCESS)
-	{
-		RegCloseKey(hRegKey);
-		return false;
-	}
-	if(::RegDeleteKey(hRegKey,m_strName.c_str())!=ERROR_SUCCESS)	//怪事，这个值总是删不掉
+	// Jame Yu: This is not needed anymore.
+	//if(::RegSetValueEx(   hRegKey,  
+	//	m_strName.c_str(),  
+	//	0,  
+	//	REG_SZ,  
+	//	NULL,  
+	//	0)   !=   ERROR_SUCCESS)
+	//{
+	//	RegCloseKey(hRegKey);
+	//	return false;
+	//}
+	if(::RegDeleteValue(hRegKey,m_strName.c_str())!=ERROR_SUCCESS)
 	{
 		DWORD iErr = GetLastError();
 		RegCloseKey(hRegKey);
