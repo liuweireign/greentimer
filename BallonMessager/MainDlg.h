@@ -13,6 +13,9 @@
 #include "QuickRemind.h"
 #include "TSelfStart.h"
 
+//快捷键ID
+const UINT uiACCELAR_ID_SHOWMAINDLG = 0X1000;
+
 class CMainDlg : 
 	public CDialogImpl<CMainDlg>, 
 	public CUpdateUI<CMainDlg>,
@@ -41,6 +44,7 @@ public:
 	BEGIN_MSG_MAP(CMainDlg)
 		MESSAGE_HANDLER(WM_INITDIALOG, OnInitDialog)
 		MESSAGE_HANDLER(WM_DESTROY, OnDestroy)
+		MESSAGE_HANDLER(WM_HOTKEY, OnHotKey)
 		COMMAND_ID_HANDLER(ID_APP_ABOUT, OnAppAbout)
 		COMMAND_ID_HANDLER(IDOK, OnOK)
 		COMMAND_ID_HANDLER(IDCANCEL, OnCancel)
@@ -106,6 +110,9 @@ public:
 		CButton btn(GetDlgItem(IDC_CHK_SELFSTART));
 		btn.SetCheck(tss.IsSelfStart());
 
+		//注册快捷键
+		RegisterHotKey(m_hWnd,uiACCELAR_ID_SHOWMAINDLG,MOD_ALT,'E');
+
 		return TRUE;
 	}
 
@@ -117,9 +124,31 @@ public:
 		pLoop->RemoveMessageFilter(this);
 		pLoop->RemoveIdleHandler(this);
 
+		//反注册快捷键
+		UnregisterHotKey(m_hWnd, uiACCELAR_ID_SHOWMAINDLG);
+
 		return 0;
 	}
 
+	//快捷键处理
+	LRESULT OnHotKey(UINT /*uMsg*/, WPARAM wParam, LPARAM /*lParam*/, BOOL& /*bHandled*/)
+	{
+		//id为你自己定义的一个ID值，
+		//对一个线程来讲其值必需在0x0000 - 0xBFFF范围之内，
+		//对DLL来讲其值必需在0xC000 - 0xFFFF 范围之内，在同一进程内该值必须唯一
+		if (wParam==uiACCELAR_ID_SHOWMAINDLG)
+		{
+			if(IsWindowVisible())
+			{
+				ShowWindow(SW_HIDE);
+			}
+			else
+			{
+				ShowWindow(SW_SHOW);
+			}
+		}
+		return 0;
+	}
 	LRESULT OnAppAbout(WORD /*wNotifyCode*/, WORD /*wID*/, HWND /*hWndCtl*/, BOOL& /*bHandled*/)
 	{
 		CAboutDlg dlg;
