@@ -29,6 +29,7 @@ bool TSelfStart::SetSelfStart()
 			RegCloseKey(hRegKey);
 			return true;
 		}
+		RegCloseKey(hRegKey);
 	}
     MessageBox(NULL,"程序试图为您设定自启动注册表项目但没有成功；\n这可能是由于权限不够造成的。","设定自启动失败!",MB_OK);
 	return false;
