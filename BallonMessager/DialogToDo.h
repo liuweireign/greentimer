@@ -1,6 +1,6 @@
 #pragma once
 #include <atltime.h>
-#include "ListCtrl.h"
+#include "./ListCtrl/ListCtrl.h"
 
 class DialogToDo :
 	public CDialogImpl<DialogToDo>

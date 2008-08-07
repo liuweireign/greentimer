@@ -12,6 +12,7 @@
 #include "TaskModifyDialog.h"
 #include "QuickRemind.h"
 #include "TSelfStart.h"
+#include "./DialogToDo.h"
 
 //快捷键ID
 const UINT uiACCELAR_ID_SHOWMAINDLG = 0X1000;
@@ -56,6 +57,7 @@ public:
 		COMMAND_ID_HANDLER(ID_MENU_QUICKREMIND_10MIN, OnBtnQuickRemind)
 		COMMAND_ID_HANDLER(ID_MENU_QUICKREMIND_1HOUR, OnBtnQuickRemind)
 		COMMAND_ID_HANDLER(ID_MENU_QUICKREMIND_TOMORROW, OnBtnQuickRemind)
+		COMMAND_ID_HANDLER(ID_CMD_TODO, OnBtnTodo)
 		COMMAND_HANDLER(IDC_CHK_SELFSTART, BN_CLICKED, OnBnClickedChkSelfstart)
 		MESSAGE_HANDLER(WM_TIMER, OnTimer)
 		CHAIN_MSG_MAP(CMyShellIcon)
@@ -95,7 +97,7 @@ public:
 		if (!g_TaskDB.FindTaskRunNow(task))
 		{
 			CTime tm = CTime::GetCurrentTime();
-			WTL::CString strNow;
+			ATL::CString strNow;
 			strNow.Format("合理安排时间，做个高效的人。\r\n\r\n现在时间： %d 点 %d 分。",tm.GetHour(),tm.GetMinute());
 			BalloonToolTips(strNow);
 		}
@@ -181,6 +183,13 @@ public:
 		return 0;
 	}
 
+	LRESULT OnBtnTodo(WORD /*wNotifyCode*/, WORD /*wID*/, HWND /*hWndCtl*/, BOOL& /*bHandled*/)
+	{
+		DialogToDo dlg;
+		dlg.DoModal();
+		return 0;
+	}
+
 	LRESULT OnBtnQuickRemind(WORD /*wNotifyCode*/, WORD wID, HWND /*hWndCtl*/, BOOL& /*bHandled*/)
 	{
 		int iTime = 10;
@@ -196,7 +205,7 @@ public:
 			iTime = 60;
 		    break;
 		case ID_MENU_QUICKREMIND_TOMORROW:
-			iTime = 24*60;
+			iTime = 24*60; 
 		    break;
 		default:
 			iTime = 10;

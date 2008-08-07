@@ -2,12 +2,15 @@
 #include <string>
 #include <set>
 
+//任务记录
 class ToDoTask
 {
 public:
+	//特殊任务ID
 	enum {
 		ERROR_TASKID = 0,
 	};
+	//任务优先级
 	enum TaskPriority
 	{
 		TP_MOST_IMPORTANT = 0,
@@ -15,7 +18,7 @@ public:
 		TP_NORMAL = 2,
 		TP_NOT_IMPORTANT = 3,
 	};
-
+	//任务状态
 	enum TaskState
 	{
 		TS_NOT_START = 0,
@@ -29,13 +32,29 @@ public:
 	~ToDoTask(void);
 	bool operator < (const ToDoTask &task) const;
 
+	//任务id
 	int id;
+	//任务标题
 	std::string strTask;
+	//优先级
 	TaskPriority priority;
+	//状态
 	TaskState state;
+	//评论
 	std::string strRemark;
+
+	//任务创建时间
+	CTime tmCreateTime;
+	//任务开始工作的时间
+	CTime tmStartWorkTime;
+
+	CTime tmPlanFinshTime;
+
+	//任务操作历史
+	std::vector<CTime,std::string> vecHistory;
 };
 
+//任务数据库
 class TodoSet
 {
 public:

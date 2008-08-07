@@ -55,6 +55,7 @@ BEGIN
                     WS_VISIBLE
     CONTROL         "开机自启动",IDC_CHK_SELFSTART,"Button",BS_AUTOCHECKBOX | 
                     WS_TABSTOP,7,55,91,11
+    PUSHBUTTON      "待办事项...(&T)",ID_CMD_TODO,155,42,59,14
 END
 
 
@@ -337,6 +338,18 @@ BEGIN
     LTEXT           "在",IDC_STATIC,10,10,8,10
 END
 
+IDD_DLG_TODO DIALOGEX 0, 0, 432, 174
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | 
+    WS_SYSMENU
+CAPTION "任务安排表"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    DEFPUSHBUTTON   "确定",IDOK,375,7,50,14
+    PUSHBUTTON      "取消",IDCANCEL,375,24,50,14
+    CONTROL         "",IDC_LIST_TODO,"SysListView32",LVS_ALIGNLEFT | 
+                    WS_BORDER | WS_TABSTOP,7,7,363,160
+END
+
 
 /////////////////////////////////////////////////////////////////////////////
 //
@@ -385,6 +398,14 @@ BEGIN
         TOPMARGIN, 7
         BOTTOMMARGIN, 88
     END
+
+    IDD_DLG_TODO, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 425
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 167
+    END
 END
 #endif    // APSTUDIO_INVOKED
 
@@ -417,6 +438,21 @@ BEGIN
     END
 END
 
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Bitmap
+//
+
+IDB_LISTITEMS           BITMAP                  "res\\IDB_LISTITEMS.bmp"
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Cursor
+//
+
+IDC_DIVIDER             CURSOR                  "res\\IDC_DIVIDER.cur"
+IDC_HYPERLINK           CURSOR                  "res\\IDC_HYPERLINK.cur"
 #endif    // 中文(中华人民共和国) resources
 /////////////////////////////////////////////////////////////////////////////
 

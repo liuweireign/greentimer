@@ -14,6 +14,9 @@
 #define IDD_MAINDLG                     129
 #define IDR_MENU_ICON                   201
 #define IDD_DLG_SETUP                   202
+#define IDD_DLG_TODO                    205
+#define IDB_LISTITEMS                   206
+#define IDC_HYPERLINK                   208
 #define IDC_EDT_INPUT                   1000
 #define IDC_SPIN1                       1001
 #define IDC_HOUR                        1002
@@ -26,12 +29,14 @@
 #define IDC_LST_TASK                    1007
 #define IDC_EDT_TIPS                    1008
 #define IDC_DATETIMEPICKER_DATE         1011
+#define IDC_DIVIDER                     1011
 #define IDC_DATETIMEPICKER_TIME         1012
 #define IDC_CMB_TASKTYPE                1013
 #define IDC_CHK_HIDEOUTTIME             1014
 #define IDC_SPIN_MINUTE                 1016
 #define IDC_CHECK1                      1017
 #define IDC_CHK_SELFSTART               1017
+#define IDC_LIST_TODO                   1018
 #define ID_32775                        32775
 #define ID_32776                        32776
 #define ID_32777                        32777
@@ -50,15 +55,17 @@
 #define ID_APP_OPINION                  57665
 #define ID_CMD_TASKVIEW                 57666
 #define ID_APP_TODAYTASK                57667
+#define ID_CMD_TASKVIEW2                57668
+#define ID_CMD_TODO                     57668
 #define ID_CMD_QUICKREMIND              57669
 
 // Next default values for new objects
 // 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
-#define _APS_NEXT_RESOURCE_VALUE        205
+#define _APS_NEXT_RESOURCE_VALUE        209
 #define _APS_NEXT_COMMAND_VALUE         32797
-#define _APS_NEXT_CONTROL_VALUE         1018
+#define _APS_NEXT_CONTROL_VALUE         1019
 #define _APS_NEXT_SYMED_VALUE           106
 #endif
 #endif
