@@ -151,6 +151,9 @@
 				RelativePath=".\SQLite\CppSQLite3.cpp">
 			</File>
 			<File
+				RelativePath=".\DialogToDo.cpp">
+			</File>
+			<File
 				RelativePath=".\GlobeFuns.cpp">
 			</File>
 			<File
@@ -187,6 +190,9 @@
 				RelativePath=".\ThreadLock.cpp">
 			</File>
 			<File
+				RelativePath=".\ToDoTask.cpp">
+			</File>
+			<File
 				RelativePath=".\TSelfStart.cpp">
 			</File>
 		</Filter>
@@ -204,6 +210,9 @@
 			</File>
 			<File
 				RelativePath=".\SQLite\CppSQLite3.h">
+			</File>
+			<File
+				RelativePath=".\DialogToDo.h">
 			</File>
 			<File
 				RelativePath=".\ListCtrl\DragDrop.h">
@@ -272,6 +281,9 @@
 				RelativePath=".\ListCtrl\TitleTip.h">
 			</File>
 			<File
+				RelativePath=".\ToDoTask.h">
+			</File>
+			<File
 				RelativePath=".\TSelfStart.h">
 			</File>
 		</Filter>
@@ -283,6 +295,15 @@
 			</File>
 			<File
 				RelativePath=".\BallonMessager.rc">
+			</File>
+			<File
+				RelativePath=".\res\IDB_LISTITEMS.bmp">
+			</File>
+			<File
+				RelativePath=".\res\IDC_DIVIDER.cur">
+			</File>
+			<File
+				RelativePath=".\res\IDC_HYPERLINK.cur">
 			</File>
 		</Filter>
 	</Files>
