@@ -151,6 +151,9 @@
 				RelativePath=".\SQLite\CppSQLite3.cpp">
 			</File>
 			<File
+				RelativePath=".\ListCtrl\DialogToDo.cpp">
+			</File>
+			<File
 				RelativePath=".\GlobeFuns.cpp">
 			</File>
 			<File
@@ -206,10 +209,34 @@
 				RelativePath=".\SQLite\CppSQLite3.h">
 			</File>
 			<File
+				RelativePath=".\ListCtrl\DialogToDo.h">
+			</File>
+			<File
+				RelativePath=".\ListCtrl\DragDrop.h">
+			</File>
+			<File
+				RelativePath=".\ListCtrl\DropArrows.h">
+			</File>
+			<File
 				RelativePath=".\GlobeFuns.h">
 			</File>
 			<File
 				RelativePath=".\ITask.h">
+			</File>
+			<File
+				RelativePath=".\ListCtrl\ListCombo.h">
+			</File>
+			<File
+				RelativePath=".\ListCtrl\ListCtrl.h">
+			</File>
+			<File
+				RelativePath=".\ListCtrl\ListDate.h">
+			</File>
+			<File
+				RelativePath=".\ListCtrl\ListEdit.h">
+			</File>
+			<File
+				RelativePath=".\ListCtrl\ListTypes.h">
 			</File>
 			<File
 				RelativePath=".\MainDlg.h">
@@ -246,6 +273,9 @@
 			</File>
 			<File
 				RelativePath=".\ThreadLock.h">
+			</File>
+			<File
+				RelativePath=".\ListCtrl\TitleTip.h">
 			</File>
 			<File
 				RelativePath=".\TSelfStart.h">
