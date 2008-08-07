@@ -151,9 +151,6 @@
 				RelativePath=".\SQLite\CppSQLite3.cpp">
 			</File>
 			<File
-				RelativePath=".\ListCtrl\DialogToDo.cpp">
-			</File>
-			<File
 				RelativePath=".\GlobeFuns.cpp">
 			</File>
 			<File
@@ -207,9 +204,6 @@
 			</File>
 			<File
 				RelativePath=".\SQLite\CppSQLite3.h">
-			</File>
-			<File
-				RelativePath=".\ListCtrl\DialogToDo.h">
 			</File>
 			<File
 				RelativePath=".\ListCtrl\DragDrop.h">
