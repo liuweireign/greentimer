@@ -64,6 +64,12 @@ LRESULT DialogToDo::OnInitDialog( UINT /*uMsg*/, WPARAM /*wParam*/, LPARAM /*lPa
 	m_aListState.Add(_T("已完成"));
 	m_aListState.Add(_T("已取消"));
 
+	if(!g_todoSet.Load())
+	{
+		MessageBox("数据加载错误！");
+		return 0;
+	}
+
 	set<int> setID;
 	g_todoSet.GetTodoList(setID);
 	set<int>::iterator it = setID.begin();
@@ -102,14 +108,28 @@ LRESULT DialogToDo::OnBnClickedSave(WORD /*wNotifyCode*/, WORD /*wID*/, HWND /*h
 {
 	for(int i=0;i<m_listTodo.GetItemCount();i++)
 	{
-		int id = m_listTodo.GetItemData(i);
+		DWORD id;
+		m_listTodo.GetItemData(i,id);
 		ToDoTask todo = g_todoSet.GetToDo(id);
 		if (todo.id!=id)
 		{
 			ATLASSERT(ToDoTask::ERROR_TASKID==todo.id);
 			continue;
 		}
+
+		todo.strTask = m_listTodo.GetItemText(i,0).GetBuffer(0);
+		todo.priority = (ToDoTask::TaskPriority)m_listTodo.GetItemComboIndex(i,1);
+		todo.state = (ToDoTask::TaskState)m_listTodo.GetItemComboIndex(i,2);
+		todo.strRemark = m_listTodo.GetItemText(i,3).GetBuffer(0);
+
+		if(!g_todoSet.UpdateToDo(todo))
+		{
+			MessageBox("保存数据时候出现未知错误。");
+			return 0;
+		}
 	}
+
+	g_todoSet.Save();
 
 	return 0;
 }

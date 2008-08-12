@@ -647,6 +647,18 @@ public:
 	{
 		return GetColumnComboList( IndexToOrder( nSubItem ), aComboList ); // may be implemented in a derived class
 	}
+
+	//Added by tianzuo,2008-8-12
+	int GetItemComboIndex(int nItem,int nSubItem)
+	{
+		CListArray < CString > aComboList;
+		if(!GetItemComboList(nItem,nSubItem,aComboList))
+		{
+			return -1;
+		}
+		CString strText = GetItemText(nItem,nSubItem);
+		return aComboList.Find(strText);
+	}
 	
 	HFONT GetItemFont( int nItem, int nSubItem )
 	{
