@@ -8,27 +8,6 @@
 
 TaskDB g_TaskDB;
 
-//////////////////////////////////////////////////////////////////////////
-//时间与字符串互相转换函数
-ATL::CString TimeToString(CTime t)
-{
-	ATL::CString strDateTime;
-	strDateTime.Format("%d-%02d-%02d %02d:%02d:%02d", 
-		t.GetYear(), t.GetMonth(), t.GetDay(),
-		t.GetHour(), t.GetMinute(), t.GetSecond());
-	return strDateTime;
-}
-
-CTime StringToTime(ATL::CString strTime)
-{;  
-	COleDateTime   tm;  
-	tm.ParseDateTime(strTime);  
-	SYSTEMTIME   st;  
-	tm.GetAsSystemTime(st);  
-	return CTime(st);   
-}
-//////////////////////////////////////////////////////////////////////////
-
 
 bool WriteTaskToDB(CppSQLite3DB &dbTask, const ITask &task)
 {
@@ -203,7 +182,11 @@ bool TaskDB::SaveToDB( const char *strDB )
 	std::vector<ITask>::iterator it = m_vecTask.begin();
 	for (;it!=m_vecTask.end();it++)
 	{
-		WriteTaskToDB(dbTask,*it);
+		if(!WriteTaskToDB(dbTask,*it))
+		{
+			dbTask.execDML("rollback transaction;");
+			return false;
+		}
 	}
 
 	dbTask.execDML("end;");                                    //结束保存事务，提交数据

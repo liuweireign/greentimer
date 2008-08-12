@@ -1,6 +1,7 @@
 #pragma once
 #include <string>
 #include <set>
+#include <atltime.h>
 
 //任务记录
 class ToDoTask
@@ -51,7 +52,7 @@ public:
 	CTime tmPlanFinshTime;
 
 	//任务操作历史
-	std::vector<CTime,std::string> vecHistory;
+	std::map<CTime,std::string> mapHistory;
 };
 
 //任务数据库
@@ -59,7 +60,8 @@ class TodoSet
 {
 public:
 	TodoSet();
-	bool Load();
+	bool Load(const TCHAR *strDB);
+	bool Save(const TCHAR *strDB);
 	void GetTodoList(std::set<int> &taskIDs);
 	ToDoTask GetToDo(int id);
 	bool UpdateToDo(const ToDoTask &task);
@@ -68,4 +70,6 @@ public:
 private:
 	std::set<ToDoTask> m_setTask;
 };
+
+extern TodoSet g_todoSet;
 

@@ -2,6 +2,9 @@
 #include "resource.h"
 #include ".\dialogtodo.h"
 
+#include "ToDoTask.h"
+using namespace std;
+
 DialogToDo::DialogToDo(void)
 {
 }
@@ -62,14 +65,19 @@ LRESULT DialogToDo::OnInitDialog( UINT /*uMsg*/, WPARAM /*wParam*/, LPARAM /*lPa
 	aListState.Add(_T("暂停"));
 	aListState.Add(_T("已完成"));
 	aListState.Add(_T("已取消"));
-	for (int i=0;i<10;i++)
-	{
-		int iItem = m_listTodo.AddItem("任务:");
-		m_listTodo.SetItemFormat(i,1,ITEM_FORMAT_COMBO,ITEM_FLAGS_NONE,aListPriority);
-		m_listTodo.SetItemComboIndex(i,1,2);
 
-		m_listTodo.SetItemFormat(i,2,ITEM_FORMAT_COMBO,ITEM_FLAGS_NONE,aListState);
-		m_listTodo.SetItemComboIndex(i,2,0);
+	set<int> setID;
+	g_todoSet.GetTodoList(setID);
+	set<int>::iterator it = setID.begin();
+	for (;it!=setID.end();it++)
+	{
+		ToDoTask todo = g_todoSet.GetToDo(*it);
+		int iItem = m_listTodo.AddItem(todo.strTask.c_str());
+		m_listTodo.SetItemFormat(iItem,1,ITEM_FORMAT_COMBO,ITEM_FLAGS_NONE,aListPriority);
+		m_listTodo.SetItemComboIndex(iItem,1,todo.priority);
+
+		m_listTodo.SetItemFormat(iItem,2,ITEM_FORMAT_COMBO,ITEM_FLAGS_NONE,aListState);
+		m_listTodo.SetItemComboIndex(iItem,2,todo.state);
 	}
 
 	return S_OK;
