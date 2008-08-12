@@ -100,6 +100,10 @@ bool TodoSet::Load(const TCHAR *strDB)
 	return true;
 }
 
+bool TodoSet::Load()
+{
+	return Load(GlobeFuns::GetAppDirectory() + "task.db");
+}
 bool TodoSet::Save(const TCHAR *strDB)
 {
 	//打开数据
@@ -147,6 +151,10 @@ bool TodoSet::Save(const TCHAR *strDB)
 	return true;
 }
 
+bool TodoSet::Save()
+{
+	return Save(GlobeFuns::GetAppDirectory() + "task.db");
+}
 
 void TodoSet::GetTodoList( std::set<int> &taskIDs )
 {

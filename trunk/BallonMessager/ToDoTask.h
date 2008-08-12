@@ -60,6 +60,10 @@ class TodoSet
 {
 public:
 	TodoSet();
+
+	bool Load();
+	bool Save();
+
 	bool Load(const TCHAR *strDB);
 	bool Save(const TCHAR *strDB);
 	void GetTodoList(std::set<int> &taskIDs);
