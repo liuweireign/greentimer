@@ -2,7 +2,10 @@
 // Microsoft Visual C++ generated include file.
 // Used by BallonMessager.rc
 //
+#define ID_ADD_TODO                     3
 #define ID_BTN_ADD                      4
+#define ID_ADD_TODO2                    4
+#define ID_SAVE                         4
 #define ID_BTN_DEL                      5
 #define ID_BTN_EDIT                     6
 #define IDD_ABOUTBOX                    100
@@ -55,7 +58,6 @@
 #define ID_APP_OPINION                  57665
 #define ID_CMD_TASKVIEW                 57666
 #define ID_APP_TODAYTASK                57667
-#define ID_CMD_TASKVIEW2                57668
 #define ID_CMD_TODO                     57668
 #define ID_CMD_QUICKREMIND              57669
 

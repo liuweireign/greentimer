@@ -3753,7 +3753,7 @@ public:
 		return TRUE;
 	}
 	
-	BOOL SetItemData( int nItem, TData& tData )
+	BOOL SetItemData( int nItem,const TData& tData )
 	{
 		if ( nItem < 0 || nItem >= GetItemCount() ) 
 			return FALSE;

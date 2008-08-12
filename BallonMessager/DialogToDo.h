@@ -23,6 +23,8 @@ public:
 		//NOTIFY_HANDLER_EX(IDC_USERLIST, LCN_SELECTED, OnUserListSelected)
 		//NOTIFY_HANDLER_EX(IDC_LISTCTRL, LCN_HYPERLINK, OnListHyperLink)
 		REFLECT_NOTIFICATIONS()
+		COMMAND_HANDLER(ID_ADD_TODO, BN_CLICKED, OnBnClickedAddTodo)
+		COMMAND_HANDLER(ID_SAVE, BN_CLICKED, OnBnClickedSave)
 	END_MSG_MAP()
 
 	LRESULT OnBnClickedOk(WORD /*wNotifyCode*/, WORD /*wID*/, HWND /*hWndCtl*/, BOOL& /*bHandled*/);
@@ -32,4 +34,9 @@ public:
 
 private:
 	CListCtrl m_listTodo;
+	CListArray<CString> m_aListPriority;;
+	CListArray<CString> m_aListState;
+public:
+	LRESULT OnBnClickedAddTodo(WORD /*wNotifyCode*/, WORD /*wID*/, HWND /*hWndCtl*/, BOOL& /*bHandled*/);
+	LRESULT OnBnClickedSave(WORD /*wNotifyCode*/, WORD /*wID*/, HWND /*hWndCtl*/, BOOL& /*bHandled*/);
 };
