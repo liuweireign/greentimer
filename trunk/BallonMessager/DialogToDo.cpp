@@ -7,15 +7,19 @@ using namespace std;
 
 DialogToDo::DialogToDo(void)
 {
+	m_bHideFinished = true;
 }
 
 DialogToDo::~DialogToDo(void)
 {
 }
 
-LRESULT DialogToDo::OnBnClickedOk(WORD /*wNotifyCode*/, WORD /*wID*/, HWND /*hWndCtl*/, BOOL& /*bHandled*/)
+LRESULT DialogToDo::OnBnClickedOk(WORD /*wNotifyCode*/, WORD wID, HWND /*hWndCtl*/, BOOL& /*bHandled*/)
 {
-	// TODO: 在此添加控件通知处理程序代码
+	if (SaveData()==S_OK)
+	{
+		EndDialog(wID);
+	}
 
 	return 0;
 }
@@ -30,6 +34,7 @@ LRESULT DialogToDo::OnBnClickedCancel(WORD /*wNotifyCode*/, WORD /*wID*/, HWND /
 LRESULT DialogToDo::OnUserDataSelected( LPNMHDR lpNMHDR )
 {
 	CListNotify *pListNotify = reinterpret_cast<CListNotify *>( lpNMHDR );
+	ATLTRACE("EDIT:%d,%d\n",pListNotify->m_nItem,pListNotify->m_nSubItem);
 	return S_OK;
 }
 
@@ -47,8 +52,6 @@ LRESULT DialogToDo::OnInitDialog( UINT /*uMsg*/, WPARAM /*wParam*/, LPARAM /*lPa
 	SetIcon(hIconSmall, FALSE);
 
 	m_listTodo.SubclassWindow( GetDlgItem( IDC_LIST_TODO ) );
-
-
 	m_listTodo.AddColumn(_T("任务"),300,ITEM_IMAGE_NONE,FALSE,ITEM_FORMAT_EDIT,ITEM_FLAGS_NONE);
 	m_listTodo.AddColumn(_T("优先级"),50);
 	m_listTodo.AddColumn(_T("状态"),50);//,ITEM_IMAGE_NONE,FALSE,ITEM_FORMAT_COMBO,ITEM_FLAGS_NONE);
@@ -64,28 +67,11 @@ LRESULT DialogToDo::OnInitDialog( UINT /*uMsg*/, WPARAM /*wParam*/, LPARAM /*lPa
 	m_aListState.Add(_T("已完成"));
 	m_aListState.Add(_T("已取消"));
 
-	if(!g_todoSet.Load())
-	{
-		MessageBox("数据加载错误！");
-		return 0;
-	}
+	CButton btn(GetDlgItem(IDC_CHK_HIDEOUTTIME));
+	//m_bHideTimeOut = btn.GetCheck();
+	btn.SetCheck(m_bHideFinished);
 
-	set<int> setID;
-	g_todoSet.GetTodoList(setID);
-	set<int>::iterator it = setID.begin();
-	for (;it!=setID.end();it++)
-	{
-		ToDoTask todo = g_todoSet.GetToDo(*it);
-		int iItem = m_listTodo.AddItem(todo.strTask.c_str());
-		ATLASSERT(todo.id==iItem);
-		m_listTodo.SetItemData(iItem,(DWORD)todo.id);
-		m_listTodo.SetItemFormat(iItem,1,ITEM_FORMAT_COMBO,ITEM_FLAGS_NONE,m_aListPriority);
-		m_listTodo.SetItemComboIndex(iItem,1,todo.priority);
-
-		m_listTodo.SetItemFormat(iItem,2,ITEM_FORMAT_COMBO,ITEM_FLAGS_NONE,m_aListState);
-		m_listTodo.SetItemComboIndex(iItem,2,todo.state);
-	}
-
+	ReloadTodos();
 	return S_OK;
 }
 LRESULT DialogToDo::OnBnClickedAddTodo(WORD /*wNotifyCode*/, WORD /*wID*/, HWND /*hWndCtl*/, BOOL& /*bHandled*/)
@@ -93,7 +79,7 @@ LRESULT DialogToDo::OnBnClickedAddTodo(WORD /*wNotifyCode*/, WORD /*wID*/, HWND 
 	int id = g_todoSet.AddToDo();
 
 	int iItem = m_listTodo.AddItem(_T("新任务"));
-	ATLASSERT(id==iItem);
+	//ATLASSERT(id==iItem);
 	m_listTodo.SetItemData(iItem,(DWORD)id);
 	m_listTodo.SetItemFormat(iItem,1,ITEM_FORMAT_COMBO,ITEM_FLAGS_NONE,m_aListPriority);
 	m_listTodo.SetItemComboIndex(iItem,1,1);
@@ -101,10 +87,18 @@ LRESULT DialogToDo::OnBnClickedAddTodo(WORD /*wNotifyCode*/, WORD /*wID*/, HWND 
 	m_listTodo.SetItemFormat(iItem,2,ITEM_FORMAT_COMBO,ITEM_FLAGS_NONE,m_aListState);
 	m_listTodo.SetItemComboIndex(iItem,2,2);
 
+	m_listTodo.SetFocus();
+	m_listTodo.SetFocusItem(iItem,0);
+	m_listTodo.EditItem(iItem);
 	return 0;
 }
 
 LRESULT DialogToDo::OnBnClickedSave(WORD /*wNotifyCode*/, WORD /*wID*/, HWND /*hWndCtl*/, BOOL& /*bHandled*/)
+{
+	return SaveData();
+}
+
+LRESULT DialogToDo::SaveData()
 {
 	for(int i=0;i<m_listTodo.GetItemCount();i++)
 	{
@@ -118,8 +112,9 @@ LRESULT DialogToDo::OnBnClickedSave(WORD /*wNotifyCode*/, WORD /*wID*/, HWND /*h
 		}
 
 		todo.strTask = m_listTodo.GetItemText(i,0).GetBuffer(0);
-		todo.priority = (ToDoTask::TaskPriority)m_listTodo.GetItemComboIndex(i,1);
-		todo.state = (ToDoTask::TaskState)m_listTodo.GetItemComboIndex(i,2);
+
+		todo.priority = (ToDoTask::TaskPriority)m_aListPriority.Find(m_listTodo.GetItemText(i,1));
+		todo.state = (ToDoTask::TaskState)m_aListState.Find(m_listTodo.GetItemText(i,2));
 		todo.strRemark = m_listTodo.GetItemText(i,3).GetBuffer(0);
 
 		if(!g_todoSet.UpdateToDo(todo))
@@ -131,5 +126,75 @@ LRESULT DialogToDo::OnBnClickedSave(WORD /*wNotifyCode*/, WORD /*wID*/, HWND /*h
 
 	g_todoSet.Save();
 
+	return 0;
+}
+LRESULT DialogToDo::OnBnClickedChkHideouttime(WORD /*wNotifyCode*/, WORD /*wID*/, HWND /*hWndCtl*/, BOOL& /*bHandled*/)
+{
+	if (SaveData()!=S_OK)
+	{
+		return S_FALSE;
+	}
+	CButton btn(GetDlgItem(IDC_CHK_HIDEOUTTIME));
+	m_bHideFinished = btn.GetCheck();
+	ReloadTodos();
+
+	return 0;
+}
+
+LRESULT DialogToDo::ReloadTodos()
+{
+	if(!g_todoSet.Load())
+	{
+		MessageBox("数据加载错误！");
+		return S_FALSE;
+	}
+
+	m_listTodo.DeleteAllItems();
+
+	set<int> setID;
+	g_todoSet.GetTodoList(setID);
+	set<int>::iterator it = setID.begin();
+	for (;it!=setID.end();it++)
+	{
+		ToDoTask todo = g_todoSet.GetToDo(*it);
+		if (m_bHideFinished && todo.state==ToDoTask::TS_FINISHED)
+		{
+			continue;
+		}
+		int iItem = m_listTodo.AddItem(todo.strTask.c_str());
+		//ATLASSERT(todo.id==iItem);
+		m_listTodo.SetItemData(iItem,(DWORD)todo.id);
+		m_listTodo.SetItemFormat(iItem,1,ITEM_FORMAT_COMBO,ITEM_FLAGS_NONE,m_aListPriority);
+		m_listTodo.SetItemComboIndex(iItem,1,todo.priority);
+
+		m_listTodo.SetItemFormat(iItem,2,ITEM_FORMAT_COMBO,ITEM_FLAGS_NONE,m_aListState);
+		m_listTodo.SetItemComboIndex(iItem,2,todo.state);
+
+		m_listTodo.SetItemText(iItem,3,todo.strRemark.c_str());
+	}
+	return S_OK;
+}
+LRESULT DialogToDo::OnLvnItemchangedListTodo(int /*idCtrl*/, LPNMHDR pNMHDR, BOOL& /*bHandled*/)
+{
+	LPNMLISTVIEW pNMLV = reinterpret_cast<LPNMLISTVIEW>(pNMHDR);
+	// TODO: 在此添加控件通知处理程序代码
+
+	return 0;
+}
+
+LRESULT DialogToDo::OnBnClickedAddDelete(WORD /*wNotifyCode*/, WORD /*wID*/, HWND /*hWndCtl*/, BOOL& /*bHandled*/)
+{
+	CListArray < int > aSelectedItems;
+	m_listTodo.GetSelectedItems(aSelectedItems);
+	for (int i=0;i<aSelectedItems.GetSize();i++)
+	{
+		int id = m_listTodo.GetItemData(aSelectedItems[i]);
+		if(!g_todoSet.DeleteToDo(id))
+		{
+			MessageBox("删除列表失败！");
+			return S_FALSE;
+		}
+	}
+	ReloadTodos();
 	return 0;
 }

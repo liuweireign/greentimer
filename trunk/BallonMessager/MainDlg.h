@@ -140,14 +140,15 @@ public:
 		//对DLL来讲其值必需在0xC000 - 0xFFFF 范围之内，在同一进程内该值必须唯一
 		if (wParam==uiACCELAR_ID_SHOWMAINDLG)
 		{
-			if(IsWindowVisible())
-			{
-				ShowWindow(SW_HIDE);
-			}
-			else
-			{
-				ShowWindow(SW_SHOW);
-			}
+			OpenTodo();
+			//if(IsWindowVisible())
+			//{
+			//	ShowWindow(SW_HIDE);
+			//}
+			//else
+			//{
+			//	ShowWindow(SW_SHOW);
+			//}
 		}
 		return 0;
 	}
@@ -185,8 +186,7 @@ public:
 
 	LRESULT OnBtnTodo(WORD /*wNotifyCode*/, WORD /*wID*/, HWND /*hWndCtl*/, BOOL& /*bHandled*/)
 	{
-		DialogToDo dlg;
-		dlg.DoModal();
+		OpenTodo();
 		return 0;
 	}
 
@@ -278,5 +278,21 @@ public:
 
 		return 0;
 	}
-
+private:
+	//用此函数todo，避免多次启动todo实例。使用快捷键的时候很容易导致这种问题。
+	void OpenTodo()
+	{
+		static DialogToDo *pDlg  = NULL;
+		if (pDlg==NULL)
+		{
+			DialogToDo dlg;
+			pDlg = &dlg;
+			dlg.DoModal();
+			pDlg = NULL;
+		}
+		else
+		{
+			pDlg->FlashWindow(TRUE);
+		}
+	}
 };
