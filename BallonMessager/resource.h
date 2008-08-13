@@ -4,9 +4,10 @@
 //
 #define ID_ADD_TODO                     3
 #define ID_BTN_ADD                      4
-#define ID_ADD_TODO2                    4
 #define ID_SAVE                         4
 #define ID_BTN_DEL                      5
+#define ID_ADD_TODO2                    5
+#define ID_ADD_DELETE                   5
 #define ID_BTN_EDIT                     6
 #define IDD_ABOUTBOX                    100
 #define IDD_ADDTODAYTASKDLG             102

@@ -74,12 +74,14 @@ bool TodoSet::Load(const TCHAR *strDB)
 	dbTask.open(strDB);
 
 	//如果表格不存在，则说明这数据库格式不对
-	if (!dbTask.tableExists("T_task"))                //创建事件日志表
+	if (!dbTask.tableExists("T_todo"))                //创建事件日志表
 	{
 		return false;
 	}
 
-	CppSQLite3Query q = dbTask.execQuery("select id, title,priority , state, time_create, time_start, time_finish, remark,  from T_todo");
+	m_setTask.clear();
+
+	CppSQLite3Query q = dbTask.execQuery("select id, title,priority , state, time_create, time_start, time_finish, remark  from T_todo");
 	while (!q.eof())
 	{
 		ToDoTask todo;
@@ -129,7 +131,7 @@ bool TodoSet::Save(const TCHAR *strDB)
 			);
 
 		//为类型字段建立索引
-		dbTask.execDML("create index idx_type on T_todo(type);");
+		dbTask.execDML("create index idx_time_create on T_todo(time_create);");
 	}
 	else
 	{
@@ -161,7 +163,7 @@ void TodoSet::GetTodoList( std::set<int> &taskIDs )
 	set<ToDoTask>::const_iterator it =  m_setTask.begin();
 	for (;it!=m_setTask.end();it++)
 	{
-		m_setTask.insert((*it).id);
+		taskIDs.insert((*it).id);
 	}
 }
 
@@ -195,11 +197,15 @@ bool TodoSet::UpdateToDo( const ToDoTask &task )
 
 int TodoSet::AddToDo()
 {
+	int new_id = -1;
 	if (m_setTask.empty())
 	{
-		return 1;
+		new_id = 1;
 	}
-	int new_id = (*m_setTask.end()).id + 1;
+	else
+	{
+		new_id = (*m_setTask.end()).id + 1;
+	}
 	if(!m_setTask.insert(ToDoTask(new_id)).second)
 	{
 		return ToDoTask::ERROR_TASKID;
