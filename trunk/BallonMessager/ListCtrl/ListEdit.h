@@ -239,4 +239,11 @@ public:
 							break;
 		}
 	}
+
+	//added by tianzuo,2008-8-14
+	void GetPos(int &nItem, int &nSubItem)
+	{
+		nItem = m_nItem;
+		nSubItem = m_nSubItem;
+	}
 };
