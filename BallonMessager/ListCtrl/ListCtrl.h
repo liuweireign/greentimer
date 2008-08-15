@@ -2632,9 +2632,39 @@ public:
 							else
 								SetScrollPos( SB_HORZ, min( GetScrollPos( SB_HORZ ) + ( bCtrlKey ? ITEM_SCROLL_OFFSET * 10 : ITEM_SCROLL_OFFSET ), rcClient.Width() ) );
 							break;
-			case VK_TAB:	if ( !bCtrlKey && m_bFocusSubItem )
-								SetFocusItem( nFocusItem, bShiftKey ? max( nFocusSubItem - 1, 0 ) : min( nFocusSubItem + 1, GetColumnCount() - 1 ) );
-							break;
+			case VK_TAB:	
+				{
+					//modified by tianzuo,2008-8-14
+					//if ( !bCtrlKey && m_bFocusSubItem )
+					//	SetFocusItem( nFocusItem, bShiftKey ? max( nFocusSubItem - 1, 0 ) : min( nFocusSubItem + 1, GetColumnCount() - 1 ) );
+					//如果是在编辑状态下
+					if (m_bEditItem)
+					{
+						int nItem,nSubItem;
+						
+						m_wndItemEdit.GetPos(nItem,nSubItem);
+						if(GetColumnCount()==nSubItem+1)
+						{
+							nItem++;
+							if (nItem==GetItemCount())
+							{
+								nItem = 0;
+							}
+							nSubItem = 0;
+						}
+						else
+						{
+							nSubItem++;
+						}
+						EditItem(nItem,nSubItem);
+					}
+					else
+					{
+						if ( !bCtrlKey && m_bFocusSubItem )
+							SetFocusItem( nFocusItem, bShiftKey ? max( nFocusSubItem - 1, 0 ) : min( nFocusSubItem + 1, GetColumnCount() - 1 ) );
+					}
+				}
+				break;
 			default:		if ( nChar == VK_SPACE )
 							{
 								int nIndex = GetColumnIndex( nFocusSubItem );

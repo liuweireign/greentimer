@@ -57,10 +57,11 @@ LRESULT DialogToDo::OnInitDialog( UINT /*uMsg*/, WPARAM /*wParam*/, LPARAM /*lPa
 	m_listTodo.AddColumn(_T("状态"),50);//,ITEM_IMAGE_NONE,FALSE,ITEM_FORMAT_COMBO,ITEM_FLAGS_NONE);
 	m_listTodo.AddColumn(_T("备注"),100,ITEM_IMAGE_NONE,FALSE,ITEM_FORMAT_EDIT,ITEM_FLAGS_NONE);
 
-	m_aListPriority.Add(_T("最优先"));
-	m_aListPriority.Add(_T("优先"));
-	m_aListPriority.Add(_T("普通"));
-	m_aListPriority.Add(_T("低优先"));
+	m_aListPriority.Add(_T("1"));
+	m_aListPriority.Add(_T("2"));
+	m_aListPriority.Add(_T("3"));
+	m_aListPriority.Add(_T("4"));
+
 	m_aListState.Add(_T("未开始"));
 	m_aListState.Add(_T("工作中"));
 	m_aListState.Add(_T("暂停"));
@@ -85,11 +86,12 @@ LRESULT DialogToDo::OnBnClickedAddTodo(WORD /*wNotifyCode*/, WORD /*wID*/, HWND 
 	m_listTodo.SetItemComboIndex(iItem,1,1);
 
 	m_listTodo.SetItemFormat(iItem,2,ITEM_FORMAT_COMBO,ITEM_FLAGS_NONE,m_aListState);
-	m_listTodo.SetItemComboIndex(iItem,2,2);
+	m_listTodo.SetItemComboIndex(iItem,2,1);
 
 	m_listTodo.SetFocus();
 	m_listTodo.SetFocusItem(iItem,0);
-	m_listTodo.EditItem(iItem);
+	m_listTodo.SelectItem(iItem);
+	m_listTodo.EditItem(iItem,0);
 	return 0;
 }
 
@@ -149,6 +151,7 @@ LRESULT DialogToDo::ReloadTodos()
 		return S_FALSE;
 	}
 
+	m_listTodo.SetRedraw(FALSE);
 	m_listTodo.DeleteAllItems();
 
 	set<int> setID;
@@ -166,12 +169,15 @@ LRESULT DialogToDo::ReloadTodos()
 		m_listTodo.SetItemData(iItem,(DWORD)todo.id);
 		m_listTodo.SetItemFormat(iItem,1,ITEM_FORMAT_COMBO,ITEM_FLAGS_NONE,m_aListPriority);
 		m_listTodo.SetItemComboIndex(iItem,1,todo.priority);
+		m_listTodo.SetItemColours(iItem,1,RGB(todo.priority*30+100,todo.priority*30+100,255),RGB(0,0,0));
 
 		m_listTodo.SetItemFormat(iItem,2,ITEM_FORMAT_COMBO,ITEM_FLAGS_NONE,m_aListState);
 		m_listTodo.SetItemComboIndex(iItem,2,todo.state);
 
 		m_listTodo.SetItemText(iItem,3,todo.strRemark.c_str());
 	}
+	m_listTodo.SortItems(1,true);
+	m_listTodo.SetRedraw(TRUE);
 	return S_OK;
 }
 LRESULT DialogToDo::OnLvnItemchangedListTodo(int /*idCtrl*/, LPNMHDR pNMHDR, BOOL& /*bHandled*/)
@@ -188,13 +194,33 @@ LRESULT DialogToDo::OnBnClickedAddDelete(WORD /*wNotifyCode*/, WORD /*wID*/, HWN
 	m_listTodo.GetSelectedItems(aSelectedItems);
 	for (int i=0;i<aSelectedItems.GetSize();i++)
 	{
-		int id = m_listTodo.GetItemData(aSelectedItems[i]);
+		DWORD id;
+		if(!m_listTodo.GetItemData(aSelectedItems[i],id))
+		{
+			MessageBox("删除列表失败！");
+			return S_FALSE;
+		}
 		if(!g_todoSet.DeleteToDo(id))
 		{
 			MessageBox("删除列表失败！");
 			return S_FALSE;
 		}
 	}
+	g_todoSet.Save();
 	ReloadTodos();
+	return 0;
+}
+
+LRESULT DialogToDo::OnLvnKeydownListTodo(int /*idCtrl*/, LPNMHDR pNMHDR, BOOL& /*bHandled*/)
+{
+	LPNMLVKEYDOWN pLVKeyDow = reinterpret_cast<LPNMLVKEYDOWN>(pNMHDR);
+	// TODO: 在此添加控件通知处理程序代码
+
+	return 0;
+}
+
+LRESULT DialogToDo::OnLvnItemModified(int /*idCtrl*/, LPNMHDR pNMHDR, BOOL& /*bHandled*/)
+{
+	SaveData();
 	return 0;
 }
