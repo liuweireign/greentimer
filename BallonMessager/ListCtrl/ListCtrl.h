@@ -594,7 +594,7 @@ public:
 		return Invalidate();
 	}
 	
-	int GetItemCount()
+	virtual int GetItemCount()
 	{
 		ATLASSERT( FALSE ); // must be implemented in a derived class
 		return 0;
@@ -2638,31 +2638,72 @@ public:
 					//if ( !bCtrlKey && m_bFocusSubItem )
 					//	SetFocusItem( nFocusItem, bShiftKey ? max( nFocusSubItem - 1, 0 ) : min( nFocusSubItem + 1, GetColumnCount() - 1 ) );
 					//如果是在编辑状态下
-					if (m_bEditItem)
+					int nItem,nSubItem;
+					if(GetFocusItem(nItem,nSubItem))
 					{
-						int nItem,nSubItem;
-						
-						m_wndItemEdit.GetPos(nItem,nSubItem);
-						if(GetColumnCount()==nSubItem+1)
+						if (nSubItem<0)
 						{
-							nItem++;
-							if (nItem==GetItemCount())
+							nSubItem = m_nFocusSubItem;
+						}
+						if (bShiftKey)
+						{
+							nSubItem--;
+							if (nSubItem<0)
 							{
-								nItem = 0;
+								nItem--;
+								nSubItem = GetColumnCount()-1;
 							}
-							nSubItem = 0;
+							if (nItem<0)
+							{
+								nItem = GetItemCount() -1;
+							}
 						}
 						else
 						{
-							nSubItem++;
+							if(GetColumnCount()==nSubItem+1)
+							{
+								nItem++;
+								if (nItem==GetItemCount())
+								{
+									nItem = 0;
+								}
+								nSubItem = 0;
+							}
+							else
+							{
+								nSubItem++;
+							}
 						}
+						SetFocusItem(nItem,nSubItem);
+						//SelectItem(nItem);
 						EditItem(nItem,nSubItem);
 					}
-					else
-					{
-						if ( !bCtrlKey && m_bFocusSubItem )
-							SetFocusItem( nFocusItem, bShiftKey ? max( nFocusSubItem - 1, 0 ) : min( nFocusSubItem + 1, GetColumnCount() - 1 ) );
-					}
+					
+					//if (m_bEditItem)
+					//{
+					//	int nItem,nSubItem;
+					//	
+					//	m_wndItemEdit.GetPos(nItem,nSubItem);
+					//	if(GetColumnCount()==nSubItem+1)
+					//	{
+					//		nItem++;
+					//		if (nItem==GetItemCount())
+					//		{
+					//			nItem = 0;
+					//		}
+					//		nSubItem = 0;
+					//	}
+					//	else
+					//	{
+					//		nSubItem++;
+					//	}
+					//	EditItem(nItem,nSubItem);
+					//}
+					//else
+					//{
+					//	if ( !bCtrlKey && m_bFocusSubItem )
+					//		SetFocusItem( nFocusItem, bShiftKey ? max( nFocusSubItem - 1, 0 ) : min( nFocusSubItem + 1, GetColumnCount() - 1 ) );
+					//}
 				}
 				break;
 			default:		if ( nChar == VK_SPACE )
