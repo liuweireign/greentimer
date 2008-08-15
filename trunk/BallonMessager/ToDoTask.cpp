@@ -204,10 +204,11 @@ int TodoSet::AddToDo()
 	}
 	else
 	{
-		new_id = (*m_setTask.end()).id + 1;
+		new_id = (*m_setTask.rbegin()).id + 1;
 	}
 	if(!m_setTask.insert(ToDoTask(new_id)).second)
 	{
+		ATLASSERT(FALSE);
 		return ToDoTask::ERROR_TASKID;
 	}
 	return new_id;

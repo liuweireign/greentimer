@@ -80,7 +80,7 @@ LRESULT DialogToDo::OnBnClickedAddTodo(WORD /*wNotifyCode*/, WORD /*wID*/, HWND 
 	int id = g_todoSet.AddToDo();
 
 	int iItem = m_listTodo.AddItem(_T("ÐÂÈÎÎñ"));
-	//ATLASSERT(id==iItem);
+	ATLASSERT(id!=ToDoTask::ERROR_TASKID);
 	m_listTodo.SetItemData(iItem,(DWORD)id);
 	m_listTodo.SetItemFormat(iItem,1,ITEM_FORMAT_COMBO,ITEM_FLAGS_NONE,m_aListPriority);
 	m_listTodo.SetItemComboIndex(iItem,1,1);
@@ -165,7 +165,7 @@ LRESULT DialogToDo::ReloadTodos()
 			continue;
 		}
 		int iItem = m_listTodo.AddItem(todo.strTask.c_str());
-		//ATLASSERT(todo.id==iItem);
+		ATLASSERT(todo.id!=ToDoTask::ERROR_TASKID);
 		m_listTodo.SetItemData(iItem,(DWORD)todo.id);
 		m_listTodo.SetItemFormat(iItem,1,ITEM_FORMAT_COMBO,ITEM_FLAGS_NONE,m_aListPriority);
 		m_listTodo.SetItemComboIndex(iItem,1,todo.priority);
