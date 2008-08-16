@@ -169,7 +169,7 @@ LRESULT DialogToDo::ReloadTodos()
 		m_listTodo.SetItemData(iItem,(DWORD)todo.id);
 		m_listTodo.SetItemFormat(iItem,1,ITEM_FORMAT_COMBO,ITEM_FLAGS_NONE,m_aListPriority);
 		m_listTodo.SetItemComboIndex(iItem,1,todo.priority);
-		m_listTodo.SetItemColours(iItem,1,RGB(10,170-todo.priority*10,10),RGB(0,0,0));
+		m_listTodo.SetItemColours(iItem,1,RGB(10,170-todo.priority*15,10),RGB(0,0,0));
 
 		m_listTodo.SetItemFormat(iItem,2,ITEM_FORMAT_COMBO,ITEM_FLAGS_NONE,m_aListState);
 		m_listTodo.SetItemComboIndex(iItem,2,todo.state);
