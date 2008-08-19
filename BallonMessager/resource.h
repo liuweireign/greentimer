@@ -10,6 +10,7 @@
 #define ID_ADD_DELETE                   5
 #define ID_BTN_EDIT                     6
 #define ID_EDIT_TODO                    6
+#define ID_CMD_TODO                     8
 #define IDD_ABOUTBOX                    100
 #define IDD_ADDTODAYTASKDLG             102
 #define IDD_TASKLISTDIALOG              103
@@ -63,7 +64,8 @@
 #define ID_APP_OPINION                  57665
 #define ID_CMD_TASKVIEW                 57666
 #define ID_APP_TODAYTASK                57667
-#define ID_CMD_TODO                     57668
+#define ID_CMD_TASKMANAGE               57668
+#define ID_CMD_TODOMANAGE               57668
 #define ID_CMD_QUICKREMIND              57669
 
 // Next default values for new objects

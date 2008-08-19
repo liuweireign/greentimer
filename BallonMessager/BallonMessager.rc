@@ -33,9 +33,9 @@ CAPTION "关于绿色报时器"
 FONT 8, "MS Shell Dlg", 0, 0, 0x0
 BEGIN
     DEFPUSHBUTTON   "OK",IDOK,169,77,50,14
-    ICON            IDR_MAINFRAME,IDC_STATIC,27,14,21,20
+    ICON            IDR_MAINFRAME,IDC_STATIC,27,14,20,20
     GROUPBOX        "",IDC_STATIC,7,3,212,71
-    LTEXT           "绿色报时器 V2.1",IDC_STATIC,51,22,90,11
+    LTEXT           "绿色报时器 V3.0",IDC_STATIC,51,22,90,11
     LTEXT           "http://code.google.com/p/greentimer/",IDC_STATIC,27,52,
                     134,13
     LTEXT           "skymountain and Jame Yu, 2008",IDC_STATIC,27,37,109,13
@@ -48,14 +48,15 @@ FONT 8, "MS Shell Dlg", 0, 0, 0x0
 BEGIN
     PUSHBUTTON      "增加提醒...(&N)",ID_APP_OPINION,155,7,59,14
     PUSHBUTTON      "浏览提醒...(&B)",ID_CMD_TASKVIEW,155,24,59,14
+    PUSHBUTTON      "待办事项...(&T)",ID_CMD_TODO,55,34,59,14
+    CONTROL         "开机自启动",IDC_CHK_SELFSTART,"Button",BS_AUTOCHECKBOX | 
+                    WS_TABSTOP,7,55,91,11
     LTEXT           "本程序运行后，会在设定的时间弹出提示。",IDC_STATIC,7,7,
                     128,16
     LTEXT           "合理安排时间，提高工作效率！",IDC_STATIC,7,26,120,10
     PUSHBUTTON      "今日日程...(&t)",ID_APP_TODAYTASK,97,45,50,14,NOT 
                     WS_VISIBLE
-    CONTROL         "开机自启动",IDC_CHK_SELFSTART,"Button",BS_AUTOCHECKBOX | 
-                    WS_TABSTOP,7,55,91,11
-    PUSHBUTTON      "待办事项...(&T)",ID_CMD_TODO,155,42,59,14
+    PUSHBUTTON      "任务管理...(&B)",ID_CMD_TODOMANAGE,155,41,59,14
 END
 
 
@@ -101,8 +102,8 @@ IDR_MAINFRAME           ICON                    "res\\BallonMessager.ico"
 //
 
 VS_VERSION_INFO VERSIONINFO
- FILEVERSION 2,1,0,0
- PRODUCTVERSION 2,1,0,0
+ FILEVERSION 3,0,0,0
+ PRODUCTVERSION 3,0,0,0
  FILEFLAGSMASK 0x3fL
 #ifdef _DEBUG
  FILEFLAGS 0x1L
@@ -120,12 +121,12 @@ BEGIN
             VALUE "Comments", "http://code.google.com/p/greentimer"
             VALUE "CompanyName", "http://code.google.com/p/greentimer"
             VALUE "FileDescription", "绿色报时器"
-            VALUE "FileVersion", "2, 1, 0, 0"
+            VALUE "FileVersion", "3, 0, 0, 0"
             VALUE "InternalName", "绿色报时器"
             VALUE "LegalCopyright", "Copyright 2008"
             VALUE "OriginalFilename", "Greentimer.exe"
             VALUE "ProductName", "Green timer"
-            VALUE "ProductVersion", "2, 1, 0, 0"
+            VALUE "ProductVersion", "3, 0, 0, 0"
         END
     END
     BLOCK "VarFileInfo"
@@ -349,29 +350,29 @@ BEGIN
     PUSHBUTTON      "新建(&N)",ID_ADD_TODO,375,7,50,14
     PUSHBUTTON      "保存(&S)",ID_SAVE,375,59,50,14
     CONTROL         "隐藏不活跃的任务(&H)",IDC_CHK_HIDEOUTTIME,"Button",
-                    BS_AUTOCHECKBOX | BS_MULTILINE | WS_TABSTOP,377,142,48,
-                    25
+                    BS_AUTOCHECKBOX | BS_MULTILINE | BS_FLAT | WS_TABSTOP,
+                    373,134,52,33
     PUSHBUTTON      "删除(&D)",ID_ADD_DELETE,375,40,50,14
     PUSHBUTTON      "编辑(&E)",ID_EDIT_TODO,375,23,50,14
 END
 
-IDD_DIALOGTODODETAIL DIALOGEX 0, 0, 394, 327
+IDD_DIALOGTODODETAIL DIALOGEX 0, 0, 338, 274
 STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
 CAPTION "编辑TODO"
 FONT 9, "宋体", 0, 0, 0x0
 BEGIN
-    DEFPUSHBUTTON   "确定",IDOK,337,7,50,16
-    PUSHBUTTON      "取消",IDCANCEL,337,26,50,16
-    EDITTEXT        IDC_EDT_REMARK,7,61,326,259,ES_MULTILINE | 
-                    ES_AUTOVSCROLL | ES_WANTRETURN | WS_VSCROLL
-    LTEXT           "备注：",IDC_STATIC,7,51,42,9
+    EDITTEXT        IDC_EDT_REMARK,7,7,272,260,ES_MULTILINE | ES_AUTOVSCROLL | 
+                    ES_WANTRETURN | WS_VSCROLL
+    DEFPUSHBUTTON   "确定",IDOK,281,7,50,16
+    PUSHBUTTON      "取消",IDCANCEL,281,26,50,16
+    PUSHBUTTON      "设定提醒(&N)",ID_SET_NOTIFY,281,65,50,16,NOT WS_VISIBLE
+    LTEXT           "备注：",IDC_STATIC,7,51,42,9,NOT WS_VISIBLE
     EDITTEXT        IDC_EDT_ID,57,7,58,12,ES_AUTOHSCROLL | ES_READONLY | NOT 
                     WS_VISIBLE | NOT WS_BORDER
     LTEXT           "TODO编号：",IDC_STATIC,7,7,42,9,NOT WS_VISIBLE
-    EDITTEXT        IDC_EDT_NAME,57,20,262,12,ES_AUTOHSCROLL | NOT WS_BORDER,
-                    WS_EX_CLIENTEDGE
-    LTEXT           "TODO标题：",IDC_STATIC,7,20,42,9
-    PUSHBUTTON      "设定提醒(&N)",ID_SET_NOTIFY,337,65,50,16,NOT WS_VISIBLE
+    EDITTEXT        IDC_EDT_NAME,57,20,199,12,ES_AUTOHSCROLL | NOT 
+                    WS_VISIBLE | NOT WS_BORDER,WS_EX_CLIENTEDGE
+    LTEXT           "TODO标题：",IDC_STATIC,7,20,42,9,NOT WS_VISIBLE
 END
 
 
@@ -434,9 +435,9 @@ BEGIN
     IDD_DIALOGTODODETAIL, DIALOG
     BEGIN
         LEFTMARGIN, 7
-        RIGHTMARGIN, 387
+        RIGHTMARGIN, 331
         TOPMARGIN, 7
-        BOTTOMMARGIN, 320
+        BOTTOMMARGIN, 267
     END
 END
 #endif    // APSTUDIO_INVOKED

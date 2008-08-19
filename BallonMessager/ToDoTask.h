@@ -27,6 +27,9 @@ public:
 		TS_STOP = 2,
 		TS_FINISHED = 3,
 		TS_CANCEL = 4,
+
+		//"É¾³ý"×´Ì¬
+		TS_DELETED = 5,
 	};
 	ToDoTask(void);
 	ToDoTask(int taskid);
@@ -61,18 +64,20 @@ class TodoSet
 public:
 	TodoSet();
 
-	bool Load();
-	bool Save();
+	//bool Load();
+	//bool Save();
 
-	bool Load(const TCHAR *strDB);
-	bool Save(const TCHAR *strDB);
+	//bool Load(const TCHAR *strDB);
+	//bool Save(const TCHAR *strDB);
 	void GetTodoList(std::set<int> &taskIDs);
 	ToDoTask GetToDo(int id);
 	bool UpdateToDo(const ToDoTask &task);
 	int AddToDo();
 	bool DeleteToDo(int id);
 private:
-	std::set<ToDoTask> m_setTask;
+	std::string m_strDB;
+private:
+	bool CheckDBValid();
 };
 
 extern TodoSet g_todoSet;
