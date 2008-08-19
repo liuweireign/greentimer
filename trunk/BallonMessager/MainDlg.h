@@ -113,7 +113,7 @@ public:
 		btn.SetCheck(tss.IsSelfStart());
 
 		//×¢²á¿ì½Ý¼ü
-		RegisterHotKey(m_hWnd,uiACCELAR_ID_SHOWMAINDLG,MOD_ALT,'E');
+		RegisterHotKey(m_hWnd,uiACCELAR_ID_SHOWMAINDLG,MOD_ALT|MOD_SHIFT,'Z');
 
 		return TRUE;
 	}

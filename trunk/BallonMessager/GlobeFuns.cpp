@@ -1,6 +1,10 @@
 #include "stdafx.h"
 #include ".\globefuns.h"
 
+#include <ATLComTime.h>
+
+using namespace ATL;
+
 // 取得程序运行的目录（以反斜线\结尾）
 ATL::CString GlobeFuns::GetAppDirectory( bool bEndWithBackSlash/*=true*/ )
 {
@@ -18,3 +22,52 @@ ATL::CString GlobeFuns::GetAppDirectory( bool bEndWithBackSlash/*=true*/ )
 	}
 	return (char *)buf;
 }
+
+//////////////////////////////////////////////////////////////////////////
+//时间与字符串互相转换函数
+ATL::CString GlobeFuns::TimeToString(CTime t)
+{
+	ATL::CString strDateTime;
+	strDateTime.Format("%d-%02d-%02d %02d:%02d:%02d", 
+		t.GetYear(), t.GetMonth(), t.GetDay(),
+		t.GetHour(), t.GetMinute(), t.GetSecond());
+	return strDateTime;
+}
+
+ATL::CString GlobeFuns::TimeToFriendlyString( CTime t )
+{
+	CTimeSpan tmSpan = CTime::GetCurrentTime() - t;
+	CString strRet;
+	if (tmSpan.GetTotalMinutes()<1)
+	{
+		return "现在";
+	}
+	//if (tmSpan.GetTotalMinutes()<10)
+	//{
+	//	strRet.Format("%d分钟前",tmSpan.GetTotalMinutes());
+	//	return strRet;
+	//}
+	if (tmSpan.GetTotalMinutes()<60)
+	{
+		strRet.Format("%d分钟前",tmSpan.GetTotalMinutes());
+		return strRet;
+	}
+	if (tmSpan.GetTotalHours()<24)
+	{
+		strRet.Format("%d小时前",tmSpan.GetTotalHours());
+		return strRet;
+	}
+
+	strRet.Format("%d天前",tmSpan.GetTotalHours()/24);
+	return strRet;
+}
+ATL::CTime GlobeFuns::StringToTime(ATL::CString strTime)
+{
+	COleDateTime   tm;  
+	tm.ParseDateTime(strTime);  
+	SYSTEMTIME   st;  
+	tm.GetAsSystemTime(st);  
+	return CTime(st);   
+}
+
+//////////////////////////////////////////////////////////////////////////

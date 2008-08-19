@@ -3,17 +3,20 @@
 // Used by BallonMessager.rc
 //
 #define ID_ADD_TODO                     3
+#define IDCANCEL2                       3
+#define ID_SET_NOTIFY                   3
 #define ID_BTN_ADD                      4
 #define ID_SAVE                         4
 #define ID_BTN_DEL                      5
-#define ID_ADD_TODO2                    5
 #define ID_ADD_DELETE                   5
 #define ID_BTN_EDIT                     6
+#define ID_EDIT_TODO                    6
 #define IDD_ABOUTBOX                    100
 #define IDD_ADDTODAYTASKDLG             102
 #define IDD_TASKLISTDIALOG              103
 #define IDD_TASKMODIFYDIALOG            104
 #define IDD_QUICKREMIND                 105
+#define IDD_DIALOGTODODETAIL            106
 #define IDR_MAINFRAME                   128
 #define IDD_MAINDLG                     129
 #define IDR_MENU_ICON                   201
@@ -30,6 +33,7 @@
 #define IDC_EDT_TODAYTASK               1005
 #define IDC_EDT_ID                      1005
 #define IDC_EDT_MINITE                  1005
+#define IDC_EDT_NAME                    1006
 #define IDC_LST_TASK                    1007
 #define IDC_EDT_TIPS                    1008
 #define IDC_DATETIMEPICKER_DATE         1011
@@ -41,6 +45,7 @@
 #define IDC_CHECK1                      1017
 #define IDC_CHK_SELFSTART               1017
 #define IDC_LIST_TODO                   1018
+#define IDC_EDT_REMARK                  1019
 #define ID_32775                        32775
 #define ID_32776                        32776
 #define ID_32777                        32777
@@ -55,6 +60,7 @@
 #define ID_MENU_QUICKREMIND_10MIN       32793
 #define ID_MENU_QUICKREMIND_1HOUR       32794
 #define ID_MENU_QUICKREMIND_TOMORROW    32795
+#define ID_32797                        32797
 #define ID_APP_ABOUT2                   57665
 #define ID_APP_OPINION                  57665
 #define ID_CMD_TASKVIEW                 57666
@@ -67,8 +73,8 @@
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
 #define _APS_NEXT_RESOURCE_VALUE        209
-#define _APS_NEXT_COMMAND_VALUE         32797
-#define _APS_NEXT_CONTROL_VALUE         1019
-#define _APS_NEXT_SYMED_VALUE           106
+#define _APS_NEXT_COMMAND_VALUE         32798
+#define _APS_NEXT_CONTROL_VALUE         1020
+#define _APS_NEXT_SYMED_VALUE           107
 #endif
 #endif
