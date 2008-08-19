@@ -47,7 +47,7 @@ CAPTION "绿色报时器"
 FONT 8, "MS Shell Dlg", 0, 0, 0x0
 BEGIN
     PUSHBUTTON      "增加提醒...(&N)",ID_APP_OPINION,155,7,59,14
-    PUSHBUTTON      "浏览任务...(&B)",ID_CMD_TASKVIEW,155,24,59,14
+    PUSHBUTTON      "浏览提醒...(&B)",ID_CMD_TASKVIEW,155,24,59,14
     LTEXT           "本程序运行后，会在设定的时间弹出提示。",IDC_STATIC,7,7,
                     128,16
     LTEXT           "合理安排时间，提高工作效率！",IDC_STATIC,7,26,120,10
@@ -344,16 +344,34 @@ STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION |
 CAPTION "任务安排表"
 FONT 8, "MS Shell Dlg", 400, 0, 0x1
 BEGIN
-    DEFPUSHBUTTON   "确定",IDOK,375,7,50,14
-    PUSHBUTTON      "取消",IDCANCEL,375,24,50,14
     CONTROL         "",IDC_LIST_TODO,"SysListView32",LVS_ALIGNLEFT | 
                     WS_BORDER | WS_TABSTOP,7,7,363,160
-    PUSHBUTTON      "新建(&N)",ID_ADD_TODO,375,49,50,14
-    PUSHBUTTON      "保存(&S)",ID_SAVE,375,84,50,14
-    CONTROL         "隐藏已过时的任务(&H)",IDC_CHK_HIDEOUTTIME,"Button",
+    PUSHBUTTON      "新建(&N)",ID_ADD_TODO,375,7,50,14
+    PUSHBUTTON      "保存(&S)",ID_SAVE,375,59,50,14
+    CONTROL         "隐藏不活跃的任务(&H)",IDC_CHK_HIDEOUTTIME,"Button",
                     BS_AUTOCHECKBOX | BS_MULTILINE | WS_TABSTOP,377,142,48,
                     25
-    PUSHBUTTON      "删除(&D)",ID_ADD_DELETE,375,65,50,14
+    PUSHBUTTON      "删除(&D)",ID_ADD_DELETE,375,40,50,14
+    PUSHBUTTON      "编辑(&E)",ID_EDIT_TODO,375,23,50,14
+END
+
+IDD_DIALOGTODODETAIL DIALOGEX 0, 0, 394, 327
+STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "编辑TODO"
+FONT 9, "宋体", 0, 0, 0x0
+BEGIN
+    DEFPUSHBUTTON   "确定",IDOK,337,7,50,16
+    PUSHBUTTON      "取消",IDCANCEL,337,26,50,16
+    EDITTEXT        IDC_EDT_REMARK,7,61,326,259,ES_MULTILINE | 
+                    ES_AUTOVSCROLL | ES_WANTRETURN | WS_VSCROLL
+    LTEXT           "备注：",IDC_STATIC,7,51,42,9
+    EDITTEXT        IDC_EDT_ID,57,7,58,12,ES_AUTOHSCROLL | ES_READONLY | NOT 
+                    WS_VISIBLE | NOT WS_BORDER
+    LTEXT           "TODO编号：",IDC_STATIC,7,7,42,9,NOT WS_VISIBLE
+    EDITTEXT        IDC_EDT_NAME,57,20,262,12,ES_AUTOHSCROLL | NOT WS_BORDER,
+                    WS_EX_CLIENTEDGE
+    LTEXT           "TODO标题：",IDC_STATIC,7,20,42,9
+    PUSHBUTTON      "设定提醒(&N)",ID_SET_NOTIFY,337,65,50,16,NOT WS_VISIBLE
 END
 
 
@@ -412,6 +430,14 @@ BEGIN
         TOPMARGIN, 7
         BOTTOMMARGIN, 167
     END
+
+    IDD_DIALOGTODODETAIL, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 387
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 320
+    END
 END
 #endif    // APSTUDIO_INVOKED
 
@@ -437,7 +463,8 @@ BEGIN
             MENUITEM "明天这个时间提醒我(&M)",      ID_MENU_QUICKREMIND_TOMORROW
 
         END
-        MENUITEM "浏览任务...(&B)",             ID_CMD_TASKVIEW
+        MENUITEM "浏览提醒...(&B)",             ID_CMD_TASKVIEW
+        MENUITEM "待办事项...(&T)",             ID_32797
         MENUITEM SEPARATOR
         MENUITEM "显示/隐藏主界面(&S)",         ID_RESUME
         MENUITEM "退出(&Q)",                    ID_QUIT

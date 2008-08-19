@@ -44,9 +44,9 @@ bool WriteToDoToDB(CppSQLite3DB &dbTodo, const ToDoTask &todo)
 		todo.strTask.c_str(),
 		todo.priority,
 		todo.state,
-		TimeToString(todo.tmCreateTime),
-		TimeToString(todo.tmStartWorkTime),
-		TimeToString(todo.tmPlanFinshTime),
+		GlobeFuns::TimeToString(todo.tmCreateTime),
+		GlobeFuns::TimeToString(todo.tmStartWorkTime),
+		GlobeFuns::TimeToString(todo.tmPlanFinshTime),
 		todo.strRemark.c_str()
 		);
 	try{
@@ -76,7 +76,7 @@ bool TodoSet::Load(const TCHAR *strDB)
 	//如果表格不存在，则说明这数据库格式不对
 	if (!dbTask.tableExists("T_todo"))                //创建事件日志表
 	{
-		return false;
+		return true;
 	}
 
 	m_setTask.clear();
@@ -90,9 +90,9 @@ bool TodoSet::Load(const TCHAR *strDB)
 		todo.strTask = q.getStringField("title");
 		todo.priority = (ToDoTask::TaskPriority)q.getIntField("priority");
 		todo.state = (ToDoTask::TaskState)q.getIntField("state");
-		todo.tmCreateTime = StringToTime(q.getStringField("time_create"));
-		todo.tmStartWorkTime = StringToTime(q.getStringField("time_start"));
-		todo.tmPlanFinshTime = StringToTime(q.getStringField("time_finish"));
+		todo.tmCreateTime = GlobeFuns::StringToTime(q.getStringField("time_create"));
+		todo.tmStartWorkTime = GlobeFuns::StringToTime(q.getStringField("time_start"));
+		todo.tmPlanFinshTime = GlobeFuns::StringToTime(q.getStringField("time_finish"));
 		todo.strRemark = q.getStringField("remark");
 
 		bool bSucceed = m_setTask.insert(todo).second;
@@ -206,7 +206,14 @@ int TodoSet::AddToDo()
 	{
 		new_id = (*m_setTask.rbegin()).id + 1;
 	}
-	if(!m_setTask.insert(ToDoTask(new_id)).second)
+	ToDoTask todo(new_id);
+	todo.tmCreateTime = CTime::GetCurrentTime();
+	todo.strTask = _T("新任务");
+	todo.priority = ToDoTask::TP_NORMAL;
+	todo.state = ToDoTask::TS_WORKING;
+	todo.tmPlanFinshTime = 0;
+	todo.tmStartWorkTime = 0;
+	if(!m_setTask.insert(todo).second)
 	{
 		ATLASSERT(FALSE);
 		return ToDoTask::ERROR_TASKID;

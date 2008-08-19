@@ -11,7 +11,7 @@ TaskDB g_TaskDB;
 
 bool WriteTaskToDB(CppSQLite3DB &dbTask, const ITask &task)
 {
-	ATL::CString strTime = TimeToString(CTime::GetCurrentTime());
+	ATL::CString strTime = GlobeFuns::TimeToString(CTime::GetCurrentTime());
 	CppSQLite3Buffer strSql;
 
 	//"id integer PRIMARY KEY AUTOINCREMENT, "	//任务唯一id
@@ -22,9 +22,9 @@ bool WriteTaskToDB(CppSQLite3DB &dbTask, const ITask &task)
 	//	"tip char[2048] );"			//提示语句
 	strSql.format("insert into T_task values(NULL,%d, '%q','%q','%q','%q');",
 		task.Type,
-		TimeToString(task.TaskTime),
-		TimeToString(task.LastRunTime),
-		TimeToString(task.CreateTime),
+		GlobeFuns::TimeToString(task.TaskTime),
+		GlobeFuns::TimeToString(task.LastRunTime),
+		GlobeFuns::TimeToString(task.CreateTime),
 		task.Tip
 		);
 	try{
@@ -129,9 +129,9 @@ bool TaskDB::ReadFromDB( const char *strDB )
 		ITask task;
 		task.Id = q.getIntField("id");
 		task.Type = (ITask::TaskType)q.getIntField("type");
-		task.TaskTime = StringToTime(q.getStringField("time"));
-		task.LastRunTime = StringToTime(q.getStringField("last_run_time"));
-		task.CreateTime = StringToTime(q.getStringField("task_create_time"));
+		task.TaskTime = GlobeFuns::StringToTime(q.getStringField("time"));
+		task.LastRunTime = GlobeFuns::StringToTime(q.getStringField("last_run_time"));
+		task.CreateTime = GlobeFuns::StringToTime(q.getStringField("task_create_time"));
 		task.Tip = q.getStringField("tip");
 
 		m_vecTask.push_back(task);
