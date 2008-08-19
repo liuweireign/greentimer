@@ -175,10 +175,22 @@ LRESULT DialogToDo::ReloadTodos()
 	for (;it!=setID.end();it++)
 	{
 		ToDoTask todo = g_todoSet.GetToDo(*it);
+
+		//if (m_bHideFinished 
+		//	&& (todo.state==ToDoTask::TS_FINISHED || todo.state==ToDoTask::TS_CANCEL))
+		//{
+		//	return -1;
+		//}
+
+		if (!m_vecPriorityShow[todo.priority])
+		{
+			continue;
+		}
+		if (!m_vecStateShow[todo.state])
+		{
+			continue;
+		}
 		AddTodoItem(todo);
-
-
-		//m_listTodo.SetItemText(iItem,3,todo.strRemark.c_str());
 	}
 	m_listTodo.SortItems(1,true);
 	m_listTodo.SetRedraw(TRUE);
@@ -283,11 +295,6 @@ COLORREF GetStateColor(ToDoTask::TaskState state)
 
 int DialogToDo::AddTodoItem( ToDoTask &todo )
 {
-	if (m_bHideFinished 
-		&& (todo.state==ToDoTask::TS_FINISHED || todo.state==ToDoTask::TS_CANCEL))
-	{
-		return -1;
-	}
 	int iItem = m_listTodo.AddItem(GlobeFuns::TimeToFriendlyString(todo.tmCreateTime).GetBuffer(0));
 	m_listTodo.SetItemData(iItem,(DWORD)todo.id);
 	ATLASSERT(todo.id!=ToDoTask::ERROR_TASKID);

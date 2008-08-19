@@ -3,7 +3,6 @@
 // Used by BallonMessager.rc
 //
 #define ID_ADD_TODO                     3
-#define IDCANCEL2                       3
 #define ID_SET_NOTIFY                   3
 #define ID_BTN_ADD                      4
 #define ID_SAVE                         4
@@ -60,7 +59,6 @@
 #define ID_MENU_QUICKREMIND_10MIN       32793
 #define ID_MENU_QUICKREMIND_1HOUR       32794
 #define ID_MENU_QUICKREMIND_TOMORROW    32795
-#define ID_32797                        32797
 #define ID_APP_ABOUT2                   57665
 #define ID_APP_OPINION                  57665
 #define ID_CMD_TASKVIEW                 57666
