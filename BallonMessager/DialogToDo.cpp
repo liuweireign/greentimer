@@ -59,23 +59,32 @@ LRESULT DialogToDo::OnInitDialog( UINT /*uMsg*/, WPARAM /*wParam*/, LPARAM /*lPa
 	m_iColCreateTime = iCol++;
 	m_listTodo.AddColumn(_T("任务"),320,ITEM_IMAGE_NONE,FALSE,ITEM_FORMAT_EDIT,ITEM_FLAGS_NONE);
 	m_iColTitle = iCol++;
-	m_listTodo.AddColumn(_T("优先"),50);
+	m_listTodo.AddColumn(_T("优先"),50,ITEM_IMAGE_NONE,FALSE,ITEM_FORMAT_COMBO,ITEM_FLAGS_NONE);
 	m_iColPriority = iCol++;
-	m_listTodo.AddColumn(_T("状态"),50);//,ITEM_IMAGE_NONE,FALSE,ITEM_FORMAT_COMBO,ITEM_FLAGS_NONE);
+	m_listTodo.AddColumn(_T("状态"),50,ITEM_IMAGE_NONE,FALSE,ITEM_FORMAT_COMBO,ITEM_FLAGS_NONE);
 	m_iColState = iCol++;
 	m_listTodo.AddColumn(_T("备注"),60);//,ITEM_IMAGE_NONE,FALSE,ITEM_FORMAT_EDIT,ITEM_FLAGS_NONE);
 	m_iColRemark = iCol++;
 
 	m_aListPriority.Add(_T("1"));
+	m_vecPriorityShow.push_back(TRUE);
 	m_aListPriority.Add(_T("2"));
+	m_vecPriorityShow.push_back(TRUE);
 	m_aListPriority.Add(_T("3"));
+	m_vecPriorityShow.push_back(TRUE);
 	m_aListPriority.Add(_T("4"));
+	m_vecPriorityShow.push_back(TRUE);
 
 	m_aListState.Add(_T("未开始"));
+	m_vecStateShow.push_back(TRUE);
 	m_aListState.Add(_T("工作中"));
+	m_vecStateShow.push_back(TRUE);
 	m_aListState.Add(_T("暂停"));
+	m_vecStateShow.push_back(TRUE);
 	m_aListState.Add(_T("已完成"));
+	m_vecStateShow.push_back(TRUE);
 	m_aListState.Add(_T("已取消"));
+	m_vecStateShow.push_back(TRUE);
 
 	CButton btn(GetDlgItem(IDC_CHK_HIDEOUTTIME));
 	//m_bHideTimeOut = btn.GetCheck();
@@ -347,15 +356,76 @@ LRESULT DialogToDo::EditTodo()
 LRESULT DialogToDo::OnLvnRClick( int /*idCtrl*/, LPNMHDR pNMHDR, BOOL& /*bHandled*/ )
 {
 	LPNMLISTVIEW pNMLV = reinterpret_cast<LPNMLISTVIEW>(pNMHDR);
-	if (pNMLV->iItem<0)
+	if (pNMLV->iItem==-1)	//点中表头
 	{
-		return 0;
+		//////////////////////////////////////////////////////////////////////////
+		//确定当前点击的是哪一列
+		CPoint pt;
+		GetCursorPos(&pt);
+		CPoint ptClient = pt;
+		m_listTodo.ScreenToClient(&ptClient);
+		int nSubItem;
+		UINT nColFlags;
+		if(!m_listTodo.HitTestHeader(ptClient,nSubItem,nColFlags))
+		{
+			return S_OK;
+		}
+
+		//////////////////////////////////////////////////////////////////////////
+		//根据不同的列，显示不同的菜单，并禁用相应菜单
+		//////////////////////////////////////////////////////////////////////////
+		CListArray<CString> listData;
+		if (nSubItem==m_iColState)
+		{
+			if(ShowColMenu(pt,m_aListState,m_vecStateShow))
+			{
+				ReloadTodos();
+			}
+		}
+		else if (nSubItem==m_iColPriority)
+		{
+			if(ShowColMenu(pt,m_aListPriority,m_vecPriorityShow))
+			{
+				ReloadTodos();
+			}
+		}
+		else
+		{
+			return S_OK;
+		}
 	}
-	CMenu menu;
-	menu.CreateMenu();
-	menu.AppendMenu(0,5,"aa");
-	menu.AppendMenu(0,6,"bbb");
-	menu.TrackPopupMenu(0,)
+
 	
 	return S_OK;
+}
+
+bool DialogToDo::ShowColMenu(const CPoint &pt, const CListArray<CString> &colData, std::vector<BOOL> &vecSelect )
+{
+	CMenu menu;
+	menu.CreatePopupMenu();
+	UINT nFlags = TPM_LEFTALIGN | TPM_LEFTBUTTON | TPM_RIGHTBUTTON;
+	const UINT BASE_ID_COLUMN_MENU = 15000;
+	for(int i=0;i<colData.GetSize();i++)
+	{
+		menu.AppendMenu(TPM_LEFTALIGN,BASE_ID_COLUMN_MENU+i,colData[i]);
+		if(vecSelect[i])
+		{
+			menu.CheckMenuItem(BASE_ID_COLUMN_MENU+i,MF_BYCOMMAND | MF_CHECKED);
+		}
+		else
+		{
+			menu.CheckMenuItem(BASE_ID_COLUMN_MENU+i,MF_BYCOMMAND | MF_UNCHECKED);
+		}
+
+	}
+	//menu.AppendMenu(TPM_LEFTALIGN,6,"bbb");
+	int iMenuId = menu.TrackPopupMenu(TPM_LEFTALIGN | TPM_LEFTBUTTON | TPM_RIGHTBUTTON|TPM_RETURNCMD|TPM_NONOTIFY,pt.x,pt.y,m_hWnd);
+	if (iMenuId<=0)
+	{
+		return false;
+	}
+	int index = iMenuId-BASE_ID_COLUMN_MENU;
+	ATLASSERT(index>=0);
+	vecSelect[index] = !vecSelect[index];
+	return true;
 }

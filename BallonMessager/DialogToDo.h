@@ -1,5 +1,7 @@
 #pragma once
 #include <atltime.h>
+#include <vector>
+
 #include "./ListCtrl/ListCtrl.h"
 #include "ToDoTask.h"
 
@@ -55,6 +57,11 @@ private:
 	CListCtrl m_listTodo;
 	CListArray<CString> m_aListPriority;;
 	CListArray<CString> m_aListState;
+
+	//控制显示和隐藏哪些片段
+	std::vector<BOOL> m_vecPriorityShow;
+	std::vector<BOOL> m_vecStateShow;
+
 	BOOL m_bHideFinished;
 
 	int m_iColCreateTime;
@@ -69,4 +76,6 @@ private:
 	int AddTodoItem( ToDoTask &todo );
 	void UpdateItem(int iItem);
 	LRESULT EditTodo();
+
+	bool ShowColMenu(const CPoint &pt,const CListArray<CString> &colData, std::vector<BOOL> &vecSelect);
 };
