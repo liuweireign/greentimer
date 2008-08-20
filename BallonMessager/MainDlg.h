@@ -13,6 +13,7 @@
 #include "QuickRemind.h"
 #include "TSelfStart.h"
 #include "./DialogToDo.h"
+#include "./DBLog.h"
 
 //¿ì½Ý¼üID
 const UINT uiACCELAR_ID_SHOWMAINDLG = 0X1000;
@@ -43,7 +44,7 @@ public:
 	END_UPDATE_UI_MAP()
 
 	BEGIN_MSG_MAP(CMainDlg)
-		COMMAND_ID_HANDLER(ID_CMD_TODOMANAGE, OnBtnTodo)
+		COMMAND_ID_HANDLER(ID_CMD_TODO, OnBtnTodo)
 		MESSAGE_HANDLER(WM_INITDIALOG, OnInitDialog)
 		MESSAGE_HANDLER(WM_DESTROY, OnDestroy)
 		MESSAGE_HANDLER(WM_HOTKEY, OnHotKey)
@@ -70,6 +71,7 @@ public:
 
 	LRESULT OnInitDialog(UINT /*uMsg*/, WPARAM /*wParam*/, LPARAM /*lParam*/, BOOL& /*bHandled*/)
 	{
+		g_DBLog.Log("MAIN",0,0,0,"Æô¶¯");
 		// center the dialog on the screen
 		CenterWindow();
 
@@ -129,6 +131,8 @@ public:
 		//·´×¢²á¿ì½Ý¼ü
 		UnregisterHotKey(m_hWnd, uiACCELAR_ID_SHOWMAINDLG);
 
+		g_DBLog.Log("MAIN",0,1,0,"ÍË³ö");
+
 		return 0;
 	}
 
@@ -186,7 +190,6 @@ public:
 
 	LRESULT OnBtnTodo(WORD /*wNotifyCode*/, WORD /*wID*/, HWND /*hWndCtl*/, BOOL& /*bHandled*/)
 	{
-		MessageBox("aaa");
 		OpenTodo();
 		return 0;
 	}
