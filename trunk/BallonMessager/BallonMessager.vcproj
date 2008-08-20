@@ -151,6 +151,9 @@
 				RelativePath=".\SQLite\CppSQLite3.cpp">
 			</File>
 			<File
+				RelativePath=".\DBLog.cpp">
+			</File>
+			<File
 				RelativePath=".\DialogToDo.cpp">
 			</File>
 			<File
@@ -213,6 +216,9 @@
 			</File>
 			<File
 				RelativePath=".\SQLite\CppSQLite3.h">
+			</File>
+			<File
+				RelativePath=".\DBLog.h">
 			</File>
 			<File
 				RelativePath=".\DialogToDo.h">
