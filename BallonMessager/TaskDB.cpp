@@ -5,6 +5,7 @@
 
 #include "SQLite/CppSQLite3.h"
 #include "GlobeFuns.h"
+#include "DBLog.h"
 
 TaskDB g_TaskDB;
 
@@ -170,8 +171,9 @@ bool TaskDB::SaveToDB( const char *strDB )
 			"tip char[2048] );"			//提示语句
 			);
 
-		//为类型字段建立索引
-		dbTask.execDML("create index idx_type on T_task(type);");
+		////为类型字段建立索引
+		//dbTask.execDML("create index idx_type on T_task(type);");
+		//LOG_NOTIFY(LOG_CONST::MNV_CREATE_TABLE,-1,"创建提醒表");
 	}
 	else
 	{
@@ -208,12 +210,15 @@ bool TaskDB::AddTask(const ITask &task )
 	}
 	m_vecTask.push_back(task);
 	m_vecTask.back().Id = id;
+
+	LOG_NOTIFY(LOG_CONST::MNV_ADD,id,"成功:增加定时提醒");
 	return true;
 }
 
 bool TaskDB::RemoveTask( int idTask )
 {
 	LOCK_THIS_RANGE(m_cs);
+	LOG_NOTIFY(LOG_CONST::MNV_DEL,idTask,"删除定时提醒");
 
 	std::vector<ITask>::iterator it = m_vecTask.begin();
 	for (;it!=m_vecTask.end();it++)

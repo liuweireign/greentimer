@@ -3,6 +3,7 @@
 
 #include "SQLite/CppSQLite3.h"
 #include "GlobeFuns.h"
+#include "DBLog.h"
 
 using namespace std;
 
@@ -119,6 +120,8 @@ bool CheckCreateTable(CppSQLite3DB &dbTask)
 
 			//为类型字段建立索引
 			dbTask.execDML("create index idx_time_create on T_todo(time_create);");
+
+			LOG_TODO(LOG_CONST::MTV_CREATE_TABLE,-1,"成功:创建表 ");
 		}
 		return true;
 	}
@@ -127,6 +130,7 @@ bool CheckCreateTable(CppSQLite3DB &dbTask)
 		exp;
 		ATLTRACE("error:%s\n",exp.errorMessage());
 		ATLASSERT(FALSE);
+		LOG_TODO(LOG_CONST::MTV_CREATE_TABLE,-1,((string)"异常:创建表 " + exp.errorMessage()).c_str());
 		return false;
 	}
 }
@@ -135,74 +139,6 @@ TodoSet::TodoSet()
 {
 	m_strDB = GlobeFuns::GetAppDirectory() + _T("task.db");
 }
-//
-//bool TodoSet::Load(const TCHAR *strDB)
-//{
-//	if (strlen(strDB)<=1)
-//	{
-//		ATLASSERT(FALSE);
-//		return false;
-//	}
-//	m_strDB = strDB;
-//	return true;
-//}
-//
-//bool TodoSet::Load()
-//{
-//	return Load(GlobeFuns::GetAppDirectory() + "task.db");
-//}
-//bool TodoSet::Save(const TCHAR *strDB)
-//{
-//	return true;
-//	////打开数据
-//	//CppSQLite3DB dbTask;
-//	//dbTask.open(strDB);
-//
-//	//dbTask.execDML("begin;");                                 //开始保存事务
-//
-//	////如果表格不存在，则创建表格
-//	//if (!dbTask.tableExists("T_todo"))                //创建事件日志表
-//	//{
-//	//	//数据库字段：任务id，任务类型，任务时间，上次提示时间，提示语句等。
-//	//	//last_run_time可以用来辅助确定提示是否已经执行，避免重复
-//	//	dbTask.execDML("Create table T_todo("
-//	//		"id integer PRIMARY KEY AUTOINCREMENT, "	//任务唯一id
-//	//		"title char[128], "			//标题
-//	//		"priority integer, "		//优先级
-//	//		"state integer, "			//状态
-//	//		"time_create char[32], "	//任务创建时间。时间以"年-月-日 时:分:秒"这样的格式储存，下同
-//	//		"time_start char[32], "		//开始时间
-//	//		"time_finish char[32], "	//结束时间
-//	//		"remark char[64*1024]);"	//提示语句
-//	//		);
-//
-//	//	//为类型字段建立索引
-//	//	dbTask.execDML("create index idx_time_create on T_todo(time_create);");
-//	//}
-//	//else
-//	//{
-//	//	//清空旧数据
-//	//	dbTask.execDML("delete from T_todo;");
-//	//}
-//
-//	//std::set<ToDoTask>::iterator it = m_setTask.begin();
-//	//for (;it!=m_setTask.end();it++)
-//	//{
-//	//	if(!WriteToDoToDB(dbTask,*it))
-//	//	{
-//	//		dbTask.execDML("rollback transaction;");
-//	//		return false;
-//	//	}
-//	//}
-//
-//	//dbTask.execDML("end;");                                    //结束保存事务，提交数据
-//	//return true;
-//}
-//
-//bool TodoSet::Save()
-//{
-//	return Save(GlobeFuns::GetAppDirectory() + "task.db");
-//}
 
 void TodoSet::GetTodoList( std::set<int> &taskIDs )
 {
@@ -301,6 +237,7 @@ int TodoSet::AddToDo()
 	try{
 		if(1!=dbTask.execDML(strSql))
 		{
+			LOG_TODO(LOG_CONST::MTV_ADD,-1,"失败:添加待办事项失败。");
 			return false;
 		}
 	}
@@ -309,9 +246,11 @@ int TodoSet::AddToDo()
 		exp;
 		ATLTRACE("error:%s\n",exp.errorMessage());
 		ATLASSERT(FALSE);
+		LOG_TODO(LOG_CONST::MTV_ADD,-1,((string)"异常:" + exp.errorMessage()).c_str());
 		return false;
 	}
 
+	LOG_TODO(LOG_CONST::MTV_ADD,(int)dbTask.lastRowId(),"成功:添加待办事项成功。");
 	return (int)dbTask.lastRowId();
 }
 
@@ -325,13 +264,23 @@ bool TodoSet::DeleteToDo( int id )
 	CppSQLite3Buffer strSql;
 	strSql.format("delete from T_todo where id=%d;",id);
 	try{
-		return 1==dbTask.execDML(strSql);
+		if(1==dbTask.execDML(strSql))
+		{
+			LOG_TODO(LOG_CONST::MTV_DEL,id,"成功:删除待办事项成功");
+			return true;
+		}
+		else
+		{
+			LOG_TODO(LOG_CONST::MTV_DEL,id,"失败:删除待办事项失败");
+			return false;
+		}
 	}
 	catch(CppSQLite3Exception &exp)
 	{
 		exp;
 		ATLTRACE("error:%s\n",exp.errorMessage());
 		ATLASSERT(FALSE);
+		LOG_TODO(LOG_CONST::MTV_DEL,id,((string)"异常:删除待办事项失败" + exp.errorMessage()).c_str());
 		return false;
 	}
 }
