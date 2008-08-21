@@ -71,7 +71,8 @@ public:
 
 	LRESULT OnInitDialog(UINT /*uMsg*/, WPARAM /*wParam*/, LPARAM /*lParam*/, BOOL& /*bHandled*/)
 	{
-		g_DBLog.Log("MAIN",0,0,0,"启动");
+		//g_DBLog.Log("MAIN",0,0,0,"启动");
+		LOG_MAIN(LOG_CONST::MMV_START,0,"启动");
 		// center the dialog on the screen
 		CenterWindow();
 
@@ -131,7 +132,8 @@ public:
 		//反注册快捷键
 		UnregisterHotKey(m_hWnd, uiACCELAR_ID_SHOWMAINDLG);
 
-		g_DBLog.Log("MAIN",0,1,0,"退出");
+		//g_DBLog.Log("MAIN",0,1,0,"退出");
+		LOG_MAIN(LOG_CONST::MMV_EXIT,0,"退出");
 
 		return 0;
 	}
@@ -250,6 +252,7 @@ public:
 			return 0;
 		}
 
+		LOG_NOTIFY(LOG_CONST::MNV_DISPLAY,task.Id,"显示提示");
 		//提示
 		BalloonToolTips(task.Tip);
 
