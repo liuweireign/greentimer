@@ -215,7 +215,7 @@ int TodoSet::AddToDo()
 	todo.tmCreateTime = CTime::GetCurrentTime();
 	todo.strTask = _T("ÐÂÈÎÎñ");
 	todo.priority = ToDoTask::TP_NORMAL;
-	todo.state = ToDoTask::TS_WORKING;
+	todo.state = ToDoTask::TS_NOT_START;
 	todo.tmPlanFinshTime = 0;
 	todo.tmStartWorkTime = 0;
 

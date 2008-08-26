@@ -10,7 +10,10 @@
 #define ID_ADD_DELETE                   5
 #define ID_BTN_EDIT                     6
 #define ID_EDIT_TODO                    6
+#define ID_ADD_REFRESH                  7
 #define ID_CMD_TODO                     8
+#define ID_ADD_DELETE2                  8
+#define ID_ADD_SHOWRECYCLE              8
 #define IDD_ABOUTBOX                    100
 #define IDD_ADDTODAYTASKDLG             102
 #define IDD_TASKLISTDIALOG              103
