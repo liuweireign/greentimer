@@ -23,6 +23,8 @@ public:
 		COMMAND_HANDLER(IDC_CHK_HIDEOUTTIME, BN_CLICKED, OnBnClickedChkHideouttime)
 		COMMAND_HANDLER(ID_ADD_DELETE, BN_CLICKED, OnBnClickedAddDelete)
 		COMMAND_HANDLER(ID_EDIT_TODO, BN_CLICKED, OnBnClickedEditTodo)
+		COMMAND_HANDLER(ID_ADD_REFRESH, BN_CLICKED, OnBnClickedAddRefresh)
+		COMMAND_HANDLER(ID_ADD_SHOWRECYCLE, BN_CLICKED, OnBnClickedAddShowrecycle)
 		//COMMAND_ID_HANDLER(ID_APP_ABOUT, OnAppAbout)
 		//COMMAND_ID_HANDLER(IDOK, OnOK)
 		//COMMAND_ID_HANDLER(IDCANCEL, OnCancel)
@@ -59,8 +61,8 @@ private:
 	CListArray<CString> m_aListState;
 
 	//¿ØÖÆÏÔÊ¾ºÍÒþ²ØÄÄÐ©Æ¬¶Î
-	std::vector<BOOL> m_vecPriorityShow;
-	std::vector<BOOL> m_vecStateShow;
+	static std::vector<BOOL> m_vecPriorityShow;
+	static std::vector<BOOL> m_vecStateShow;
 
 	BOOL m_bHideFinished;
 
@@ -78,4 +80,7 @@ private:
 	LRESULT EditTodo();
 
 	bool ShowColMenu(const CPoint &pt,const CListArray<CString> &colData, std::vector<BOOL> &vecSelect);
+public:
+	LRESULT OnBnClickedAddRefresh(WORD /*wNotifyCode*/, WORD /*wID*/, HWND /*hWndCtl*/, BOOL& /*bHandled*/);
+	LRESULT OnBnClickedAddShowrecycle(WORD /*wNotifyCode*/, WORD /*wID*/, HWND /*hWndCtl*/, BOOL& /*bHandled*/);
 };

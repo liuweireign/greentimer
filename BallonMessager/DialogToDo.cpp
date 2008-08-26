@@ -6,6 +6,9 @@
 
 using namespace std;
 
+std::vector<BOOL> DialogToDo::m_vecPriorityShow;
+std::vector<BOOL> DialogToDo::m_vecStateShow;
+
 DialogToDo::DialogToDo(void)
 {
 	m_bHideFinished = true;
@@ -55,36 +58,50 @@ LRESULT DialogToDo::OnInitDialog( UINT /*uMsg*/, WPARAM /*wParam*/, LPARAM /*lPa
 	m_listTodo.SubclassWindow( GetDlgItem( IDC_LIST_TODO ) );
 
 	int iCol = 0;
+	int iUsedLen = 0;
 	m_listTodo.AddColumn(_T("创建"),70);
 	m_iColCreateTime = iCol++;
+	iUsedLen += 70;
 	m_listTodo.AddColumn(_T("任务"),300,ITEM_IMAGE_NONE,FALSE,ITEM_FORMAT_EDIT,ITEM_FLAGS_NONE);
 	m_iColTitle = iCol++;
-	m_listTodo.AddColumn(_T("优先"),50,ITEM_IMAGE_NONE,FALSE,ITEM_FORMAT_COMBO,ITEM_FLAGS_NONE);
+	iUsedLen += 300;
+	m_listTodo.AddColumn(_T("重要"),50,ITEM_IMAGE_NONE,FALSE,ITEM_FORMAT_COMBO,ITEM_FLAGS_NONE);
 	m_iColPriority = iCol++;
+	iUsedLen += 50;
 	m_listTodo.AddColumn(_T("状态"),50,ITEM_IMAGE_NONE,FALSE,ITEM_FORMAT_COMBO,ITEM_FLAGS_NONE);
 	m_iColState = iCol++;
-	m_listTodo.AddColumn(_T("备注"),60);//,ITEM_IMAGE_NONE,FALSE,ITEM_FORMAT_EDIT,ITEM_FLAGS_NONE);
+	iUsedLen += 50;
+
+	CRect rt;
+	m_listTodo.GetClientRect(&rt);
+	m_listTodo.AddColumn(_T("备注"),rt.Width()-iUsedLen);//,ITEM_IMAGE_NONE,FALSE,ITEM_FORMAT_EDIT,ITEM_FLAGS_NONE);
 	m_iColRemark = iCol++;
 
-	m_aListPriority.Add(_T("1"));
-	m_vecPriorityShow.push_back(TRUE);
-	m_aListPriority.Add(_T("2"));
-	m_vecPriorityShow.push_back(TRUE);
-	m_aListPriority.Add(_T("3"));
-	m_vecPriorityShow.push_back(TRUE);
-	m_aListPriority.Add(_T("4"));
-	m_vecPriorityShow.push_back(TRUE);
+	m_aListPriority.Add(_T("很重要"));
+	m_aListPriority.Add(_T("重要"));
+	m_aListPriority.Add(_T("普通"));
+	m_aListPriority.Add(_T("不重要"));
+	if (m_vecPriorityShow.empty())	//保证只初始化一次
+	{
+		m_vecPriorityShow.push_back(TRUE);
+		m_vecPriorityShow.push_back(TRUE);
+		m_vecPriorityShow.push_back(TRUE);
+		m_vecPriorityShow.push_back(TRUE);
+	}
 
 	m_aListState.Add(_T("未开始"));
-	m_vecStateShow.push_back(TRUE);
 	m_aListState.Add(_T("工作中"));
-	m_vecStateShow.push_back(TRUE);
 	m_aListState.Add(_T("暂停"));
-	m_vecStateShow.push_back(TRUE);
 	m_aListState.Add(_T("已完成"));
-	m_vecStateShow.push_back(FALSE);
 	m_aListState.Add(_T("已取消"));
-	m_vecStateShow.push_back(FALSE);
+	if (m_vecStateShow.empty())	//保证只初始化一次
+	{
+		m_vecStateShow.push_back(TRUE);
+		m_vecStateShow.push_back(TRUE);
+		m_vecStateShow.push_back(TRUE);
+		m_vecStateShow.push_back(FALSE);
+		m_vecStateShow.push_back(FALSE);
+	}
 
 	CButton btn(GetDlgItem(IDC_CHK_HIDEOUTTIME));
 	//m_bHideTimeOut = btn.GetCheck();
@@ -372,7 +389,8 @@ LRESULT DialogToDo::EditTodo()
 	ATLVERIFY(m_listTodo.GetItemData(aSelectedItems[0],id));
 	CDialogTodoDetail dlg(id);
 	dlg.DoModal();
-	ReloadTodos();
+	//ReloadTodos();
+	UpdateItem(aSelectedItems[0]);
 	return S_OK;
 }
 
@@ -451,4 +469,16 @@ bool DialogToDo::ShowColMenu(const CPoint &pt, const CListArray<CString> &colDat
 	ATLASSERT(index>=0);
 	vecSelect[index] = !vecSelect[index];
 	return true;
+}
+LRESULT DialogToDo::OnBnClickedAddRefresh(WORD /*wNotifyCode*/, WORD /*wID*/, HWND /*hWndCtl*/, BOOL& /*bHandled*/)
+{
+	ReloadTodos();
+	return 0;
+}
+
+LRESULT DialogToDo::OnBnClickedAddShowrecycle(WORD /*wNotifyCode*/, WORD /*wID*/, HWND /*hWndCtl*/, BOOL& /*bHandled*/)
+{
+	MessageBox("本功能暂未实现，敬请关注。");
+
+	return 0;
 }
