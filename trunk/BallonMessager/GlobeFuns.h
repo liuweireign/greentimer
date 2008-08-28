@@ -8,8 +8,11 @@ public:
 
 	//////////////////////////////////////////////////////////////////////////
 	//时间与字符串互相转换函数
-	static ATL::CString TimeToString(CTime t);
-	static ATL::CString TimeToFriendlyString(CTime t);
-	static CTime StringToTime(ATL::CString strTime);
+	static ATL::CString TimeToString(const CTime &t);
+	static ATL::CString TimeToFriendlyString(const CTime &t);
+	static CTime StringToTime(const ATL::CString &strTime);
 	//////////////////////////////////////////////////////////////////////////
+
+	static UINT TimeToInt(const CTime &t);
+	static CTime IntToTime(UINT uiTime);
 };
