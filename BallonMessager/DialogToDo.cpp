@@ -77,7 +77,7 @@ LRESULT DialogToDo::OnInitDialog( UINT /*uMsg*/, WPARAM /*wParam*/, LPARAM /*lPa
 	m_listTodo.AddColumn(_T("备注"),rt.Width()-iUsedLen);//,ITEM_IMAGE_NONE,FALSE,ITEM_FORMAT_EDIT,ITEM_FLAGS_NONE);
 	m_iColRemark = iCol++;
 
-	m_aListPriority.Add(_T("很重要"));
+	m_aListPriority.Add(_T("紧急"));
 	m_aListPriority.Add(_T("重要"));
 	m_aListPriority.Add(_T("普通"));
 	m_aListPriority.Add(_T("不重要"));
@@ -89,7 +89,7 @@ LRESULT DialogToDo::OnInitDialog( UINT /*uMsg*/, WPARAM /*wParam*/, LPARAM /*lPa
 		m_vecPriorityShow.push_back(TRUE);
 	}
 
-	m_aListState.Add(_T("未开始"));
+	m_aListState.Add(_T("计划中"));
 	m_aListState.Add(_T("工作中"));
 	m_aListState.Add(_T("暂停"));
 	m_aListState.Add(_T("已完成"));
