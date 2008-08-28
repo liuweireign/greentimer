@@ -25,7 +25,7 @@ ATL::CString GlobeFuns::GetAppDirectory( bool bEndWithBackSlash/*=true*/ )
 
 //////////////////////////////////////////////////////////////////////////
 //时间与字符串互相转换函数
-ATL::CString GlobeFuns::TimeToString(CTime t)
+ATL::CString GlobeFuns::TimeToString(const CTime &t)
 {
 	ATL::CString strDateTime;
 	strDateTime.Format("%d-%02d-%02d %02d:%02d:%02d", 
@@ -34,7 +34,7 @@ ATL::CString GlobeFuns::TimeToString(CTime t)
 	return strDateTime;
 }
 
-ATL::CString GlobeFuns::TimeToFriendlyString( CTime t )
+ATL::CString GlobeFuns::TimeToFriendlyString(const CTime &t)
 {
 	CTimeSpan tmSpan = CTime::GetCurrentTime() - t;
 	CString strRet;
@@ -61,7 +61,7 @@ ATL::CString GlobeFuns::TimeToFriendlyString( CTime t )
 	strRet.Format("%d天前",tmSpan.GetTotalHours()/24);
 	return strRet;
 }
-ATL::CTime GlobeFuns::StringToTime(ATL::CString strTime)
+ATL::CTime GlobeFuns::StringToTime(const ATL::CString &strTime)
 {
 	COleDateTime   tm;  
 	tm.ParseDateTime(strTime);  
@@ -70,4 +70,14 @@ ATL::CTime GlobeFuns::StringToTime(ATL::CString strTime)
 	return CTime(st);   
 }
 
+UINT GlobeFuns::TimeToInt( const CTime &t )
+{
+	CTimeSpan ts = t-CTime(0);
+	return (UINT)ts.GetTotalSeconds();
+}
+
+CTime GlobeFuns::IntToTime(UINT uiTime)
+{
+	return CTime(0)+CTimeSpan(0,0,0,uiTime);
+}
 //////////////////////////////////////////////////////////////////////////
