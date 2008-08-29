@@ -55,7 +55,7 @@ void DBLog::Log( const char *pModel,int code,int value1,int value2, const char *
 
 	CppSQLite3Buffer strSql;
 	strSql.format("insert into T_Log values(NULL,'%q',%d,%d,%d,%d,'%q');",
-		pModel,TimeToInt(CTime::GetCurrentTime()),code,value1,value2,pMessage
+		pModel,GlobeFuns::TimeToInt(CTime::GetCurrentTime()),code,value1,value2,pMessage
 		);
 
 	try{
