@@ -116,10 +116,9 @@ bool TaskDB::ReadFromDB( const char *strDB )
 		AddDailyTask(22,55,"夜了，拉灯，睡觉！");
 		AddDailyTask(23,55,"注意身体，多休息。");
 
-		//AddTimeTask(CTime(2008,12,25,11,0,0),"圣诞节快乐！\r\n绿色报时器可能有新版本啦，到 http://code.google.com/p/greentimer/ 看看？");
 		CTime tmTime = CTime::GetCurrentTime();
 		tmTime += CTimeSpan(100,0,0,0);
-		AddTimeTask(tmTime,"您使用绿色报时器已经100天了，感谢您对我们的支持！"
+		AddTimeTask(tmTime,"您使用“绿色时间管理”已经100天了，感谢您对我们的支持！"
 			"现在可能有新版本啦，到 http://code.google.com/p/greentimer/ 看看？");
 		//////////////////////////////////////////////////////////////////////////
 		return true;

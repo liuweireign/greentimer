@@ -138,6 +138,8 @@ bool CheckCreateTable(CppSQLite3DB &dbTask)
 TodoSet::TodoSet()
 {
 	m_strDB = GlobeFuns::GetAppDirectory() + _T("task.db");
+
+	//RecoverDataFromV1();
 }
 
 void TodoSet::GetTodoList( std::set<int> &taskIDs )
@@ -293,4 +295,64 @@ bool TodoSet::CheckDBValid()
 	CheckCreateTable(dbTask);
 
 	return dbTask.tableExists("T_todo2");
+}
+
+bool TodoSet::RecoverDataFromV1()
+{
+	vector<ToDoTask> vecOldToDos;
+	{
+		//打开数据库
+		CppSQLite3DB dbTask;
+		dbTask.open(m_strDB.c_str());
+		CheckCreateTable(dbTask);
+
+		//insert into t_todo2(id,title,priority,state,time_create,time_start,time_finish,remark)
+		// select NULL,title,priority,state,1219975645,0,0,remark from t_todo;
+
+		//如果表格不存在，则说明这数据库格式不对
+		if (!dbTask.tableExists("T_todo"))                //创建事件日志表
+		{
+			return true;
+		}
+
+		CppSQLite3Buffer buf;
+		buf.format("select id, title,priority , state, time_create, time_start, time_finish, remark  from T_todo");
+		CppSQLite3Query q = dbTask.execQuery(buf);
+		while(!q.eof())
+		{
+			ToDoTask todo;
+
+			todo.id = 0;//q.getIntField("id");
+			todo.strTask = q.getStringField("title");
+			todo.priority = (ToDoTask::TaskPriority)q.getIntField("priority");
+			todo.state = (ToDoTask::TaskState)q.getIntField("state");
+			todo.tmCreateTime = GlobeFuns::StringToTime(q.getStringField("time_create"));
+			todo.tmStartWorkTime = GlobeFuns::StringToTime(q.getStringField("time_start"));
+			todo.tmPlanFinshTime = GlobeFuns::StringToTime(q.getStringField("time_finish"));
+			todo.strRemark = q.getStringField("remark");
+
+			vecOldToDos.push_back(todo);
+			q.nextRow();
+		}
+	}
+
+	bool bSucceed = true;
+	for(int i=0;i<(int)vecOldToDos.size();i++)
+	{
+		ToDoTask todo = vecOldToDos[i];
+		todo.id = AddToDo();
+		if(!UpdateToDo(todo))
+		{
+			bSucceed = false;
+		}
+	}
+	if (bSucceed)
+	{
+		//打开数据库
+		CppSQLite3DB dbTask;
+		dbTask.open(m_strDB.c_str());
+		dbTask.execDML("drop table t_todo;");
+	}
+
+	return true;
 }

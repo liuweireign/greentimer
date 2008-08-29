@@ -14,6 +14,8 @@
 #define ID_CMD_TODO                     8
 #define ID_ADD_DELETE2                  8
 #define ID_ADD_SHOWRECYCLE              8
+#define ID_ADD_SHOWRECYCLE2             9
+#define ID_ADD_SHOWSTATICS              9
 #define IDD_ABOUTBOX                    100
 #define IDD_ADDTODAYTASKDLG             102
 #define IDD_TASKLISTDIALOG              103

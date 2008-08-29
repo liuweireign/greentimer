@@ -78,6 +78,10 @@ private:
 	std::string m_strDB;
 private:
 	bool CheckDBValid();
+
+	//将t_todo中的数据迁移到t_todo2中，然后删除t_todo。
+	//由于t_todo版本还没发布，所以不需要发布这个函数。
+	bool RecoverDataFromV1();
 };
 
 extern TodoSet g_todoSet;

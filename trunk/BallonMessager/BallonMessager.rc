@@ -13,7 +13,7 @@
 #undef APSTUDIO_READONLY_SYMBOLS
 
 /////////////////////////////////////////////////////////////////////////////
-// 非特定语言(系统默认值) resources
+// 非特定语言(系统默认) resources
 
 #if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_NEUSD)
 #ifdef _WIN32
@@ -27,28 +27,32 @@ LANGUAGE LANG_NEUTRAL, SUBLANG_SYS_DEFAULT
 //
 
 IDD_ABOUTBOX DIALOGEX 0, 0, 226, 98
-STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
-CAPTION "关于绿色报时器"
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | 
+    WS_SYSMENU
+CAPTION "关于绿色时间管理"
 FONT 8, "MS Shell Dlg", 0, 0, 0x0
 BEGIN
     DEFPUSHBUTTON   "OK",IDOK,169,77,50,14
     ICON            IDR_MAINFRAME,IDC_STATIC,27,14,20,20
     GROUPBOX        "",IDC_STATIC,7,3,212,71
-    LTEXT           "绿色报时器 V3.0",IDC_STATIC,51,22,90,11
-    LTEXT           "http://code.google.com/p/greentimer/",IDC_STATIC,27,52,134,13
+    LTEXT           "绿色时间管理 V3.0",IDC_STATIC,51,22,90,11
+    LTEXT           "http://code.google.com/p/greentimer/",IDC_STATIC,27,52,
+                    134,13
     LTEXT           "skymountain and Jame Yu, 2008",IDC_STATIC,27,37,109,13
 END
 
 IDD_MAINDLG DIALOGEX 0, 0, 221, 73
 STYLE DS_SETFONT | DS_FIXEDSYS | WS_MINIMIZEBOX | WS_CAPTION | WS_SYSMENU
-CAPTION "绿色报时器"
+CAPTION "绿色时间管理"
 FONT 8, "MS Shell Dlg", 0, 0, 0x0
 BEGIN
     PUSHBUTTON      "增加提醒...(&N)",ID_APP_OPINION,155,7,59,14
     PUSHBUTTON      "浏览提醒...(&B)",ID_CMD_TASKVIEW,155,24,59,14
     PUSHBUTTON      "任务安排...(&T)",ID_CMD_TODO,155,41,59,14
-    CONTROL         "开机自启动",IDC_CHK_SELFSTART,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,7,55,91,11
-    LTEXT           "本程序运行后，会在设定的时间弹出提示。",IDC_STATIC,7,7,128,16
+    CONTROL         "开机自启动",IDC_CHK_SELFSTART,"Button",BS_AUTOCHECKBOX | 
+                    WS_TABSTOP,7,55,91,11
+    LTEXT           "本程序运行后，会在设定的时间弹出提示。",IDC_STATIC,7,7,
+                    128,16
     LTEXT           "合理安排时间，提高工作效率！",IDC_STATIC,7,26,120,10
 END
 
@@ -113,9 +117,9 @@ BEGIN
         BEGIN
             VALUE "Comments", "http://code.google.com/p/greentimer"
             VALUE "CompanyName", "http://code.google.com/p/greentimer"
-            VALUE "FileDescription", "绿色报时器"
+            VALUE "FileDescription", "绿色时间管理"
             VALUE "FileVersion", "3, 0, 0, 0"
-            VALUE "InternalName", "绿色报时器"
+            VALUE "InternalName", "绿色时间管理"
             VALUE "LegalCopyright", "Copyright 2008"
             VALUE "OriginalFilename", "Greentimer.exe"
             VALUE "ProductName", "Green timer"
@@ -217,7 +221,7 @@ BEGIN
     ATL_IDS_MRU_FILE        "Open this document"
 END
 
-#endif    // 非特定语言(系统默认值) resources
+#endif    // 非特定语言(系统默认) resources
 /////////////////////////////////////////////////////////////////////////////
 
 
@@ -236,15 +240,21 @@ LANGUAGE LANG_CHINESE, SUBLANG_CHINESE_SIMPLIFIED
 //
 
 IDD_DLG_SETUP DIALOGEX 0, 0, 249, 138
-STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | 
+    WS_SYSMENU
 CAPTION "增加提醒"
 FONT 8, "MS Shell Dlg", 400, 0, 0x1
 BEGIN
     EDITTEXT        IDC_HOUR,28,22,40,14,ES_AUTOHSCROLL | ES_NUMBER
-    CONTROL         "",IDC_SPIN1,"msctls_updown32",UDS_SETBUDDYINT | UDS_ALIGNRIGHT | UDS_AUTOBUDDY | UDS_ARROWKEYS,68,22,11,14
+    CONTROL         "",IDC_SPIN1,"msctls_updown32",UDS_SETBUDDYINT | 
+                    UDS_ALIGNRIGHT | UDS_AUTOBUDDY | UDS_ARROWKEYS,68,22,11,
+                    14
     EDITTEXT        IDC_MINUTE,99,22,40,14,ES_AUTOHSCROLL | ES_NUMBER
-    CONTROL         "",IDC_SPIN2,"msctls_updown32",UDS_SETBUDDYINT | UDS_ALIGNRIGHT | UDS_AUTOBUDDY | UDS_ARROWKEYS,139,22,11,14
-    EDITTEXT        IDC_EDT_INPUT,28,60,141,71,ES_MULTILINE | ES_AUTOVSCROLL | WS_VSCROLL
+    CONTROL         "",IDC_SPIN2,"msctls_updown32",UDS_SETBUDDYINT | 
+                    UDS_ALIGNRIGHT | UDS_AUTOBUDDY | UDS_ARROWKEYS,139,22,11,
+                    14
+    EDITTEXT        IDC_EDT_INPUT,28,60,141,71,ES_MULTILINE | ES_AUTOVSCROLL | 
+                    WS_VSCROLL
     DEFPUSHBUTTON   "确定",IDOK,192,99,50,14
     PUSHBUTTON      "取消",IDCANCEL,192,117,50,14
     LTEXT           "时:",IDC_STATIC,12,25,12,8
@@ -259,9 +269,12 @@ FONT 9, "宋体", 0, 0, 0x0
 BEGIN
     DEFPUSHBUTTON   "确定",IDOK,328,7,50,16
     PUSHBUTTON      "取消",IDCANCEL,328,26,50,16
-    EDITTEXT        IDC_EDT_TODAYTASK,7,32,316,160,ES_MULTILINE | ES_AUTOVSCROLL | ES_AUTOHSCROLL | ES_WANTRETURN
-    LTEXT           "按“小时:分钟 任务”的格式，写下你今天的工作计划。计划数不限。",IDC_STATIC,7,7,280,10
-    LTEXT           "例如：“10:30 到一号会议室开会，准备计划书。”",IDC_STATIC,7,19,189,10
+    EDITTEXT        IDC_EDT_TODAYTASK,7,32,316,160,ES_MULTILINE | 
+                    ES_AUTOVSCROLL | ES_AUTOHSCROLL | ES_WANTRETURN
+    LTEXT           "按“小时:分钟 任务”的格式，写下你今天的工作计划。计划数不限。",
+                    IDC_STATIC,7,7,280,10
+    LTEXT           "例如：“10:30 到一号会议室开会，准备计划书。”",
+                    IDC_STATIC,7,19,189,10
 END
 
 IDD_TASKLISTDIALOG DIALOGEX 0, 0, 394, 210
@@ -274,8 +287,12 @@ BEGIN
     PUSHBUTTON      "增加(&A)",ID_BTN_ADD,337,68,50,16
     PUSHBUTTON      "修改(&M)",ID_BTN_EDIT,337,89,50,16
     PUSHBUTTON      "删除(&D)",ID_BTN_DEL,337,111,50,16
-    CONTROL         "",IDC_LST_TASK,"SysListView32",LVS_REPORT | LVS_SHOWSELALWAYS | LVS_ALIGNLEFT | WS_BORDER | WS_TABSTOP,7,7,326,196
-    CONTROL         "隐藏已过时的任务(&H)",IDC_CHK_HIDEOUTTIME,"Button",BS_AUTOCHECKBOX | BS_MULTILINE | WS_TABSTOP,339,129,48,27
+    CONTROL         "",IDC_LST_TASK,"SysListView32",LVS_REPORT | 
+                    LVS_SHOWSELALWAYS | LVS_ALIGNLEFT | WS_BORDER | 
+                    WS_TABSTOP,7,7,326,196
+    CONTROL         "隐藏已过时的任务(&H)",IDC_CHK_HIDEOUTTIME,"Button",
+                    BS_AUTOCHECKBOX | BS_MULTILINE | WS_TABSTOP,339,129,48,
+                    27
 END
 
 IDD_TASKMODIFYDIALOG DIALOGEX 0, 0, 254, 126
@@ -283,16 +300,22 @@ STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
 CAPTION "编辑提醒"
 FONT 9, "宋体", 0, 0, 0x0
 BEGIN
-    COMBOBOX        IDC_CMB_TASKTYPE,54,19,59,67,CBS_DROPDOWNLIST | CBS_SORT | WS_VSCROLL | WS_TABSTOP
-    CONTROL         "",IDC_DATETIMEPICKER_DATE,"SysDateTimePick32",DTS_RIGHTALIGN | DTS_UPDOWN | WS_TABSTOP,54,37,58,14
-    CONTROL         "",IDC_DATETIMEPICKER_TIME,"SysDateTimePick32",DTS_RIGHTALIGN | DTS_UPDOWN | WS_TABSTOP | 0x8,116,37,50,14
-    EDITTEXT        IDC_EDT_TIPS,10,62,180,57,ES_MULTILINE | ES_AUTOVSCROLL | ES_WANTRETURN | WS_VSCROLL
+    COMBOBOX        IDC_CMB_TASKTYPE,54,19,59,67,CBS_DROPDOWNLIST | CBS_SORT | 
+                    WS_VSCROLL | WS_TABSTOP
+    CONTROL         "",IDC_DATETIMEPICKER_DATE,"SysDateTimePick32",
+                    DTS_RIGHTALIGN | DTS_UPDOWN | WS_TABSTOP,54,37,58,14
+    CONTROL         "",IDC_DATETIMEPICKER_TIME,"SysDateTimePick32",
+                    DTS_RIGHTALIGN | DTS_UPDOWN | WS_TABSTOP | 0x8,116,37,50,
+                    14
+    EDITTEXT        IDC_EDT_TIPS,10,62,180,57,ES_MULTILINE | ES_AUTOVSCROLL | 
+                    ES_WANTRETURN | WS_VSCROLL
     DEFPUSHBUTTON   "确定(&O)",IDOK,197,7,50,16
     PUSHBUTTON      "取消(&C)",IDCANCEL,197,26,50,16
     RTEXT           "提醒类型:",IDC_STATIC,3,23,42,9
     RTEXT           "提示时间:",IDC_STATIC,3,39,42,9
     RTEXT           "提示语句:",IDC_STATIC,3,52,42,9
-    EDITTEXT        IDC_EDT_ID,53,7,58,12,ES_AUTOHSCROLL | ES_READONLY | NOT WS_BORDER
+    EDITTEXT        IDC_EDT_ID,53,7,58,12,ES_AUTOHSCROLL | ES_READONLY | NOT 
+                    WS_BORDER
     RTEXT           "提醒编号:",IDC_STATIC,3,7,42,9
 END
 
@@ -302,7 +325,9 @@ CAPTION "快速提醒"
 FONT 9, "宋体", 0, 0, 0x0
 BEGIN
     EDITTEXT        IDC_EDT_MINITE,19,9,31,12,ES_AUTOHSCROLL | ES_NUMBER
-    CONTROL         "",IDC_SPIN_MINUTE,"msctls_updown32",UDS_SETBUDDYINT | UDS_ALIGNRIGHT | UDS_AUTOBUDDY | UDS_ARROWKEYS | UDS_NOTHOUSANDS | UDS_HOTTRACK,27,14,11,14
+    CONTROL         "",IDC_SPIN_MINUTE,"msctls_updown32",UDS_SETBUDDYINT | 
+                    UDS_ALIGNRIGHT | UDS_AUTOBUDDY | UDS_ARROWKEYS | 
+                    UDS_NOTHOUSANDS | UDS_HOTTRACK,27,14,11,14
     DEFPUSHBUTTON   "确定",IDOK,129,7,50,16
     PUSHBUTTON      "取消",IDCANCEL,129,26,50,16
     EDITTEXT        IDC_EDT_TIPS,7,44,120,44,ES_MULTILINE | ES_AUTOVSCROLL
@@ -312,18 +337,23 @@ BEGIN
 END
 
 IDD_DLG_TODO DIALOGEX 0, 0, 432, 174
-STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | 
+    WS_SYSMENU
 CAPTION "任务安排表"
 FONT 8, "MS Shell Dlg", 400, 0, 0x1
 BEGIN
-    CONTROL         "",IDC_LIST_TODO,"SysListView32",LVS_ALIGNLEFT | WS_BORDER | WS_TABSTOP,7,7,363,160
+    CONTROL         "",IDC_LIST_TODO,"SysListView32",LVS_ALIGNLEFT | 
+                    WS_BORDER | WS_TABSTOP,7,7,363,160
     PUSHBUTTON      "新建(&N)",ID_ADD_TODO,375,7,50,14
     PUSHBUTTON      "编辑备注(&E)",ID_EDIT_TODO,375,23,50,14
     PUSHBUTTON      "刷新(&R)",ID_ADD_REFRESH,375,40,50,14
-    PUSHBUTTON      "任务回收(&D)",ID_ADD_DELETE,375,74,50,14
-    PUSHBUTTON      "历史回顾..(&B)",ID_ADD_SHOWRECYCLE,375,89,50,14
-    CONTROL         "隐藏不活跃的任务(&H)",IDC_CHK_HIDEOUTTIME,"Button",BS_AUTOCHECKBOX | BS_MULTILINE | BS_FLAT | WS_TABSTOP,373,134,52,33
-    PUSHBUTTON      "保存(&S)",ID_SAVE,411,111,14,9,NOT WS_VISIBLE
+    PUSHBUTTON      "删除任务(&D)",ID_ADD_DELETE,375,74,50,14
+    PUSHBUTTON      "历史任务..(&L)",ID_ADD_SHOWRECYCLE,375,89,50,14
+    CONTROL         "隐藏不活跃的任务(&H)",IDC_CHK_HIDEOUTTIME,"Button",
+                    BS_AUTOCHECKBOX | BS_MULTILINE | BS_FLAT | WS_TABSTOP,
+                    373,134,52,33
+    PUSHBUTTON      "保存(&S)",ID_SAVE,411,122,14,9,NOT WS_VISIBLE
+    PUSHBUTTON      "统计分析..(&T)",ID_ADD_SHOWSTATICS,375,107,50,14
 END
 
 IDD_DIALOGTODODETAIL DIALOGEX 0, 0, 338, 274
@@ -331,14 +361,17 @@ STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
 CAPTION "编辑TODO"
 FONT 9, "宋体", 0, 0, 0x0
 BEGIN
-    EDITTEXT        IDC_EDT_REMARK,7,7,272,260,ES_MULTILINE | ES_AUTOVSCROLL | ES_WANTRETURN | WS_VSCROLL
+    EDITTEXT        IDC_EDT_REMARK,7,7,272,260,ES_MULTILINE | ES_AUTOVSCROLL | 
+                    ES_WANTRETURN | WS_VSCROLL
     DEFPUSHBUTTON   "确定",IDOK,281,7,50,16
     PUSHBUTTON      "取消",IDCANCEL,281,26,50,16
     PUSHBUTTON      "设定提醒(&N)",ID_SET_NOTIFY,281,65,50,16,NOT WS_VISIBLE
     LTEXT           "备注：",IDC_STATIC,7,51,42,9,NOT WS_VISIBLE
-    EDITTEXT        IDC_EDT_ID,57,7,58,12,ES_AUTOHSCROLL | ES_READONLY | NOT WS_VISIBLE | NOT WS_BORDER
+    EDITTEXT        IDC_EDT_ID,57,7,58,12,ES_AUTOHSCROLL | ES_READONLY | NOT 
+                    WS_VISIBLE | NOT WS_BORDER
     LTEXT           "TODO编号：",IDC_STATIC,7,7,42,9,NOT WS_VISIBLE
-    EDITTEXT        IDC_EDT_NAME,57,20,199,12,ES_AUTOHSCROLL | NOT WS_VISIBLE | NOT WS_BORDER,WS_EX_CLIENTEDGE
+    EDITTEXT        IDC_EDT_NAME,57,20,199,12,ES_AUTOHSCROLL | NOT 
+                    WS_VISIBLE | NOT WS_BORDER,WS_EX_CLIENTEDGE
     LTEXT           "TODO标题：",IDC_STATIC,7,20,42,9,NOT WS_VISIBLE
 END
 
@@ -419,21 +452,24 @@ IDR_MENU_ICON MENU
 BEGIN
     POPUP "文件服务器"
     BEGIN
-        MENUITEM "关于...(&A)",                   ID_APP_ABOUT
+        MENUITEM "关于...(&A)",                 ID_APP_ABOUT
         MENUITEM SEPARATOR
-        MENUITEM "任务安排...(&T)",                 ID_CMD_TODO
+        MENUITEM "任务安排...(&T)",             ID_CMD_TODO
         MENUITEM SEPARATOR
-        MENUITEM "增加提醒...(&N)",                 ID_APP_OPINION
+        MENUITEM "增加提醒...(&N)",             ID_APP_OPINION
         POPUP "快速提醒(N)"
         BEGIN
-            MENUITEM "10分钟后提醒我(&T)",                ID_MENU_QUICKREMIND_10MIN
-            MENUITEM "一小时后提醒我(&F)",                 ID_MENU_QUICKREMIND_1HOUR
-            MENUITEM "明天这个时间提醒我(&M)",               ID_MENU_QUICKREMIND_TOMORROW
+            MENUITEM "10分钟后提醒我(&T)",          ID_MENU_QUICKREMIND_10MIN
+
+            MENUITEM "一小时后提醒我(&F)",          ID_MENU_QUICKREMIND_1HOUR
+
+            MENUITEM "明天这个时间提醒我(&M)",      ID_MENU_QUICKREMIND_TOMORROW
+
         END
-        MENUITEM "浏览提醒...(&B)",                 ID_CMD_TASKVIEW
+        MENUITEM "浏览提醒...(&B)",             ID_CMD_TASKVIEW
         MENUITEM SEPARATOR
-        MENUITEM "显示/隐藏主界面(&S)",                ID_RESUME
-        MENUITEM "退出(&Q)",                      ID_QUIT
+        MENUITEM "显示/隐藏主界面(&S)",         ID_RESUME
+        MENUITEM "退出(&Q)",                    ID_QUIT
     END
 END
 
