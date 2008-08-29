@@ -34,7 +34,7 @@ LRESULT CTaskModifyDialog::OnInitDialog( UINT uMsg, WPARAM wParam, LPARAM lParam
 
 	if (m_taskid==0)	//创建任务
 	{
-		SetWindowText("创建新任务");
+		SetWindowText("创建新提醒");
 		m_edtID.SetWindowText("(待创建)");
 		m_edtTips.SetWindowText("");
 		SYSTEMTIME st;
