@@ -14,7 +14,7 @@ public:
        CShellIcon()
        {
               //m_appName.LoadString(IDS_APPNAME);
-		   m_appName = _T("绿色报时器");
+		   m_appName = _T("绿色时间管理");
             m_msgTaskbarRestart = RegisterWindowMessage(TEXT("TaskbarCreated"));
        }
 

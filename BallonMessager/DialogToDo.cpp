@@ -356,7 +356,7 @@ void DialogToDo::UpdateItem( int iItem )
 
 	m_listTodo.SetItemFormat(iItem,m_iColPriority,ITEM_FORMAT_COMBO,ITEM_FLAGS_NONE,m_aListPriority);
 	m_listTodo.SetItemComboIndex(iItem,m_iColPriority,todo.priority);
-	m_listTodo.SetItemColours(iItem,m_iColPriority,RGB(10,170-todo.priority*15,10),RGB(0,0,0));
+	m_listTodo.SetItemColours(iItem,m_iColPriority,RGB(10,170-todo.priority*25,10),RGB(0,0,0));
 
 	m_listTodo.SetItemFormat(iItem,m_iColState,ITEM_FORMAT_COMBO,ITEM_FLAGS_NONE,m_aListState);
 	m_listTodo.SetItemComboIndex(iItem,m_iColState,todo.state);
@@ -478,7 +478,14 @@ LRESULT DialogToDo::OnBnClickedAddRefresh(WORD /*wNotifyCode*/, WORD /*wID*/, HW
 
 LRESULT DialogToDo::OnBnClickedAddShowrecycle(WORD /*wNotifyCode*/, WORD /*wID*/, HWND /*hWndCtl*/, BOOL& /*bHandled*/)
 {
-	MessageBox("本功能暂未实现，敬请关注。");
+	MessageBox("本功能将在下一版本实现，敬请关注。\r\n\r\n如果您愿意参与此项目，请到登录 http://code.google.com/p/greentimer/，与我们联系","抱歉");
+
+	return 0;
+}
+
+LRESULT DialogToDo::OnBnClickedAddShowstatics(WORD /*wNotifyCode*/, WORD /*wID*/, HWND /*hWndCtl*/, BOOL& /*bHandled*/)
+{
+	MessageBox("本功能将在下一版本实现，敬请关注。\r\n\r\n如果您愿意参与此项目，请到登录 http://code.google.com/p/greentimer/，与我们联系","抱歉");
 
 	return 0;
 }

@@ -25,6 +25,7 @@ public:
 		COMMAND_HANDLER(ID_EDIT_TODO, BN_CLICKED, OnBnClickedEditTodo)
 		COMMAND_HANDLER(ID_ADD_REFRESH, BN_CLICKED, OnBnClickedAddRefresh)
 		COMMAND_HANDLER(ID_ADD_SHOWRECYCLE, BN_CLICKED, OnBnClickedAddShowrecycle)
+		COMMAND_HANDLER(ID_ADD_SHOWSTATICS, BN_CLICKED, OnBnClickedAddShowstatics)
 		//COMMAND_ID_HANDLER(ID_APP_ABOUT, OnAppAbout)
 		//COMMAND_ID_HANDLER(IDOK, OnOK)
 		//COMMAND_ID_HANDLER(IDCANCEL, OnCancel)
@@ -83,4 +84,5 @@ private:
 public:
 	LRESULT OnBnClickedAddRefresh(WORD /*wNotifyCode*/, WORD /*wID*/, HWND /*hWndCtl*/, BOOL& /*bHandled*/);
 	LRESULT OnBnClickedAddShowrecycle(WORD /*wNotifyCode*/, WORD /*wID*/, HWND /*hWndCtl*/, BOOL& /*bHandled*/);
+	LRESULT OnBnClickedAddShowstatics(WORD /*wNotifyCode*/, WORD /*wID*/, HWND /*hWndCtl*/, BOOL& /*bHandled*/);
 };
