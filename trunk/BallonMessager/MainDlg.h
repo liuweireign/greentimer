@@ -14,6 +14,7 @@
 #include "TSelfStart.h"
 #include "./DialogToDo.h"
 #include "./DBLog.h"
+#include "GlobeFuns.h"
 
 //¿ì½Ý¼üID
 const UINT uiACCELAR_ID_SHOWMAINDLG = 0X1000;
@@ -53,6 +54,7 @@ public:
 		COMMAND_ID_HANDLER(IDCANCEL, OnCancel)
 		COMMAND_ID_HANDLER(ID_APP_OPINION, OnBtnOpinion)
 		COMMAND_ID_HANDLER(ID_CMD_TASKVIEW, OnTaskView)
+		COMMAND_ID_HANDLER(ID_APP_OPEN_TASKDB, OnBtnOpenTaskDB)
 		COMMAND_ID_HANDLER(ID_APP_TODAYTASK, OnBtnTodayTask)
 		COMMAND_ID_HANDLER(ID_CMD_QUICKREMIND, OnBtnQuickRemind)
 		COMMAND_ID_HANDLER(ID_MENU_QUICKREMIND_5MIN, OnBtnQuickRemind)
@@ -180,6 +182,13 @@ public:
 		//CSimpleTaskViewDlg dlg;
 		CTaskListDialog dlg;
 		dlg.DoModal();
+		return 0;
+	}
+
+	LRESULT OnBtnOpenTaskDB(WORD /*wNotifyCode*/, WORD /*wID*/, HWND /*hWndCtl*/, BOOL& /*bHandled*/)
+	{
+		ShellExecute(NULL,NULL,GlobeFuns::GetAppDirectory().GetBuffer(0),NULL,NULL,SW_SHOW);
+		
 		return 0;
 	}
 

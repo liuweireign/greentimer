@@ -65,6 +65,8 @@
 #define ID_MENU_QUICKREMIND_10MIN       32793
 #define ID_MENU_QUICKREMIND_1HOUR       32794
 #define ID_MENU_QUICKREMIND_TOMORROW    32795
+#define ID_32798                        32798
+#define ID_APP_OPEN_TASKDB              32799
 #define ID_APP_ABOUT2                   57665
 #define ID_APP_OPINION                  57665
 #define ID_CMD_TASKVIEW                 57666
@@ -78,7 +80,7 @@
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
 #define _APS_NEXT_RESOURCE_VALUE        209
-#define _APS_NEXT_COMMAND_VALUE         32798
+#define _APS_NEXT_COMMAND_VALUE         32800
 #define _APS_NEXT_CONTROL_VALUE         1020
 #define _APS_NEXT_SYMED_VALUE           107
 #endif
