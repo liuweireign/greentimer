@@ -478,14 +478,14 @@ LRESULT DialogToDo::OnBnClickedAddRefresh(WORD /*wNotifyCode*/, WORD /*wID*/, HW
 
 LRESULT DialogToDo::OnBnClickedAddShowrecycle(WORD /*wNotifyCode*/, WORD /*wID*/, HWND /*hWndCtl*/, BOOL& /*bHandled*/)
 {
-	MessageBox("本功能将在下一版本实现，敬请关注。\r\n\r\n如果您愿意参与此项目，请到登录 http://code.google.com/p/greentimer/，与我们联系","抱歉");
+	MessageBox("本功能将在下一版本实现，敬请关注。\r\n\r\n如果您愿意参与此项目，请登录 http://code.google.com/p/greentimer/，与我们联系","抱歉");
 
 	return 0;
 }
 
 LRESULT DialogToDo::OnBnClickedAddShowstatics(WORD /*wNotifyCode*/, WORD /*wID*/, HWND /*hWndCtl*/, BOOL& /*bHandled*/)
 {
-	MessageBox("本功能将在下一版本实现，敬请关注。\r\n\r\n如果您愿意参与此项目，请到登录 http://code.google.com/p/greentimer/，与我们联系","抱歉");
+	MessageBox("本功能将在下一版本实现，敬请关注。\r\n\r\n如果您愿意参与此项目，请登录 http://code.google.com/p/greentimer/，与我们联系","抱歉");
 
 	return 0;
 }
