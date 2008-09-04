@@ -15,6 +15,7 @@
 #include "./DialogToDo.h"
 #include "./DBLog.h"
 #include "GlobeFuns.h"
+#include "DialogToDoHistory.h"
 
 //¿ì½Ý¼üID
 const UINT uiACCELAR_ID_SHOWMAINDLG = 0X1000;
@@ -57,6 +58,7 @@ public:
 		COMMAND_ID_HANDLER(ID_APP_OPEN_TASKDB, OnBtnOpenTaskDB)
 		COMMAND_ID_HANDLER(ID_APP_TODAYTASK, OnBtnTodayTask)
 		COMMAND_ID_HANDLER(ID_CMD_QUICKREMIND, OnBtnQuickRemind)
+		COMMAND_ID_HANDLER(ID_APP_TODOHISTORY, OnBtnTodoHistory)
 		COMMAND_ID_HANDLER(ID_MENU_QUICKREMIND_5MIN, OnBtnQuickRemind)
 		COMMAND_ID_HANDLER(ID_MENU_QUICKREMIND_10MIN, OnBtnQuickRemind)
 		COMMAND_ID_HANDLER(ID_MENU_QUICKREMIND_1HOUR, OnBtnQuickRemind)
@@ -118,7 +120,7 @@ public:
 		btn.SetCheck(tss.IsSelfStart());
 
 		//×¢²á¿ì½Ý¼ü
-		RegisterHotKey(m_hWnd,uiACCELAR_ID_SHOWMAINDLG,MOD_ALT|MOD_SHIFT,'Z');
+		RegisterHotKey(m_hWnd,uiACCELAR_ID_SHOWMAINDLG,MOD_CONTROL,'G');
 
 		return TRUE;
 	}
@@ -195,6 +197,13 @@ public:
 	LRESULT OnBtnTodayTask(WORD /*wNotifyCode*/, WORD /*wID*/, HWND /*hWndCtl*/, BOOL& /*bHandled*/)
 	{
 		CAddTodayTaskDlg dlg;
+		dlg.DoModal();
+		return 0;
+	}
+
+	LRESULT OnBtnTodoHistory(WORD /*wNotifyCode*/, WORD /*wID*/, HWND /*hWndCtl*/, BOOL& /*bHandled*/)
+	{
+		CDialogToDoHistory dlg;
 		dlg.DoModal();
 		return 0;
 	}

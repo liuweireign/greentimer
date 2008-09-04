@@ -22,6 +22,7 @@
 #define IDD_TASKMODIFYDIALOG            104
 #define IDD_QUICKREMIND                 105
 #define IDD_DIALOGTODODETAIL            106
+#define IDD_DIALOGTODOHISTORY           107
 #define IDR_MAINFRAME                   128
 #define IDD_MAINDLG                     129
 #define IDR_MENU_ICON                   201
@@ -51,6 +52,7 @@
 #define IDC_CHK_SELFSTART               1017
 #define IDC_LIST_TODO                   1018
 #define IDC_EDT_REMARK                  1019
+#define IDC_CHK_AUTOSAVE                1020
 #define ID_32775                        32775
 #define ID_32776                        32776
 #define ID_32777                        32777
@@ -67,6 +69,7 @@
 #define ID_MENU_QUICKREMIND_TOMORROW    32795
 #define ID_32798                        32798
 #define ID_APP_OPEN_TASKDB              32799
+#define ID_APP_TODOHISTORY              32801
 #define ID_APP_ABOUT2                   57665
 #define ID_APP_OPINION                  57665
 #define ID_CMD_TASKVIEW                 57666
@@ -80,8 +83,8 @@
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
 #define _APS_NEXT_RESOURCE_VALUE        209
-#define _APS_NEXT_COMMAND_VALUE         32800
-#define _APS_NEXT_CONTROL_VALUE         1020
-#define _APS_NEXT_SYMED_VALUE           107
+#define _APS_NEXT_COMMAND_VALUE         32802
+#define _APS_NEXT_CONTROL_VALUE         1021
+#define _APS_NEXT_SYMED_VALUE           108
 #endif
 #endif

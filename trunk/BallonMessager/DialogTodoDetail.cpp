@@ -32,10 +32,75 @@ LRESULT CDialogTodoDetail::OnInitDialog( UINT uMsg, WPARAM wParam, LPARAM lParam
 	SetDlgItemText(IDC_EDT_NAME,todo.strTask.c_str());
 	SetDlgItemText(IDC_EDT_REMARK,todo.strRemark.c_str());
 
+	m_bModified = false;
+
+	//定时保存
+	SetTimer(0,3*60*1000,NULL);
+
+	CButton btn(GetDlgItem(IDC_CHK_AUTOSAVE));
+	btn.SetCheck(TRUE);
+	
 	return 1;  // 使系统设置焦点
 }
 
 LRESULT CDialogTodoDetail::OnClickedOK( WORD wNotifyCode, WORD wID, HWND hWndCtl, BOOL& bHandled )
+{
+	SaveToDB();
+	EndDialog(wID);
+	return 0;
+}
+
+LRESULT CDialogTodoDetail::OnClickedCancel( WORD wNotifyCode, WORD wID, HWND hWndCtl, BOOL& bHandled )
+{
+	if (m_bModified)
+	{
+		int iRes = MessageBox(_T("内容已更改，要保存吗？"),"注意",MB_YESNOCANCEL);
+		if(IDOK==iRes)
+		{
+			SaveToDB();
+		}
+		else if (IDCANCEL==iRes)
+		{
+			return 0;
+		}
+		else
+		{
+			//点击“否”即不保存，仍然关闭。
+		}
+	}
+	EndDialog(wID);
+	return 0;
+}
+LRESULT CDialogTodoDetail::OnBnClickedSetNotify(WORD /*wNotifyCode*/, WORD /*wID*/, HWND /*hWndCtl*/, BOOL& /*bHandled*/)
+{
+	// TODO: 在此添加控件通知处理程序代码
+
+	return 0;
+}
+
+LRESULT CDialogTodoDetail::OnBnClickedSave(WORD /*wNotifyCode*/, WORD /*wID*/, HWND /*hWndCtl*/, BOOL& /*bHandled*/)
+{
+	SaveToDB();
+
+	return 0;
+}
+
+LRESULT CDialogTodoDetail::OnBnClickedChkAutosave(WORD /*wNotifyCode*/, WORD /*wID*/, HWND /*hWndCtl*/, BOOL& /*bHandled*/)
+{
+	return 0;
+}
+
+LRESULT CDialogTodoDetail::OnTimer( UINT /*uMsg*/, WPARAM /*wParam*/, LPARAM /*lParam*/, BOOL& /*bHandled*/ )
+{
+	if (!m_bModified)
+	{
+		return 0;
+	}
+	SaveToDB();
+	return 0;
+}
+
+void CDialogTodoDetail::SaveToDB()
 {
 	ToDoTask todo = g_todoSet.GetToDo(m_id);
 	CString strTmp;
@@ -46,18 +111,36 @@ LRESULT CDialogTodoDetail::OnClickedOK( WORD wNotifyCode, WORD wID, HWND hWndCtl
 
 	g_todoSet.UpdateToDo(todo);
 
-	EndDialog(wID);
+	if (m_bModified)
+	{
+		m_bModified = false;
+		UpdateTitle();
+	}
+}
+LRESULT CDialogTodoDetail::OnEnChangeEdtRemark(WORD /*wNotifyCode*/, WORD /*wID*/, HWND /*hWndCtl*/, BOOL& /*bHandled*/)
+{
+	if (!m_bModified)
+	{
+		m_bModified = true;
+		UpdateTitle();
+	}
+
 	return 0;
 }
 
-LRESULT CDialogTodoDetail::OnClickedCancel( WORD wNotifyCode, WORD wID, HWND hWndCtl, BOOL& bHandled )
+void CDialogTodoDetail::UpdateTitle()
 {
-	EndDialog(wID);
-	return 0;
-}
-LRESULT CDialogTodoDetail::OnBnClickedSetNotify(WORD /*wNotifyCode*/, WORD /*wID*/, HWND /*hWndCtl*/, BOOL& /*bHandled*/)
-{
-	// TODO: 在此添加控件通知处理程序代码
-
-	return 0;
+	ToDoTask todo = g_todoSet.GetToDo(m_id);
+	if (todo.id==ToDoTask::ERROR_TASKID)
+	{
+		return ;
+	}
+	if (m_bModified)
+	{
+		SetWindowText((todo.strTask + _T(" - 备注 *")).c_str());
+	}
+	else
+	{
+		SetWindowText((todo.strTask + _T(" - 备注")).c_str());
+	}
 }
