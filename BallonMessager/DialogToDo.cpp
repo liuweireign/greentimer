@@ -3,6 +3,7 @@
 #include ".\dialogtodo.h"
 #include "DialogTodoDetail.h"
 #include "GlobeFuns.h"
+#include "DialogToDoHistory.h"
 
 using namespace std;
 
@@ -71,13 +72,12 @@ LRESULT DialogToDo::OnInitDialog( UINT /*uMsg*/, WPARAM /*wParam*/, LPARAM /*lPa
 	m_listTodo.AddColumn(_T("状态"),50,ITEM_IMAGE_NONE,FALSE,ITEM_FORMAT_COMBO,ITEM_FLAGS_NONE);
 	m_iColState = iCol++;
 	iUsedLen += 50;
-
 	CRect rt;
 	m_listTodo.GetClientRect(&rt);
 	m_listTodo.AddColumn(_T("备注"),rt.Width()-iUsedLen);//,ITEM_IMAGE_NONE,FALSE,ITEM_FORMAT_EDIT,ITEM_FLAGS_NONE);
 	m_iColRemark = iCol++;
 
-	m_aListPriority.Add(_T("紧急"));
+	m_aListPriority.Add(_T("紧急"));	//按顺序初始化，顺序号就是priority
 	m_aListPriority.Add(_T("重要"));
 	m_aListPriority.Add(_T("普通"));
 	m_aListPriority.Add(_T("不重要"));
@@ -89,7 +89,7 @@ LRESULT DialogToDo::OnInitDialog( UINT /*uMsg*/, WPARAM /*wParam*/, LPARAM /*lPa
 		m_vecPriorityShow.push_back(TRUE);
 	}
 
-	m_aListState.Add(_T("计划中"));
+	m_aListState.Add(_T("计划中"));//按顺序初始化，顺序号就是state
 	m_aListState.Add(_T("工作中"));
 	m_aListState.Add(_T("暂停"));
 	m_aListState.Add(_T("已完成"));
@@ -310,25 +310,6 @@ int DialogToDo::FindItem( int todo_id )
 	return -1;
 }
 
-COLORREF GetStateColor(ToDoTask::TaskState state)
-{
-	switch(state)
-	{
-		case ToDoTask::TS_NOT_START:
-			return RGB(0XCC,0XFF,0XCC);
-		case ToDoTask::TS_WORKING:
-			return RGB(10,170,10);
-		case ToDoTask::TS_STOP:
-			return RGB(10,100,10);
-		case ToDoTask::TS_CANCEL:
-			return RGB(0XCC,0XCC,0XCC);
-		case ToDoTask::TS_FINISHED:
-			return RGB(0XAA,0XAA,0XAA);
-
-	}
-	return RGB(0,0,0);
-}
-
 int DialogToDo::AddTodoItem( ToDoTask &todo )
 {
 	//增加一行
@@ -360,7 +341,7 @@ void DialogToDo::UpdateItem( int iItem )
 
 	m_listTodo.SetItemFormat(iItem,m_iColState,ITEM_FORMAT_COMBO,ITEM_FLAGS_NONE,m_aListState);
 	m_listTodo.SetItemComboIndex(iItem,m_iColState,todo.state);
-	m_listTodo.SetItemColours(iItem,m_iColState,GetStateColor(todo.state),RGB(0,0,0));
+	m_listTodo.SetItemColours(iItem,m_iColState,ToDoTask::GetStateColor(todo.state),RGB(0,0,0));
 
 	m_listTodo.SetItemText(iItem,m_iColRemark,todo.strRemark.c_str());
 }
@@ -478,8 +459,9 @@ LRESULT DialogToDo::OnBnClickedAddRefresh(WORD /*wNotifyCode*/, WORD /*wID*/, HW
 
 LRESULT DialogToDo::OnBnClickedAddShowrecycle(WORD /*wNotifyCode*/, WORD /*wID*/, HWND /*hWndCtl*/, BOOL& /*bHandled*/)
 {
-	MessageBox("本功能将在下一版本实现，敬请关注。\r\n\r\n如果您愿意参与此项目，请登录 http://code.google.com/p/greentimer/，与我们联系","抱歉");
-
+	//MessageBox("本功能将在下一版本实现，敬请关注。\r\n\r\n如果您愿意参与此项目，请登录 http://code.google.com/p/greentimer/，与我们联系","抱歉");
+	CDialogToDoHistory dlg;
+	dlg.DoModal();
 	return 0;
 }
 

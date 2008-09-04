@@ -26,6 +26,53 @@ bool ToDoTask::operator < (const ToDoTask &task) const
 {
 	return id<task.id;
 }
+
+TCHAR * ToDoTask::PriorityText( TaskPriority priority )
+{
+	switch(priority)
+	{
+	case TP_MOST_IMPORTANT: return _T("紧急");
+	case TP_IMPORTANT: return _T( "重要");
+	case TP_NORMAL: return _T("普通");
+	case TP_NOT_IMPORTANT: return _T("不重要"); 
+	}
+	return _T("错误！");
+}
+
+TCHAR * ToDoTask::StateText( TaskState state )
+{
+	switch(state)
+	{
+	case TS_NOT_START: return _T("计划中");
+	case TS_WORKING: return _T( "工作中");
+	case TS_STOP: return _T("暂停");
+	case TS_FINISHED: return _T("已完成"); 
+	case TS_CANCEL: return _T( "取消");
+	case TS_DELETED: return _T("删除");
+	}
+	return _T("错误！");
+}
+
+COLORREF ToDoTask::GetStateColor( TaskState state )
+{
+	switch(state)
+	{
+	case ToDoTask::TS_NOT_START:
+		return RGB(0XCC,0XFF,0XCC);
+	case ToDoTask::TS_WORKING:
+		return RGB(10,170,10);
+	case ToDoTask::TS_STOP:
+		return RGB(10,100,10);
+	case ToDoTask::TS_CANCEL:
+		return RGB(0XCC,0XCC,0XCC);
+	case ToDoTask::TS_FINISHED:
+		return RGB(0XAA,0XAA,0XAA);
+	case TS_DELETED: 
+		return RGB(0X55,0X55,0X55);
+
+	}
+	return RGB(0,0,0);
+}
 //
 //
 //bool WriteToDoToDB(CppSQLite3DB &dbTodo, const ToDoTask &todo)
@@ -264,7 +311,8 @@ bool TodoSet::DeleteToDo( int id )
 	CheckCreateTable(dbTask);
 
 	CppSQLite3Buffer strSql;
-	strSql.format("delete from T_todo2 where id=%d;",id);
+	//strSql.format("delete from T_todo2 where id=%d;",id);
+	strSql.format("update T_todo2 set state=%d where id=%d;",ToDoTask::TS_DELETED,id);
 	try{
 		if(1==dbTask.execDML(strSql))
 		{
@@ -355,4 +403,29 @@ bool TodoSet::RecoverDataFromV1()
 	}
 
 	return true;
+}
+
+void TodoSet::GetHistoryTodoList( std::set<int> &taskIDs )
+{
+	//打开数据
+	CppSQLite3DB dbTask;
+	dbTask.open(m_strDB.c_str());
+	CheckCreateTable(dbTask);
+
+	//如果表格不存在，则说明这数据库格式不对
+	if (!dbTask.tableExists("T_todo2"))                //创建事件日志表
+	{
+		ATLASSERT(FALSE);
+		return;
+	}
+
+	CppSQLite3Buffer buf;
+	buf.format("select id from T_todo2 where state==%d;",(int)ToDoTask::TS_DELETED);
+	CppSQLite3Query q = dbTask.execQuery(buf);
+	while(!q.eof())
+	{
+		ATLASSERT(ToDoTask::ERROR_TASKID!=q.getIntField("id"));
+		taskIDs.insert(q.getIntField("id"));
+		q.nextRow();
+	}
 }

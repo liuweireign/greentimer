@@ -31,6 +31,10 @@ public:
 		//"删除"状态
 		TS_DELETED = 5,
 	};
+	static TCHAR *PriorityText(TaskPriority priority);
+	static TCHAR *StateText(TaskState state);
+	static COLORREF GetStateColor(TaskState state);
+
 	ToDoTask(void);
 	ToDoTask(int taskid);
 	~ToDoTask(void);
@@ -55,7 +59,7 @@ public:
 	CTime tmPlanFinshTime;
 
 	//任务操作历史
-	std::map<CTime,std::string> mapHistory;
+	//std::map<CTime,std::string> mapHistory;
 };
 
 //任务数据库
@@ -70,6 +74,7 @@ public:
 	//bool Load(const TCHAR *strDB);
 	//bool Save(const TCHAR *strDB);
 	void GetTodoList(std::set<int> &taskIDs);
+	void GetHistoryTodoList(std::set<int> &taskIDs);
 	ToDoTask GetToDo(int id);
 	bool UpdateToDo(const ToDoTask &task);
 	int AddToDo();
