@@ -7,6 +7,16 @@
 
 // CDialogTodoDetail
 
+CDialogTodoDetail::CDialogTodoDetail( int iTodoID,bool bReadOnly )
+{
+	m_id = iTodoID;
+	m_bReadOnly = bReadOnly;
+}
+
+CDialogTodoDetail::~CDialogTodoDetail()
+{
+
+}
 LRESULT CDialogTodoDetail::OnInitDialog( UINT uMsg, WPARAM wParam, LPARAM lParam, BOOL& bHandled )
 {
 	CAxDialogImpl<CDialogTodoDetail>::OnInitDialog(uMsg, wParam, lParam, bHandled);
@@ -31,11 +41,14 @@ LRESULT CDialogTodoDetail::OnInitDialog( UINT uMsg, WPARAM wParam, LPARAM lParam
 	SetWindowText((todo.strTask + _T(" - 备注")).c_str());
 	SetDlgItemText(IDC_EDT_NAME,todo.strTask.c_str());
 	SetDlgItemText(IDC_EDT_REMARK,todo.strRemark.c_str());
+	CEdit edtRemark = GetDlgItem(IDC_EDT_REMARK);
+	edtRemark.SetReadOnly((BOOL)m_bReadOnly);
+	//wnd.EnableWindow((BOOL)m_bReadOnly);	//这个只读样式太难看了。
 
 	m_bModified = false;
 
 	//定时保存
-	SetTimer(0,3*60*1000,NULL);
+	SetTimer(0,1*60*1000,NULL);	//一分钟保存一次
 
 	CButton btn(GetDlgItem(IDC_CHK_AUTOSAVE));
 	btn.SetCheck(TRUE);

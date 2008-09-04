@@ -12,14 +12,9 @@ class CDialogTodoDetail :
 	public CAxDialogImpl<CDialogTodoDetail>
 {
 public:
-	CDialogTodoDetail(int iTodoID)
-	{
-		m_id = iTodoID;
-	}
+	CDialogTodoDetail(int iTodoID,bool bReadOnly=false);
 
-	~CDialogTodoDetail()
-	{
-	}
+	~CDialogTodoDetail();
 
 	enum { IDD = IDD_DIALOGTODODETAIL };
 
@@ -40,6 +35,7 @@ private:
 	CEdit m_edtName;
 	CEdit m_edtDetail;
 	bool m_bModified;
+	bool m_bReadOnly;
 public:
 	LRESULT OnInitDialog(UINT uMsg, WPARAM wParam, LPARAM lParam, BOOL& bHandled);
 	LRESULT OnClickedOK(WORD wNotifyCode, WORD wID, HWND hWndCtl, BOOL& bHandled);

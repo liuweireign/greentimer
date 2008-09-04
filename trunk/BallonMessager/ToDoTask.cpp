@@ -251,6 +251,16 @@ ToDoTask TodoSet::GetToDo( int id )
 
 bool TodoSet::UpdateToDo( const ToDoTask &task )
 {
+	if (task.state==ToDoTask::TS_FINISHED)
+	{
+		//如果旧的任务状态不是“已完成”，那么先把任务状态设为完成。
+		ToDoTask todo = GetToDo(task.id);
+		if (ToDoTask::TS_FINISHED!=todo.state)
+		{
+			UpdateTaskFinishTime(task.id,CTime::GetCurrentTime());
+		}
+	}
+
 	//打开数据
 	CppSQLite3DB dbTask;
 	dbTask.open(m_strDB.c_str());
@@ -258,6 +268,37 @@ bool TodoSet::UpdateToDo( const ToDoTask &task )
 	return UpdateToDB(dbTask,task);
 }
 
+void TodoSet::UpdateTaskFinishTime( int id,const CTime &tm)
+{
+	//打开数据库
+	CppSQLite3DB dbTask;
+	dbTask.open(m_strDB.c_str());
+	CheckCreateTable(dbTask);
+
+	CppSQLite3Buffer strSql;
+	//strSql.format("delete from T_todo2 where id=%d;",id);
+	strSql.format("update T_todo2 set time_finish=%d where id=%d;",GlobeFuns::TimeToInt(tm),id);
+	try{
+		if(1==dbTask.execDML(strSql))
+		{
+			LOG_TODO(LOG_CONST::MTV_SETFINISH,id,"成功:设置最后更新时间");
+			return ;
+		}
+		else
+		{
+			LOG_TODO(LOG_CONST::MTV_SETFINISH,id,"失败:设置最后更新时间");
+			return ;
+		}
+	}
+	catch(CppSQLite3Exception &exp)
+	{
+		exp;
+		ATLTRACE("error:%s\n",exp.errorMessage());
+		ATLASSERT(FALSE);
+		LOG_TODO(LOG_CONST::MTV_SETFINISH,id,((string)"异常:设置最后更新时间" + exp.errorMessage()).c_str());
+		return ;
+	}
+}
 int TodoSet::AddToDo()
 {
 	ToDoTask todo(0);
@@ -305,6 +346,13 @@ int TodoSet::AddToDo()
 
 bool TodoSet::DeleteToDo( int id )
 {
+	//如果任务状态不是“已完成”，那么先把任务状态设为完成。
+	ToDoTask todo = GetToDo(id);
+	if (ToDoTask::TS_FINISHED!=todo.state)
+	{
+		UpdateTaskFinishTime(id,CTime::GetCurrentTime());
+	}
+
 	//打开数据库
 	CppSQLite3DB dbTask;
 	dbTask.open(m_strDB.c_str());
@@ -335,6 +383,69 @@ bool TodoSet::DeleteToDo( int id )
 	}
 }
 
+bool TodoSet::ReactiveToDo( int id )
+{
+	//打开数据库
+	CppSQLite3DB dbTask;
+	dbTask.open(m_strDB.c_str());
+	CheckCreateTable(dbTask);
+
+	CppSQLite3Buffer strSql;
+	//strSql.format("delete from T_todo2 where id=%d;",id);
+	strSql.format("update T_todo2 set state=%d where id=%d;",ToDoTask::TS_NOT_START,id);
+	try{
+		if(1==dbTask.execDML(strSql))
+		{
+			LOG_TODO(LOG_CONST::MTV_REACTIVE,id,"成功:重新激活待办事项成功");
+			return true;
+		}
+		else
+		{
+			LOG_TODO(LOG_CONST::MTV_REACTIVE,id,"失败:重新激活待办事项失败");
+			return false;
+		}
+	}
+	catch(CppSQLite3Exception &exp)
+	{
+		exp;
+		ATLTRACE("error:%s\n",exp.errorMessage());
+		ATLASSERT(FALSE);
+		LOG_TODO(LOG_CONST::MTV_REACTIVE,id,((string)"异常:重新激活待办事项失败" + exp.errorMessage()).c_str());
+		return false;
+	}
+}
+
+
+bool TodoSet::DeleteToDoForever( int id )
+{
+	//打开数据库
+	CppSQLite3DB dbTask;
+	dbTask.open(m_strDB.c_str());
+	CheckCreateTable(dbTask);
+
+	CppSQLite3Buffer strSql;
+	strSql.format("delete from T_todo2 where id=%d;",id);
+	try{
+		if(1==dbTask.execDML(strSql))
+		{
+			LOG_TODO(LOG_CONST::MTV_DELETEFOREVER,id,"成功:永久删除待办事项成功");
+			return true;
+		}
+		else
+		{
+			LOG_TODO(LOG_CONST::MTV_DELETEFOREVER,id,"失败:永久删除待办事项失败");
+			return false;
+		}
+	}
+	catch(CppSQLite3Exception &exp)
+	{
+		exp;
+		ATLTRACE("error:%s\n",exp.errorMessage());
+		ATLASSERT(FALSE);
+		LOG_TODO(LOG_CONST::MTV_DELETEFOREVER,id,((string)"异常:永久删除待办事项失败" + exp.errorMessage()).c_str());
+		return false;
+	}
+}
 bool TodoSet::CheckDBValid()
 {
 	//打开数据库
