@@ -11,9 +11,12 @@
 #define ID_BTN_EDIT                     6
 #define ID_EDIT_TODO                    6
 #define ID_ADD_REFRESH                  7
+#define ID_EDIT_SETLIVE                 7
 #define ID_CMD_TODO                     8
 #define ID_ADD_DELETE2                  8
 #define ID_ADD_SHOWRECYCLE              8
+#define ID_EDIT_SETLIVE2                8
+#define ID_EDIT_DELETEFOREVER           8
 #define ID_ADD_SHOWRECYCLE2             9
 #define ID_ADD_SHOWSTATICS              9
 #define IDD_ABOUTBOX                    100

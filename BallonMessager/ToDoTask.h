@@ -79,10 +79,13 @@ public:
 	bool UpdateToDo(const ToDoTask &task);
 	int AddToDo();
 	bool DeleteToDo(int id);
+	bool ReactiveToDo(int id);
+	bool DeleteToDoForever(int id);
 private:
 	std::string m_strDB;
 private:
 	bool CheckDBValid();
+	void UpdateTaskFinishTime(int id,const CTime &tm);
 
 	//将t_todo中的数据迁移到t_todo2中，然后删除t_todo。
 	//由于t_todo版本还没发布，所以不需要发布这个函数。
