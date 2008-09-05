@@ -81,6 +81,9 @@ public:
 	bool DeleteToDo(int id);
 	bool ReactiveToDo(int id);
 	bool DeleteToDoForever(int id);
+	//获取统计信息
+	bool GetStatic(int &iFinished,int &iPlaned, int &iWorking);
+	int GetTaskCount(int iState);	//按状态读任务总数。iState=-1代表取所有任务总数。出错则返回-1
 private:
 	std::string m_strDB;
 private:
