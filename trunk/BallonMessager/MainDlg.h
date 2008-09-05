@@ -103,10 +103,21 @@ public:
 		ITask task;
 		if (!g_TaskDB.FindTaskRunNow(task))
 		{
+			CString strMsg = "合理安排时间，做个高效的人。\r\n";
+
 			CTime tm = CTime::GetCurrentTime();
 			ATL::CString strNow;
-			strNow.Format("合理安排时间，做个高效的人。\r\n\r\n现在时间： %d 点 %d 分。",tm.GetHour(),tm.GetMinute());
-			BalloonToolTips(strNow);
+			strNow.Format("现在时间： %d 点 %d 分。\r\n\r\n",tm.GetHour(),tm.GetMinute());
+			strMsg += strNow;
+
+			int iFinished,iPlaned, iWorking;
+			if(g_todoSet.GetStatic(iFinished,iPlaned, iWorking))
+			{
+				CString strTasks;
+				strTasks.Format("您有 %d 件计划任务，其中 %d 件正在处理中。",iPlaned+iWorking, iWorking);
+				strMsg += strTasks;
+			}
+			BalloonToolTips(strMsg);
 		}
 
 		//每隔一定时间检查一次，看有没有需要运行的任务

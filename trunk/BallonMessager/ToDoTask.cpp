@@ -540,3 +540,44 @@ void TodoSet::GetHistoryTodoList( std::set<int> &taskIDs )
 		q.nextRow();
 	}
 }
+
+bool TodoSet::GetStatic( int &iFinished,int &iPlaned, int &iWorking )
+{
+	iFinished = GetTaskCount(ToDoTask::TS_FINISHED);
+	iPlaned = GetTaskCount(ToDoTask::TS_NOT_START) + GetTaskCount(ToDoTask::TS_STOP);
+	iWorking = GetTaskCount(ToDoTask::TS_WORKING);
+	return iFinished>=0 
+		&& iPlaned>=0 
+		&& iWorking>=0;
+}
+
+int TodoSet::GetTaskCount( int iState )
+{
+	//打开数据
+	CppSQLite3DB dbTask;
+	dbTask.open(m_strDB.c_str());
+	CheckCreateTable(dbTask);
+
+	//如果表格不存在，则说明这数据库格式不对
+	if (!dbTask.tableExists("T_todo2"))                //创建事件日志表
+	{
+		ATLASSERT(FALSE);
+		return -1;
+	}
+
+	CppSQLite3Buffer buf;
+	if (iState>=0)
+	{
+		buf.format("select count(*) as count from T_todo2 where state==%d;",iState);
+	}
+	else
+	{
+		buf.format("select count(*) as count from T_todo2;");
+	}
+	CppSQLite3Query q = dbTask.execQuery(buf);
+	if(!q.eof())
+	{
+		return q.getIntField("count");
+	}
+	return -1;
+}
