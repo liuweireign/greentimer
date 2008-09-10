@@ -189,83 +189,63 @@ HBITMAP ReplaceColor (HBITMAP hBmp,COLORREF cOldColor,COLORREF cNewColor,HDC hBm
 				//GetDIBBits()
 
 				HBITMAP DirectBitmap= CreateDIBSection(DirectDC, (BITMAPINFO *)&RGB32BitsBITMAPINFO, DIB_RGB_COLORS,(void **)&ptPixels, NULL, 0);
-				if (DirectBitmap)
+				if (!DirectBitmap)
 				{
-					// here DirectBitmap!=NULL so ptPixels!=NULL no need to test
-					HGDIOBJ PreviousObject=SelectObject(DirectDC, DirectBitmap);
-					BitBlt(DirectDC,0,0,bm.bmWidth,bm.bmHeight,BufferDC,0,0,SRCCOPY);					
-					// here the DirectDC contains the bitmap
-
-					// Convert COLORREF to RGB (Invert RED and BLUE)
-					cOldColor=COLORREF2RGB(cOldColor);
-					cNewColor=COLORREF2RGB(cNewColor);
-
-					UINT iMidPower = (7+7+1)*256/2;	//半径为2的情况下，15个点，每个点都是半红色的情况。
-					RedPointFinder finder(ptPixels,bm.bmWidth,bm.bmHeight);
-					int iPos = finder.GetPowerMost(iMidPower);
-
-					//if (iPos==-1)
-					//{
-					//	ATLTRACE("最强点太多，无法区分\n");
-					//}
-					//if (iPos==-2)
-					//{
-					//	ATLTRACE("没有最强点\n");
-					//}
-					//if (iPos)
-					//{
-					//	ATLTRACE("最强点%d(x=%d,y=%d)\n",iPos,iPos%bm.bmWidth,iPos/bm.bmHeight);
-					//}
-
-
-					// After all the inits we can do the job : Replace Color
-					for (int i=((bm.bmWidth*bm.bmHeight)-1);i>=0;i--)
-					{
-						int x = i%bm.bmWidth;
-						int y = i/bm.bmWidth;
-						if (x==y)
-						{
-							ptPixels[i] = RGB(0,255,0);
-						}
-						if (x==2*y)
-						{
-							ptPixels[i] = RGB(0,255,0);
-						}
-						if (2*x==y)
-						{
-							ptPixels[i] = RGB(0,255,0);
-						}
-						//if (ptPixels[i]==cOldColor)
-						//{
-						//	ptPixels[i]=cNewColor;
-						//}
-						//if ((i%bm.bmWidth)==20)//(i%bm.bmHeight))
-						//{
-						//	ptPixels[i]=RGB(0,0XCC,0);
-						//}
-						//if ((i/20)==0)//(i%bm.bmHeight))
-						//{
-						//	ptPixels[i]=RGB(255,0,0);
-						//}
-					}
-					ptPixels[iPos+2] = RGB(0,255,0);
-					ptPixels[iPos+1] = RGB(0,255,0);
-					ptPixels[iPos-1] = RGB(0,255,0);
-					ptPixels[iPos-2] = RGB(0,255,0);
-					ptPixels[iPos] = RGB(0,255,0);
-					ptPixels[10*bm.bmWidth+10] = RGB(0,255,0);
-					ptPixels[10*bm.bmWidth+11] = RGB(0,255,0);
-					ptPixels[10*bm.bmWidth+12] = RGB(0,255,0);
-					ptPixels[11*bm.bmWidth+11] = RGB(0,255,0);
-					ptPixels[12*bm.bmWidth+11] = RGB(0,255,0);
-					ptPixels[13*bm.bmWidth+11] = RGB(0,255,0);
-					// little clean up
-					// Don't delete the result of SelectObject because it's our modified bitmap (DirectBitmap)
-					SelectObject(DirectDC,PreviousObject);
-					
-					// finish
-					RetBmp=DirectBitmap;
+					return NULL;
 				}
+				// here DirectBitmap!=NULL so ptPixels!=NULL no need to test
+				HGDIOBJ PreviousObject=SelectObject(DirectDC, DirectBitmap);
+				BitBlt(DirectDC,0,0,bm.bmWidth,bm.bmHeight,BufferDC,0,0,SRCCOPY);					
+				// here the DirectDC contains the bitmap
+
+				// Convert COLORREF to RGB (Invert RED and BLUE)
+				cOldColor=COLORREF2RGB(cOldColor);
+				cNewColor=COLORREF2RGB(cNewColor);
+
+				UINT iMidPower = (7+7+1)*256/4;	//半径为2的情况下，15个点，每个点都是半红色的情况。
+				RedPointFinder finder(ptPixels,bm.bmWidth,bm.bmHeight);
+				int iPos = finder.GetPowerMost(iMidPower);
+
+
+				unsigned int iColor = RGB(0,255,0);
+				// After all the inits we can do the job : Replace Color
+				for (int i=((bm.bmWidth*bm.bmHeight)-1);i>=0;i--)
+				{
+					int x = i%bm.bmWidth;
+					int y = i/bm.bmWidth;
+					if (x==y)
+					{
+						ptPixels[i] = iColor;
+					}
+					if (x==2*y)
+					{
+						ptPixels[i] = iColor;
+					}
+					if (2*x==y)
+					{
+						ptPixels[i] = iColor;
+					}
+				}
+				if(iPos>0)
+				{
+					ptPixels[iPos+2] = iColor;
+					ptPixels[iPos+1] = iColor;
+					ptPixels[iPos-1] = iColor;
+					ptPixels[iPos-2] = iColor;
+					ptPixels[bm.bmWidth+iPos+2] = iColor;
+					ptPixels[bm.bmWidth+iPos+1] = iColor;
+					ptPixels[bm.bmWidth+iPos-1] = iColor;
+					ptPixels[bm.bmWidth+iPos-2] = iColor;
+					ptPixels[iPos] = iColor;
+					int iPower = finder.CalcPointPower(finder.GetX(iPos),finder.GetY(iPos),4);
+				}
+				//TRACE("most power：%d,%d\n",iPos,iPower);
+				// little clean up
+				// Don't delete the result of SelectObject because it's our modified bitmap (DirectBitmap)
+				SelectObject(DirectDC,PreviousObject);
+
+				// finish
+				RetBmp=DirectBitmap;
 				// clean up
 				DeleteDC(DirectDC);
 			}			
