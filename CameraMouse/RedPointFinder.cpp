@@ -1,7 +1,7 @@
 //#include "stdafx.h"
 #include ".\redpointfinder.h"
 
-#define PICK_RED(rgb) (rgb%256)
+#define PICK_RED(rgb) ((rgb)%256)
 
 RedPointFinder::RedPointFinder(unsigned int * ptPixels,unsigned int iWidth,unsigned int iHeight)
 {
@@ -26,23 +26,24 @@ unsigned int RedPointFinder::CalcPointPower(unsigned int x,unsigned int y,unsign
 	}
 
 	//向8个方向计算其数值之和
-	unsigned int uiPower = PICK_RED(*(m_ptPixels + y*m_iWidth + x));
+	unsigned int uiPower = PICK_RED( GetColor(x, y));
 	for (unsigned int i=1;i<r;i++)	//注意，0点已经在前面计算
 	{
 		//右边三点
-		uiPower += PICK_RED(*(m_ptPixels + (y+r)*m_iWidth + x + r));
-		uiPower += PICK_RED(*(m_ptPixels + (y-r)*m_iWidth + x + r));
-		uiPower += PICK_RED(*(m_ptPixels + y*m_iWidth + x + r));
+		uiPower += PICK_RED( GetColor(x + i, y + i) );
+		uiPower += PICK_RED( GetColor(x + i, y - i) );
+		uiPower += PICK_RED( GetColor(x + i, y ) );
 
 		//左边三点
-		uiPower += PICK_RED(*(m_ptPixels + (y+r)*m_iWidth + x - r));
-		uiPower += PICK_RED(*(m_ptPixels + (y-r)*m_iWidth + x - r));
-		uiPower += PICK_RED(*(m_ptPixels + y*m_iWidth + x - r));
+		uiPower += PICK_RED( GetColor(x - i, y + i) );
+		uiPower += PICK_RED( GetColor(x - i, y - i) );
+		uiPower += PICK_RED( GetColor(x - i, y ) );
 
 		//中间两点（最中间那一点前面已经计算过了）
-		uiPower += PICK_RED(*(m_ptPixels + (y+r)*m_iWidth + x));
-		uiPower += PICK_RED(*(m_ptPixels + (y-r)*m_iWidth + x));
+		uiPower += PICK_RED( GetColor(x , y + i) );
+		uiPower += PICK_RED( GetColor(x , y - i) );
 	}
+
 	return uiPower;
 }
 
@@ -54,11 +55,11 @@ int RedPointFinder::CheckPowerMost(unsigned int r,const vector<unsigned int> &ve
 	{
 		int pos = *it;
 
-		int i = pos%m_iWidth;
-		int j = pos/m_iWidth;
+		int i = GetX(pos);
+		int j = GetY(pos);
 		//ATLASSERT((i*m_iWidth+j)==pos);
 		unsigned int iPower = CalcPointPower(i,j,r);
-		if (iPower==0)
+		if (iPower<iMaxPower)
 		{
 			continue;
 		}
@@ -66,12 +67,8 @@ int RedPointFinder::CheckPowerMost(unsigned int r,const vector<unsigned int> &ve
 		{
 			iMaxPower=iPower;
 			vecPointOut.clear();
-			vecPointOut.push_back(j*m_iWidth + i);
 		}
-		else if (iPower==iMaxPower)	//不分输赢，同时入选
-		{
-			vecPointOut.push_back(pos);
-		}
+		vecPointOut.push_back(pos);
 	}
 	return vecPointOut.size();
 }
@@ -82,29 +79,26 @@ int RedPointFinder::GetPowerMost(unsigned int atLeastPower )
 	vector<unsigned int> vecPoints;
 
 	//首先扫描一遍，找出以2为半径时的最强点
-	for (unsigned int i=2;i<m_iWidth-2;i++)
+	for(int pos=0;pos<m_iWidth*m_iHeight;pos++)
 	{
-		for (unsigned int j=2;j<m_iHeight-2;j++)
+		int i=GetX(pos);
+		int j=GetY(pos);
+
+		unsigned int iPower = CalcPointPower(i,j,2);
+		if (iPower<atLeastPower)	//没达到阈值要求，看下一点
 		{
-			if (0==*(m_ptPixels + i*m_iWidth + j))
-			{
-				continue;
-			}
-			unsigned int iPower = CalcPointPower(i,j,2);
-			if (iPower<atLeastPower)	//没达到阈值要求，看下一点
-			{
-				continue;
-			}
-			if (iPower>iMaxPower)	//发现能量更强的点，旧的点全部先清空
-			{
-				iMaxPower=iPower;
-				vecPoints.clear();
-			}
-			int iPos = j*m_iWidth + i;
-			vecPoints.push_back(iPos);
+			continue;
 		}
+
+		if (iPower>iMaxPower)	//发现能量更强的点，旧的点全部先清空
+		{
+			iMaxPower=iPower;
+			vecPoints.clear();
+		}
+		vecPoints.push_back(pos);
 	}
-	if (vecPoints.empty())
+
+	if (vecPoints.empty())	//全都不符合条件？
 	{
 		//ATLASSERT(FALSE);
 		return -2;
@@ -122,9 +116,10 @@ int RedPointFinder::GetPowerMost(unsigned int atLeastPower )
 		vecPoints.swap(vecPointTmp);
 		vecPointTmp.clear();
 	}
-	if (vecPoints.size()>1)
-	{
-		return -1;
-	}
+	//if (vecPoints.size()>1)	//居然有那么多高手不分上下？
+	//{
+	//	return -1;
+	//}
+	//好，最强点只有一个了
 	return vecPoints[0];
 }
