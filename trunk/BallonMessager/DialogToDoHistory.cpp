@@ -97,7 +97,7 @@ void CDialogToDoHistory::Refresh()
 		ToDoTask todo = g_todoSet.GetToDo(*it);
 		AddTodoItem(todo);
 	}
-	m_listTodoHistory.SortItems(1,true);
+	m_listTodoHistory.SortItems(0,true);
 	m_listTodoHistory.SetRedraw(TRUE);
 }
 
@@ -120,21 +120,17 @@ void CDialogToDoHistory::UpdateItem( int iItem )
 	ToDoTask todo = g_todoSet.GetToDo(dwId);
 	ATLASSERT(todo.id!=ToDoTask::ERROR_TASKID);
 
+	//改变的文字颜色
 	COLORREF clrBgn,clrText;
-	m_listTodoHistory.GetItemColours(iItem,0,clrBgn,clrText);
-	m_listTodoHistory.SetItemColours(iItem,0,clrBgn,RGB(0X66,0X66,0X66));
+	m_listTodoHistory.GetItemColours(iItem,m_iColCreateTime,clrBgn,clrText);
+	m_listTodoHistory.SetItemColours(iItem,m_iColCreateTime,clrBgn,RGB(0X66,0X66,0X66));
+	m_listTodoHistory.SetSubItemData(iItem,m_iColCreateTime,GlobeFuns::TimeToInt(todo.tmCreateTime));
 
 	m_listTodoHistory.SetItemText(iItem,m_iColTitle,todo.strTask.c_str());
 
-	//m_listTodoHistory.SetItemFormat(iItem,m_iColPriority,ITEM_FORMAT_COMBO,ITEM_FLAGS_NONE,m_aListPriority);
-	//m_listTodoHistory.SetItemComboIndex(iItem,m_iColPriority,todo.priority);
 	m_listTodoHistory.SetItemText(iItem,m_iColPriority,ToDoTask::PriorityText(todo.priority));
 	m_listTodoHistory.SetItemColours(iItem,m_iColPriority,RGB(10,170-todo.priority*25,10),RGB(0,0,0));
-
-	//m_listTodoHistory.SetItemFormat(iItem,m_iColState,ITEM_FORMAT_COMBO,ITEM_FLAGS_NONE,m_aListState);
-	//m_listTodoHistory.SetItemComboIndex(iItem,m_iColState,todo.state);
-	//m_listTodoHistory.SetItemText(iItem,m_iColState,ToDoTask::StateText(todo.state));
-	//m_listTodoHistory.SetItemColours(iItem,m_iColState,ToDoTask::GetStateColor(todo.state),RGB(0,0,0));
+	m_listTodoHistory.SetSubItemData(iItem,m_iColPriority,todo.priority);
 
 	CString strTime;
 	if (todo.tmPlanFinshTime>=todo.tmCreateTime)
@@ -163,6 +159,7 @@ void CDialogToDoHistory::UpdateItem( int iItem )
 			strTmp.Format("%d秒",ts.GetSeconds());
 			strTime += strTmp;
 		}
+		m_listTodoHistory.SetSubItemData(iItem,m_iColTotleHours,GlobeFuns::TimeToInt(CTime(0)+ts));
 	}
 	else
 	{

@@ -3570,6 +3570,10 @@ public:
 
 struct CSubItem
 {
+	CSubItem()
+		:m_dSubItemData(0)
+	{}
+
 	CString m_strText;
 	int m_nImage;
 	UINT m_nFormat;
@@ -3578,6 +3582,11 @@ struct CSubItem
 	HFONT m_hFont;
 	COLORREF m_rgbBackground;
 	COLORREF m_rgbText;
+
+	//tianzuo,2008-9-22
+	//每一个格子都可以带一个数据。此数据默认为零。
+	//注意：列排序优先根据m_dSubItemData进行
+	DWORD m_dSubItemData;
 };
 
 template < class TData = DWORD >
@@ -3742,7 +3751,30 @@ public:
 		m_aItems[ nItem ].m_aSubItems[ nSubItem ].m_strText = lpszText;
 		return TRUE;
 	}
-	
+
+	//tianzuo,2008-9-22
+	//设置子对象的数据
+	BOOL SetSubItemData( int nItem, int nSubItem, DWORD dwData)
+	{
+		if ( nItem < 0 || nItem >= GetItemCount() ) 
+			return FALSE;
+		if ( nSubItem < 0 || nSubItem >= (int)m_aItems[ nItem ].m_aSubItems.GetSize() )
+			return FALSE;
+		m_aItems[ nItem ].m_aSubItems[ nSubItem ].m_dSubItemData = dwData;
+		return TRUE;
+	}
+	//tianzuo,2008-9-22
+	//获取子对象的数据
+	BOOL SetSubItemData( int nItem, int nSubItem, DWORD &dwData)
+	{
+		if ( nItem < 0 || nItem >= GetItemCount() ) 
+			return FALSE;
+		if ( nSubItem < 0 || nSubItem >= (int)m_aItems[ nItem ].m_aSubItems.GetSize() )
+			return FALSE;
+		dwData = m_aItems[ nItem ].m_aSubItems[ nSubItem ].m_dSubItemData;
+		return TRUE;
+	}
+
 	BOOL SetItemComboIndex( int nItem, int nSubItem, int nIndex )
 	{
 		CListArray < CString > aComboList;
@@ -3816,7 +3848,17 @@ public:
 		CompareItem( int nColumn ) : m_nColumn( nColumn ) {}
 		inline bool operator() ( const CListItem< TData >& listItem1, const CListItem< TData >& listItem2 )
 		{
-			return ( listItem1.m_aSubItems[ m_nColumn ].m_strText.Compare( listItem2.m_aSubItems[ m_nColumn ].m_strText ) < 0 );
+			//modified by tianzuo.
+			//修改排序的方式。如果定义了m_dSubItemData，那么根据m_dSubItemData排序，否则根据文字排序
+			//return ( listItem1.m_aSubItems[ m_nColumn ].m_strText.Compare( listItem2.m_aSubItems[ m_nColumn ].m_strText ) < 0 );
+			if(listItem1.m_aSubItems[ m_nColumn ].m_dSubItemData == listItem2.m_aSubItems[ m_nColumn ].m_dSubItemData) //没定义m_dSubItemData的话，大家都是初始值
+			{
+				return ( listItem1.m_aSubItems[ m_nColumn ].m_strText.Compare( listItem2.m_aSubItems[ m_nColumn ].m_strText ) < 0 );
+			}
+			else
+			{
+				return listItem1.m_aSubItems[ m_nColumn ].m_dSubItemData < listItem2.m_aSubItems[ m_nColumn ].m_dSubItemData;
+			}
 		}
 		
 	protected:
