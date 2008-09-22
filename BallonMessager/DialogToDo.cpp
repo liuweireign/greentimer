@@ -208,7 +208,7 @@ LRESULT DialogToDo::ReloadTodos()
 		}
 		AddTodoItem(todo);
 	}
-	m_listTodo.SortItems(1,true);
+	m_listTodo.SortItems(0,false);
 	m_listTodo.SetRedraw(TRUE);
 
 	if (iHiddenItem>0)
@@ -330,18 +330,21 @@ void DialogToDo::UpdateItem( int iItem )
 	ATLASSERT(todo.id!=ToDoTask::ERROR_TASKID);
 
 	COLORREF clrBgn,clrText;
-	m_listTodo.GetItemColours(iItem,0,clrBgn,clrText);
-	m_listTodo.SetItemColours(iItem,0,clrBgn,RGB(0X66,0X66,0X66));
+	m_listTodo.GetItemColours(iItem,m_iColCreateTime,clrBgn,clrText);
+	m_listTodo.SetItemColours(iItem,m_iColCreateTime,clrBgn,RGB(0X66,0X66,0X66));
+	m_listTodo.SetSubItemData(iItem,m_iColCreateTime,GlobeFuns::TimeToInt(todo.tmCreateTime));
 
 	m_listTodo.SetItemText(iItem,m_iColTitle,todo.strTask.c_str());
 
 	m_listTodo.SetItemFormat(iItem,m_iColPriority,ITEM_FORMAT_COMBO,ITEM_FLAGS_NONE,m_aListPriority);
 	m_listTodo.SetItemComboIndex(iItem,m_iColPriority,todo.priority);
 	m_listTodo.SetItemColours(iItem,m_iColPriority,RGB(10,170-todo.priority*25,10),RGB(0,0,0));
+	m_listTodo.SetSubItemData(iItem,m_iColPriority,todo.priority);
 
 	m_listTodo.SetItemFormat(iItem,m_iColState,ITEM_FORMAT_COMBO,ITEM_FLAGS_NONE,m_aListState);
 	m_listTodo.SetItemComboIndex(iItem,m_iColState,todo.state);
 	m_listTodo.SetItemColours(iItem,m_iColState,ToDoTask::GetStateColor(todo.state),RGB(0,0,0));
+	m_listTodo.SetSubItemData(iItem,m_iColState,todo.state);
 
 	m_listTodo.SetItemText(iItem,m_iColRemark,todo.strRemark.c_str());
 }
