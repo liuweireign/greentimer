@@ -1,13 +1,13 @@
-#summary 如何编译绿色报时器?
+#summary 如何编译绿色时间管理?
 #labels Phase-Implementation
 
-= 如何编译绿色报时器？=
+= 如何编译绿色时间管理？=
 
 （注意，你如果不是开发人员，您不必看这篇文字。）
 
 1、GreenTimer使用VC++2003开发，所以你必须要安装有VC++2003或更高版本。
 
-2、然后，你需要安装WTL。
+2、然后，你需要下载WTL，把它解包，并添加为vc include目录。
    注意：WTL可以到微软网站下载，也在源码包中的compile_resource目录下找到。
    下载WTL后，双击自解压到任意一个目录，然后把到WTL下的include目录添加为VC++的include目录下（工具->选项->项目->vc++目录->包含文件）。
 
