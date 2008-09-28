@@ -1,4 +1,4 @@
-#绿色时间管理 操作技巧(beta2版）
+#summary 绿色时间管理 操作技巧(beta2版）
 
 = Introduction =
 
