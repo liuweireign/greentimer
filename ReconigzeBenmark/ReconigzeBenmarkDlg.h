@@ -35,4 +35,8 @@ public:
 	afx_msg void OnBnClickedOk();
 public:
 	afx_msg void OnNMCustomdrawSlider1(NMHDR *pNMHDR, LRESULT *pResult);
+public:
+	afx_msg void OnTimer(UINT_PTR nIDEvent);
+public:
+	afx_msg void OnBnClickedCancel();
 };
