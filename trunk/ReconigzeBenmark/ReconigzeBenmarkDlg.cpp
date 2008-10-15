@@ -65,6 +65,8 @@ BEGIN_MESSAGE_MAP(CReconigzeBenmarkDlg, CDialog)
 	//}}AFX_MSG_MAP
 	ON_BN_CLICKED(IDOK, &CReconigzeBenmarkDlg::OnBnClickedOk)
 	ON_NOTIFY(NM_CUSTOMDRAW, IDC_SLIDER1, &CReconigzeBenmarkDlg::OnNMCustomdrawSlider1)
+	ON_WM_TIMER()
+	ON_BN_CLICKED(IDCANCEL, &CReconigzeBenmarkDlg::OnBnClickedCancel)
 END_MESSAGE_MAP()
 
 
@@ -165,7 +167,7 @@ void CReconigzeBenmarkDlg::OnPaint()
 		const int c_iFrameSize = 320*240*3+8;
 		char buf[c_iFrameSize]={0};
 		//E:\svns\svn_new_greenTimer\AirWalker\aa.data
-		CFile data(_T("E:\\svns\\svn_new_greenTimer\\AirWalker\\aa.data"),CFile::modeRead);
+		CFile data(_T("aa.data"),CFile::modeRead);
 		int iPos = m_slider.GetPos();
 		if(data.Seek(c_iFrameSize*iPos,CFile::begin)<0)
 		{
@@ -218,7 +220,8 @@ void CReconigzeBenmarkDlg::OnBnClickedOk()
 {
 	// TODO: 在此添加控件通知处理程序代码
 	//OnOK();
-	Invalidate();
+	//Invalidate();
+	SetTimer(0,500,NULL);
 }
 
 void CReconigzeBenmarkDlg::OnNMCustomdrawSlider1(NMHDR *pNMHDR, LRESULT *pResult)
@@ -226,4 +229,27 @@ void CReconigzeBenmarkDlg::OnNMCustomdrawSlider1(NMHDR *pNMHDR, LRESULT *pResult
 	LPNMCUSTOMDRAW pNMCD = reinterpret_cast<LPNMCUSTOMDRAW>(pNMHDR);
 	// TODO: 在此添加控件通知处理程序代码
 	*pResult = 0;
+}
+
+void CReconigzeBenmarkDlg::OnTimer(UINT_PTR nIDEvent)
+{
+	if (m_slider.GetPos()==m_slider.GetRangeMax())
+	{
+		KillTimer(0);
+	}
+	m_slider.SetPos(m_slider.GetPos()+1);
+	Invalidate();
+
+	CDialog::OnTimer(nIDEvent);
+}
+
+void CReconigzeBenmarkDlg::OnBnClickedCancel()
+{
+
+	KillTimer(0);
+	if (m_slider.GetPos()==m_slider.GetRangeMax())
+	{
+		OnCancel();
+	}
+	
 }
