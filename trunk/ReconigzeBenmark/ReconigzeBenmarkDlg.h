@@ -3,6 +3,7 @@
 
 #pragma once
 #include "afxcmn.h"
+#include "BlockFinder.h"
 
 
 // CReconigzeBenmarkDlg ¶Ô»°¿ò
@@ -31,6 +32,7 @@ protected:
 	DECLARE_MESSAGE_MAP()
 public:
 	CSliderCtrl m_slider;
+	BlockFinder m_finder;
 public:
 	afx_msg void OnBnClickedOk();
 public:

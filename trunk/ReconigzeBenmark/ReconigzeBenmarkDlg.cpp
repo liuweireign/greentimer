@@ -47,7 +47,7 @@ END_MESSAGE_MAP()
 
 
 CReconigzeBenmarkDlg::CReconigzeBenmarkDlg(CWnd* pParent /*=NULL*/)
-	: CDialog(CReconigzeBenmarkDlg::IDD, pParent)
+	: CDialog(CReconigzeBenmarkDlg::IDD, pParent),m_finder(320,240)
 {
 	m_hIcon = AfxGetApp()->LoadIcon(IDR_MAINFRAME);
 }
@@ -129,18 +129,14 @@ struct VData
 
 
 const int lWidth = 320;
-void SetPointRed(BYTE * pBuffer,int iRow, int iCol)
-{
-	*(pBuffer + 3*(iRow*lWidth + iCol) ) = 0;
-	*(pBuffer + 3*(iRow*lWidth + iCol) + 1) = 200;
-	*(pBuffer + 3*(iRow*lWidth + iCol) + 2) = 0;//255;
-}
+
 COLORREF GetPointColor(BYTE * pBuffer,int iRow, int iCol)
 {
+	//颜色是按B-G-R顺序保持的
 	return RGB(
-		*(pBuffer + 3*(iRow*lWidth + iCol) )
+		*(pBuffer + 3*(iRow*lWidth + iCol) + 2)
 		,*(pBuffer + 3*(iRow*lWidth + iCol) + 1)
-		,*(pBuffer + 3*(iRow*lWidth + iCol) + 2));
+		,*(pBuffer + 3*(iRow*lWidth + iCol) ));
 }
 
 void CReconigzeBenmarkDlg::OnPaint()
@@ -179,17 +175,11 @@ void CReconigzeBenmarkDlg::OnPaint()
 		VData *vd = (VData *)buf;
 
 		//TRACE(_T("%d %d %d\n"),*(vd->data),*(vd->data + 3),*(vd->data + 6));
-		SetPointRed(vd->data,0,0);
-		SetPointRed(vd->data,0,1);
-		SetPointRed(vd->data,0,2);
-		SetPointRed(vd->data,0,3);
-		SetPointRed(vd->data,0,4);
-		SetPointRed(vd->data,1,0);
-		SetPointRed(vd->data,2,1);
-		SetPointRed(vd->data,3,2);
-		SetPointRed(vd->data,4,3);
-		SetPointRed(vd->data,5,4);
+		m_finder.DrawRect(vd->data,320/2,240/2,10,RGB(200,200,0));
 
+		int iX=0,iY=0,iD=0;
+		m_finder.FindPoint(vd->data,iX,iY,iD);
+		m_finder.DrawRect(vd->data,iX,iY,iD,RGB(200,200,0));
 
 		CPaintDC dc(this); // 用于绘制的设备上下文
 		CRect rect;
