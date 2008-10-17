@@ -43,4 +43,6 @@ public:
 	afx_msg void OnBnClickedCancel();
 public:
 	afx_msg void OnBnClickedStop();
+public:
+	afx_msg void OnBnClickedAnaylics();
 };

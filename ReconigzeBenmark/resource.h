@@ -2,12 +2,15 @@
 // Microsoft Visual C++ generated include file.
 // Used by ReconigzeBenmark.rc
 //
-#define IDOK2                           3
 #define ID_STOP                         3
+#define IDCANCEL2                       4
+#define IDC_ANAYLICS                    4
 #define IDM_ABOUTBOX                    0x0010
 #define IDD_ABOUTBOX                    100
 #define IDS_ABOUTBOX                    101
 #define IDD_RECONIGZEBENMARK_DIALOG     102
+#define IDR_RECONIGZEBENMARK            103
+#define IDD_DATAPLOTDLG                 104
 #define IDR_MAINFRAME                   128
 #define IDC_SLIDER1                     1000
 
@@ -18,6 +21,6 @@
 #define _APS_NEXT_RESOURCE_VALUE        129
 #define _APS_NEXT_COMMAND_VALUE         32771
 #define _APS_NEXT_CONTROL_VALUE         1001
-#define _APS_NEXT_SYMED_VALUE           101
+#define _APS_NEXT_SYMED_VALUE           105
 #endif
 #endif
