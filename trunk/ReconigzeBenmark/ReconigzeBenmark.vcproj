@@ -21,6 +21,7 @@
 			IntermediateDirectory="$(ConfigurationName)"
 			ConfigurationType="1"
 			UseOfMFC="2"
+			UseOfATL="1"
 			CharacterSet="1"
 			>
 			<Tool
@@ -67,6 +68,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
+				RegisterOutput="true"
 				LinkIncremental="2"
 				GenerateDebugInformation="true"
 				SubSystem="2"
@@ -103,6 +105,7 @@
 			IntermediateDirectory="$(ConfigurationName)"
 			ConfigurationType="1"
 			UseOfMFC="1"
+			UseOfATL="1"
 			CharacterSet="1"
 			WholeProgramOptimization="1"
 			>
@@ -148,6 +151,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
+				RegisterOutput="true"
 				LinkIncremental="1"
 				GenerateDebugInformation="true"
 				SubSystem="2"
@@ -194,8 +198,44 @@
 				>
 			</File>
 			<File
+				RelativePath=".\DataPlotDlg.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\ReconigzeBenmark.cpp"
 				>
+			</File>
+			<File
+				RelativePath=".\ReconigzeBenmark.idl"
+				>
+				<FileConfiguration
+					Name="Debug|Win32"
+					>
+					<Tool
+						Name="VCMIDLTool"
+						PreprocessorDefinitions="_DEBUG"
+						MkTypLibCompatible="false"
+						TargetEnvironment="1"
+						GenerateStublessProxies="true"
+						TypeLibraryName="$(IntDir)/$(ProjectName).tlb"
+						HeaderFileName="$(ProjectName)_i.h"
+						InterfaceIdentifierFileName="$(ProjectName)_i.c"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32"
+					>
+					<Tool
+						Name="VCMIDLTool"
+						PreprocessorDefinitions="NDEBUG"
+						MkTypLibCompatible="false"
+						TargetEnvironment="1"
+						GenerateStublessProxies="true"
+						TypeLibraryName="$(IntDir)/$(ProjectName).tlb"
+						HeaderFileName="ReconigzeBenmark_i.h"
+						InterfaceIdentifierFileName="ReconigzeBenmark_i.c"
+					/>
+				</FileConfiguration>
 			</File>
 			<File
 				RelativePath=".\ReconigzeBenmarkDlg.cpp"
@@ -232,6 +272,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\DataPlotDlg.h"
+				>
+			</File>
+			<File
 				RelativePath=".\ReconigzeBenmark.h"
 				>
 			</File>
@@ -263,6 +307,10 @@
 			</File>
 			<File
 				RelativePath=".\res\ReconigzeBenmark.rc2"
+				>
+			</File>
+			<File
+				RelativePath=".\ReconigzeBenmark.rgs"
 				>
 			</File>
 		</Filter>

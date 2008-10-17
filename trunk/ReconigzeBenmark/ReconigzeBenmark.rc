@@ -51,7 +51,6 @@ BEGIN
     "#include ""res\\ReconigzeBenmark.rc2""  // 非 Microsoft Visual C++ 编辑的资源\r\n"
     "#include ""afxres.rc""     // 标准组件\r\n"
     "#endif\r\n"
-    "\0"
 END
 
 #endif    // APSTUDIO_INVOKED
@@ -92,6 +91,16 @@ BEGIN
     PUSHBUTTON      "取消",IDCANCEL,263,45,50,16
     CONTROL         "",IDC_SLIDER1,"msctls_trackbar32",TBS_AUTOTICKS | TBS_BOTH | WS_TABSTOP,7,173,306,20
     DEFPUSHBUTTON   "停止",ID_STOP,263,26,50,16
+    PUSHBUTTON      "分析图",IDC_ANAYLICS,263,81,50,16
+END
+
+IDD_DATAPLOTDLG DIALOG  0, 0, 186, 95
+STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "对话框"
+FONT 9, "宋体, MS Sans Serif"
+BEGIN
+    DEFPUSHBUTTON   "确定",IDOK,129,7,50,16
+    PUSHBUTTON      "取消",IDCANCEL,129,26,50,16
 END
 
 
@@ -157,9 +166,24 @@ BEGIN
         TOPMARGIN, 7
         BOTTOMMARGIN, 193
     END
+
+    IDD_DATAPLOTDLG, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 179
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 88
+    END
 END
 #endif    // APSTUDIO_INVOKED
 
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// REGISTRY
+//
+
+IDR_RECONIGZEBENMARK    REGISTRY                "ReconigzeBenmark.rgs"
 
 /////////////////////////////////////////////////////////////////////////////
 //

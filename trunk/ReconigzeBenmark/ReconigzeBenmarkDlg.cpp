@@ -4,7 +4,9 @@
 #include "stdafx.h"
 #include "ReconigzeBenmark.h"
 #include "ReconigzeBenmarkDlg.h"
+#include "DataPlotDlg.h"
 
+const int c_iFrameSize = 320*240*3+8;
 #ifdef _DEBUG
 #define new DEBUG_NEW
 #endif
@@ -68,6 +70,7 @@ BEGIN_MESSAGE_MAP(CReconigzeBenmarkDlg, CDialog)
 	ON_WM_TIMER()
 	ON_BN_CLICKED(IDCANCEL, &CReconigzeBenmarkDlg::OnBnClickedCancel)
 	ON_BN_CLICKED(ID_STOP, &CReconigzeBenmarkDlg::OnBnClickedStop)
+	ON_BN_CLICKED(IDC_ANAYLICS, &CReconigzeBenmarkDlg::OnBnClickedAnaylics)
 END_MESSAGE_MAP()
 
 
@@ -100,7 +103,11 @@ BOOL CReconigzeBenmarkDlg::OnInitDialog()
 	SetIcon(m_hIcon, TRUE);			// 设置大图标
 	SetIcon(m_hIcon, FALSE);		// 设置小图标
 
-	m_slider.SetRange(0,100);
+
+	CFile data(_T("aa.data"),CFile::modeRead);
+	//data.Seek(0,CFile::end);
+	//data.GetLength()
+	m_slider.SetRange(0,data.GetLength()/c_iFrameSize);
 	
 	return TRUE;  // 除非将焦点设置到控件，否则返回 TRUE
 }
@@ -161,7 +168,6 @@ void CReconigzeBenmarkDlg::OnPaint()
 	}
 	else
 	{
-		const int c_iFrameSize = 320*240*3+8;
 		char buf[c_iFrameSize]={0};
 		//E:\svns\svn_new_greenTimer\AirWalker\aa.data
 		CFile data(_T("aa.data"),CFile::modeRead);
@@ -242,4 +248,31 @@ void CReconigzeBenmarkDlg::OnBnClickedCancel()
 void CReconigzeBenmarkDlg::OnBnClickedStop()
 {
 	KillTimer(0);
+}
+
+void CReconigzeBenmarkDlg::OnBnClickedAnaylics()
+{
+	CDataPlotDlg dlg;
+	//dlg.AddData(0,100);
+	//dlg.AddData(1,200);
+	//dlg.AddData(2,10);
+	//dlg.AddData(3,10);
+	//dlg.AddData(4,100);
+
+	char buf[c_iFrameSize]={0};
+	int iX,iY,iD;
+	CFile data(_T("aa.data"),CFile::modeRead);
+	for (int iPos=0;iPos<data.GetLength()/c_iFrameSize;iPos++)
+	{
+		if(data.Seek(c_iFrameSize*iPos,CFile::begin)<0)
+		{
+			return ;
+		}
+		data.Read(buf,c_iFrameSize);
+		VData *vd = (VData *)buf;
+		m_finder.FindPoint(vd->data,iX,iY,iD);
+		dlg.AddData(iPos,iD);
+	}
+
+	dlg.DoModal();
 }

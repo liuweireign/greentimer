@@ -8,6 +8,7 @@
 #endif
 
 #include "resource.h"		// Ö÷·ûºÅ
+#include "ReconigzeBenmark_i.h"
 
 
 // CReconigzeBenmarkApp:
@@ -26,6 +27,8 @@ public:
 // ÊµÏÖ
 
 	DECLARE_MESSAGE_MAP()
+public:
+	BOOL ExitInstance(void);
 };
 
 extern CReconigzeBenmarkApp theApp;
