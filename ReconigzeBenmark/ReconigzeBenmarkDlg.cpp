@@ -67,6 +67,7 @@ BEGIN_MESSAGE_MAP(CReconigzeBenmarkDlg, CDialog)
 	ON_NOTIFY(NM_CUSTOMDRAW, IDC_SLIDER1, &CReconigzeBenmarkDlg::OnNMCustomdrawSlider1)
 	ON_WM_TIMER()
 	ON_BN_CLICKED(IDCANCEL, &CReconigzeBenmarkDlg::OnBnClickedCancel)
+	ON_BN_CLICKED(ID_STOP, &CReconigzeBenmarkDlg::OnBnClickedStop)
 END_MESSAGE_MAP()
 
 
@@ -175,7 +176,7 @@ void CReconigzeBenmarkDlg::OnPaint()
 		VData *vd = (VData *)buf;
 
 		//TRACE(_T("%d %d %d\n"),*(vd->data),*(vd->data + 3),*(vd->data + 6));
-		m_finder.DrawRect(vd->data,320/2,240/2,10,RGB(200,200,0));
+		//m_finder.DrawRect(vd->data,320/2,240/2,10,RGB(200,200,0));
 
 		int iX=0,iY=0,iD=0;
 		m_finder.FindPoint(vd->data,iX,iY,iD);
@@ -235,11 +236,10 @@ void CReconigzeBenmarkDlg::OnTimer(UINT_PTR nIDEvent)
 
 void CReconigzeBenmarkDlg::OnBnClickedCancel()
 {
+	OnCancel();
+}
 
+void CReconigzeBenmarkDlg::OnBnClickedStop()
+{
 	KillTimer(0);
-	if (m_slider.GetPos()==m_slider.GetRangeMax())
-	{
-		OnCancel();
-	}
-	
 }

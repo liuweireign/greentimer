@@ -2,6 +2,8 @@
 // Microsoft Visual C++ generated include file.
 // Used by ReconigzeBenmark.rc
 //
+#define IDOK2                           3
+#define ID_STOP                         3
 #define IDM_ABOUTBOX                    0x0010
 #define IDD_ABOUTBOX                    100
 #define IDS_ABOUTBOX                    101

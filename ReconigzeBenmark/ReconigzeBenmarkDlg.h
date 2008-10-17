@@ -41,4 +41,6 @@ public:
 	afx_msg void OnTimer(UINT_PTR nIDEvent);
 public:
 	afx_msg void OnBnClickedCancel();
+public:
+	afx_msg void OnBnClickedStop();
 };
