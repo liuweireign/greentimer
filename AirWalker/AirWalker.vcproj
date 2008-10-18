@@ -213,6 +213,10 @@
 			Filter="cpp;c;cxx;rc;def;r;odl;idl;hpj;bat"
 			>
 			<File
+				RelativePath=".\BlockFinder.cpp"
+				>
+			</File>
+			<File
 				RelativePath="CaptureVideo.cpp"
 				>
 				<FileConfiguration
@@ -319,6 +323,10 @@
 			Name="Header Files"
 			Filter="h;hpp;hxx;hm;inl"
 			>
+			<File
+				RelativePath=".\BlockFinder.h"
+				>
+			</File>
 			<File
 				RelativePath="CaptureVideo.h"
 				>
