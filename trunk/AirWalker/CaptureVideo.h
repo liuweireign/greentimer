@@ -11,6 +11,7 @@
 #include <windows.h>
 #include <dshow.h>
 #include <Qedit.h>
+#include "BlockFinder.h"
 #ifndef srelease
 #define srelease(x) \
 if ( NULL != x ) \

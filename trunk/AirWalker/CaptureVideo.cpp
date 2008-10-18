@@ -20,7 +20,10 @@ public:
 	long lWidth;
 	long lHeight;
 	TCHAR m_szFileName[MAX_PATH];// 位图文件名称
+	BlockFinder m_finder;
+
 	CSampleGrabberCB( )
+		: m_finder(320,240)
 	{
 		strcpy(m_szFileName, "c:\\donaldo.bmp");
 	} 
@@ -43,7 +46,7 @@ public:
 	{
 		ASSERT(lBufferSize==lWidth*lHeight*3);	//颜色深度24，即每个点3字节。
 
-		TRACE("time=%d\n",GetTickCount());
+		//TRACE("time=%d\n",GetTickCount());
 
 		//if( !bOneShot )
 		//{
@@ -77,11 +80,15 @@ public:
 		//SaveBitmap(m_szFileName,lWidth,lHeight,pBuffer, lBufferSize);
 		//bOneShot = FALSE;
 		//::CreateFile(_T("c:\\aa.data"),);
-		CFile file(_T("c:\\aa.data"),CFile::modeCreate|CFile::modeWrite);
-		file.Seek(0,CFile::end);
-		file.Write(&lWidth,4);
-		file.Write(&lHeight,4);
-		file.Write(pBuffer,lWidth*lHeight*3);
+		//CFile file(_T("c:\\aa.data"),CFile::modeCreate|CFile::modeWrite|CFile::modeNoTruncate);
+		//file.Seek(0,CFile::end);
+		//file.Write(&lWidth,4);
+		//file.Write(&lHeight,4);
+		//file.Write(pBuffer,lWidth*lHeight*3);
+		int x,y,d;
+		m_finder.FindPoint(pBuffer,x,y,d);
+		::SetCursorPos(x*1024/340,(240-y)*768/240);
+		TRACE("x,y,d = %d,%d,%d\n",x,y,d);
 		return 0;
 	}
 	void SetPointRed(BYTE * pBuffer,int iRow, int iCol)
