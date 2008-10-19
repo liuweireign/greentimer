@@ -45,50 +45,10 @@ public:
 	STDMETHODIMP BufferCB( double dblSampleTime, BYTE * pBuffer, long lBufferSize )
 	{
 		ASSERT(lBufferSize==lWidth*lHeight*3);	//颜色深度24，即每个点3字节。
-
-		//TRACE("time=%d\n",GetTickCount());
-
-		//if( !bOneShot )
-		//{
-		//	return 0;
-		//}
-		//if (!pBuffer)
-		//{
-		//	return E_POINTER;
-		//}
-		//SaveBitmap(_T("c:\\origin.bmp"),lWidth,lHeight,pBuffer, lBufferSize);
-		//SetPointRed(pBuffer,100,100);
-		//SetPointRed(pBuffer,100,101);
-		//SetPointRed(pBuffer,100,102);
-		//SetPointRed(pBuffer,100,103);
-		//SetPointRed(pBuffer,100,104);
-		//SetPointRed(pBuffer,101,100);
-		//SetPointRed(pBuffer,101,101);
-		//SetPointRed(pBuffer,101,102);
-		//SetPointRed(pBuffer,101,103);
-		//SetPointRed(pBuffer,101,104);
-		//SetPointRed(pBuffer,200,100);
-		//SetPointRed(pBuffer,200,101);
-		//SetPointRed(pBuffer,200,102);
-		//SetPointRed(pBuffer,200,103);
-		//SetPointRed(pBuffer,200,104);
-		//SetPointRed(pBuffer,200,300);
-		//SetPointRed(pBuffer,200,301);
-		//SetPointRed(pBuffer,200,302);
-		//SetPointRed(pBuffer,200,303);
-		//SetPointRed(pBuffer,200,304);
-		//SaveBitmap(m_szFileName,lWidth,lHeight,pBuffer, lBufferSize);
-		//bOneShot = FALSE;
-		//::CreateFile(_T("c:\\aa.data"),);
-		//CFile file(_T("c:\\aa.data"),CFile::modeCreate|CFile::modeWrite|CFile::modeNoTruncate);
-		//file.Seek(0,CFile::end);
-		//file.Write(&lWidth,4);
-		//file.Write(&lHeight,4);
-		//file.Write(pBuffer,lWidth*lHeight*3);
 		int x,y,d;
 		m_finder.FindPoint(pBuffer,x,y,d);
 		::SetCursorPos(x*1024/340,(240-y)*768/240);
-		TRACE("x,y,d = %d,%d,%d\n",x,y,d);
+		TRACE("x,y,d = \t%d,\t%d,\t%d\n",x,y,d);
 		return 0;
 	}
 	void SetPointRed(BYTE * pBuffer,int iRow, int iCol)
