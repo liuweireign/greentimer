@@ -3,8 +3,7 @@
 class BlockFinder
 {
 public:
-	BlockFinder(int iWidth,int iHeight);
-	~BlockFinder(void);
+	bool Init(int iWidth,int iHeight);
 
 	//’“µΩª∆µ„
 	bool FindPoint(BYTE *pData,int &x,int &y,int &d);
