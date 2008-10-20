@@ -6,7 +6,7 @@ public:
 	bool Init(int iWidth,int iHeight);
 
 	//找到黄点
-	bool FindPoint(BYTE *pData,int &x,int &y,int &d);
+	int FindPoint(BYTE *pData,int &x,int &y,int &d);
 
 	//////////////////////////////////////////////////////////////////////////
 	//以下为辅助函数
@@ -21,6 +21,7 @@ public:
 
 	//获取点(iCol,iRow)所在的色块的中心位置、半径
 	void GetColorBlock(BYTE * pBuffer, int iCol,int iRow,int &x,int &y,int &d);
+	int GetLikeness(BYTE * pBuffer, int iCol,int iRow);
 	//沿着指定的方向前进，一直到这种颜色的边界，返回其长度
 	//direct代表x，y方向步进的长度。一般应当为正负1或0。
 	int GetColorLen(BYTE * pBuffer, int iCol,int iRow, int directX,int directY);

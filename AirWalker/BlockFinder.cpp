@@ -1,7 +1,10 @@
 #include "StdAfx.h"
 #include "BlockFinder.h"
+
 #include <set>
 #include <map>
+#include <vector>
+#include <math.h>
 using namespace std;
 
 //目标颜色
@@ -14,18 +17,18 @@ bool BlockFinder::Init(int iWidth,int iHeight)
 	return true;
 }
 
-bool BlockFinder::FindPoint( BYTE *pData,int &x,int &y,int &d )
+int BlockFinder::FindPoint( BYTE *pData,int &x,int &y,int &d )
 {
 	int powerMAX = 0;
 	set<pair<int,int> > stPoints;
 
 	//获取候选点
 	//半径为4的范围内，有哪些最强点？
-	for (int i=0;i<m_iWidth;i++)
+	for (int i=0;i<m_iWidth;i+=2)
 	{
-		for (int j=0;j<m_iHeight;j++)
+		for (int j=0;j<m_iHeight;j+=2)
 		{
-			COLORREF colorTmp = GetAvgPointColor(pData,j,i,10);
+			COLORREF colorTmp = GetAvgPointColor(pData,j,i,4);
 
 			//求出黄色部分的强度
 			int iPower = GetRValue(colorTmp) + GetGValue(colorTmp) 
@@ -49,53 +52,6 @@ bool BlockFinder::FindPoint( BYTE *pData,int &x,int &y,int &d )
 		return false;
 	}
 
-	//从候选点中，筛选出最佳的点
-	//现在是判断面积最大的那个点
-	//set<pair<int,int> > stLastPoints;
-	//for (d=11;d<m_iHeight/3;d++)
-	//{
-	//	powerMAX = 0;
-	//	set<pair<int,int> >::iterator it = stPoints.begin();
-	//	for (;it!=stPoints.end();it++)
-	//	{
-	//		x = (*it).first;
-	//		y = (*it).second;
-	//		COLORREF colorTmp = GetAvgPointColor(pData,x,y,d);
-
-	//		//求出黄色部分的强度
-	//		int iPower = GetRValue(colorTmp) + GetGValue(colorTmp) 
-	//			- 2*GetBValue(colorTmp)	//（扣除灰度部分）
-	//			- abs(GetRValue(colorTmp) - GetGValue(colorTmp)); //红色素与黄色素要接近
-
-	//		if (iPower>powerMAX)
-	//		{
-	//			powerMAX = iPower;
-	//			stLastPoints.clear();
-	//			stLastPoints.insert(*it);
-	//		}
-	//		if (iPower==powerMAX)
-	//		{
-	//			stLastPoints.insert(*it);
-	//		}
-	//	}
-	//	if (stLastPoints.empty())	//在范围扩大后，有些色块的均值会变小，甚至变为0以下
-	//	{
-	//		break;
-	//	}
-	//	stPoints = stLastPoints;
-	//	if (stPoints.size()==1)
-	//	{
-	//	}
-	//}
-	//if (stPoints.empty())
-	//{
-	//	ASSERT(FALSE);
-	//	return false;
-	//}
-
-	//x = (*stPoints.begin()).first;
-	//y = (*stPoints.begin()).second;
-
 	//////////////////////////////////////////////////////////////////////////
 	//第二种筛选方法：计算每个块的半径
 	map<int,pair<int,int> > mapBlocks;
@@ -112,8 +68,8 @@ bool BlockFinder::FindPoint( BYTE *pData,int &x,int &y,int &d )
 	d = (*mapBlocks.rbegin()).first;
 	x = (*mapBlocks.rbegin()).second.first;
 	y = (*mapBlocks.rbegin()).second.second;
-	
-	return false;
+
+	return GetLikeness(pData,x,y);
 }
 
 COLORREF BlockFinder::GetPointColor( BYTE * pBuffer,int iRow, int iCol )
@@ -313,4 +269,36 @@ void BlockFinder::GetColorBlock( BYTE * pBuffer, int iCol,int iRow,int &x,int &y
 		}
 	}
 	d = r/8;
+}
+
+int BlockFinder::GetLikeness( BYTE * pBuffer, int iCol,int iRow )
+{
+	vector<int> vecLen;
+	for (int dirctX=-1;dirctX<=1;dirctX++)
+	{
+		for (int dirctY=-1;dirctY<=1;dirctY++)
+		{
+			if (dirctX==0 && dirctY==0)
+			{
+				continue;
+			}
+			int d = GetColorLen(pBuffer,iCol,iRow,dirctX,dirctY);
+			vecLen.push_back(d);
+		}
+	}
+	int iAvg = 0;
+	for (int i=0;i<vecLen.size();i++)
+	{
+		iAvg += vecLen[i];
+	}
+	iAvg /= 8;
+
+	long iFangCha = 0;	//平均方差
+	for (int i=0;i<vecLen.size();i++)
+	{
+		iFangCha += (iFangCha - iAvg)*(iFangCha - iAvg);
+	}
+	iFangCha = sqrt(iFangCha*1.0);
+	
+	return iFangCha*100/iAvg;
 }

@@ -19,6 +19,8 @@ class CSampleGrabberCB : public ISampleGrabberCB
 public:
 	CSampleGrabberCB( )
 	{
+		//CRect rt(0,0,1024,768);
+		//::ClipCursor(&rt);
 		//strcpy(m_szFileName, "c:\\donaldo.bmp");
 	} 
 	STDMETHODIMP_(ULONG) AddRef() { return 2; }
@@ -40,9 +42,16 @@ public:
 	{
 		ASSERT(lBufferSize==lWidth*lHeight*3);	//颜色深度24，即每个点3字节。
 		int x,y,d;
-		m_finder.FindPoint(pBuffer,x,y,d);
-		::SetCursorPos(x*1024/320,(240-y)*768/240);
-		TRACE("x,y,d = \t%d,\t%d,\t%d\n",x,y,d);
+		int likeness = m_finder.FindPoint(pBuffer,x,y,d);
+		TRACE("x,y,d = \t%d,\t%d,\t%d (%d)\n",x,y,d,likeness);
+		if (d<8 || likeness>50)
+		{
+			return 0;
+		}
+		//CPoint pt(0,0);
+		//::GetCursorPos(&pt);
+		//::SetCursorPos((x*1024/320 + pt.x)/2,((240-y)*768/240 + pt.y)/2);
+		::SetCursorPos(x*1024/320,(240-y)*768/240 );
 		return 0;
 	}
 	bool Init(int iWidth, int iHeight)

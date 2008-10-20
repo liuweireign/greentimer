@@ -5,7 +5,7 @@
 #include "ReconigzeBenmark.h"
 #include "ReconigzeBenmarkDlg.h"
 #include <initguid.h>
-#include "ReconigzeBenmark_i.c"
+//#include "ReconigzeBenmark_i.c"
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
