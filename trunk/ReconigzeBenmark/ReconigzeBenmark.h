@@ -8,7 +8,7 @@
 #endif
 
 #include "resource.h"		// Ö÷·ûºÅ
-#include "ReconigzeBenmark_i.h"
+//#include "ReconigzeBenmark_i.h"
 
 
 // CReconigzeBenmarkApp:
