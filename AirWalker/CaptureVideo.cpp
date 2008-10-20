@@ -17,15 +17,9 @@ BOOL bOneShot=FALSE;//全局变量
 class CSampleGrabberCB : public ISampleGrabberCB 
 {
 public:
-	long lWidth;
-	long lHeight;
-	TCHAR m_szFileName[MAX_PATH];// 位图文件名称
-	BlockFinder m_finder;
-
 	CSampleGrabberCB( )
-		: m_finder(320,240)
 	{
-		strcpy(m_szFileName, "c:\\donaldo.bmp");
+		//strcpy(m_szFileName, "c:\\donaldo.bmp");
 	} 
 	STDMETHODIMP_(ULONG) AddRef() { return 2; }
 	STDMETHODIMP_(ULONG) Release() { return 1; }
@@ -47,45 +41,21 @@ public:
 		ASSERT(lBufferSize==lWidth*lHeight*3);	//颜色深度24，即每个点3字节。
 		int x,y,d;
 		m_finder.FindPoint(pBuffer,x,y,d);
-		::SetCursorPos(x*1024/340,(240-y)*768/240);
+		::SetCursorPos(x*1024/320,(240-y)*768/240);
 		TRACE("x,y,d = \t%d,\t%d,\t%d\n",x,y,d);
 		return 0;
 	}
-	void SetPointRed(BYTE * pBuffer,int iRow, int iCol)
+	bool Init(int iWidth, int iHeight)
 	{
-		*(pBuffer + 3*(iRow*lWidth + iCol) ) = 0;
-		*(pBuffer + 3*(iRow*lWidth + iCol) + 1) = 0;
-		*(pBuffer + 3*(iRow*lWidth + iCol) + 2) = 255;
+		lWidth = iWidth;
+		lHeight = iHeight;
+		return m_finder.Init(lWidth,lHeight);
 	}
-	//创建位图文件
-	static BOOL SaveBitmap(TCHAR *szFileName,int lWidth, int lHeight,BYTE * pBuffer, long lBufferSize )
-	{
-		HANDLE hf = CreateFile(
-		szFileName, GENERIC_WRITE, FILE_SHARE_READ, NULL,
-		CREATE_ALWAYS, NULL, NULL );
-		if( hf == INVALID_HANDLE_VALUE )return 0;
-		// 写文件头 
-		BITMAPFILEHEADER bfh;
-		memset( &bfh, 0, sizeof( bfh ) );
-		bfh.bfType ='MB';
-		bfh.bfSize = sizeof( bfh ) + lBufferSize + sizeof( BITMAPINFOHEADER );
-		bfh.bfOffBits = sizeof( BITMAPINFOHEADER ) + sizeof( BITMAPFILEHEADER );
-		DWORD dwWritten = 0;
-		WriteFile( hf, &bfh, sizeof( bfh ), &dwWritten, NULL );
-		// 写位图格式
-		BITMAPINFOHEADER bih;
-		memset( &bih, 0, sizeof( bih ) );
-		bih.biSize = sizeof( bih );
-		bih.biWidth = lWidth;
-		bih.biHeight = lHeight;
-		bih.biPlanes = 1;
-		bih.biBitCount = 24;
-		WriteFile( hf, &bih, sizeof( bih ), &dwWritten, NULL );
-		// 写位图数据
-		WriteFile( hf, pBuffer, lBufferSize, &dwWritten, NULL );
-		CloseHandle( hf );
-		return 0;
-	}
+private:
+	long lWidth;
+	long lHeight;
+	//TCHAR m_szFileName[MAX_PATH];// 位图文件名称
+	BlockFinder m_finder;
 };
 CSampleGrabberCB mCB;
 //////////////////////////////////////////////////////////////////////
@@ -222,8 +192,9 @@ HRESULT CCaptureVideo::Init(int iDeviceID, HWND hWnd)
 	}
 
 	VIDEOINFOHEADER * vih = (VIDEOINFOHEADER*) mt.pbFormat;
-	mCB.lWidth = vih->bmiHeader.biWidth;
-	mCB.lHeight = vih->bmiHeader.biHeight;
+	//mCB.lWidth = vih->bmiHeader.biWidth;
+	//mCB.lHeight = vih->bmiHeader.biHeight;
+	mCB.Init(vih->bmiHeader.biWidth,vih->bmiHeader.biHeight);
 	FreeMediaType(mt);
 	hr = m_pGrabber->SetBufferSamples( FALSE );
 	hr = m_pGrabber->SetOneShot( FALSE );

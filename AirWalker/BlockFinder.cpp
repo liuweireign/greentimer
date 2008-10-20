@@ -7,14 +7,11 @@ using namespace std;
 //Ä¿±êÑÕÉ«
 const COLORREF c_colorTarget = RGB(0XFF,0XFF,0);
 
-BlockFinder::BlockFinder(int iWidth,int iHeight)
+bool BlockFinder::Init(int iWidth,int iHeight)
 {
 	m_iWidth = iWidth;
 	m_iHeight = iHeight;
-}
-
-BlockFinder::~BlockFinder(void)
-{
+	return true;
 }
 
 bool BlockFinder::FindPoint( BYTE *pData,int &x,int &y,int &d )
