@@ -1,7 +1,9 @@
 #pragma once
 #define WM_ICON WM_USER + 180
 #define NM_ICON_INFO WM_ICON + 1
+#ifndef NIIF_USER
 #define NIIF_USER 0x4
+#endif
 static ATL::CString g_childInfo;
 template <class T, class MenuT = CIconMenu<T>, int MenuID = IDR_ICONMENU>
 class CShellIcon : public MenuT
