@@ -7,7 +7,7 @@
 #include ".\tasklistdialog.h"
 #include "TaskDB.h"
 
-#include ".\OpinionDlg.h"
+//#include ".\OpinionDlg.h"
 #include "GlobeFuns.h"
 #include "TaskModifyDialog.h"
 
