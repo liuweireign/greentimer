@@ -2,6 +2,7 @@
 #include ".\dblog.h"
 #include "SQLite/CppSQLite3.h"
 #include "GlobeFuns.h"
+#include "Globe.h"
 
 DBLog g_DBLog;
 
@@ -39,7 +40,7 @@ bool CheckCreateLogTable(CppSQLite3DB &dbTask)
 
 DBLog::DBLog(void)
 {
-	m_strDB = GlobeFuns::GetAppDirectory() + _T("task.db");
+	m_strDB = Globe::GetDBPath();
 }
 
 DBLog::~DBLog(void)

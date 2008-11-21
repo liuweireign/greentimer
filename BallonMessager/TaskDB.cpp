@@ -5,6 +5,7 @@
 
 #include "SQLite/CppSQLite3.h"
 #include "GlobeFuns.h"
+#include "Globe.h"
 #include "DBLog.h"
 
 TaskDB g_TaskDB;
@@ -145,7 +146,7 @@ bool TaskDB::ReadFromDB( const char *strDB )
 
 bool TaskDB::ReadFromDB()
 {
-	return g_TaskDB.ReadFromDB(GlobeFuns::GetAppDirectory() + "task.db");
+	return g_TaskDB.ReadFromDB(Globe::GetDBPath().c_str());
 }
 bool TaskDB::SaveToDB( const char *strDB )
 {
@@ -196,7 +197,7 @@ bool TaskDB::SaveToDB( const char *strDB )
 
 bool TaskDB::SaveToDB()
 {
-	return g_TaskDB.SaveToDB(GlobeFuns::GetAppDirectory() + "task.db");
+	return g_TaskDB.SaveToDB(Globe::GetDBPath().c_str());
 }
 bool TaskDB::AddTask(const ITask &task )
 {

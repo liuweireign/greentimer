@@ -17,9 +17,12 @@
 #include "GlobeFuns.h"
 #include "DialogToDoHistory.h"
 #include "OpinionDlg.h"
+#include "Globe.h"
 
 //快捷键ID
 const UINT uiACCELAR_ID_SHOWMAINDLG = 0X1000;
+const UINT uiACCELAR_ID_OPENTASK = 0X1001;
+const UINT uiACCELAR_ID_OPENNOTIFY = 0X1002;
 
 class CMainDlg : 
 	public CDialogImpl<CMainDlg>, 
@@ -133,7 +136,12 @@ public:
 		btn.SetCheck(tss.IsSelfStart());
 
 		//注册快捷键
-		RegisterHotKey(m_hWnd,uiACCELAR_ID_SHOWMAINDLG,MOD_CONTROL,'G');
+		DWORD dw = Globe::GetHotKeyOpenTask();
+		ATLTRACE("dw1=%d,%d\n",LOWORD(dw),HIWORD(dw));
+		//RegisterHotKey(m_hWnd,uiACCELAR_ID_SHOWMAINDLG,MOD_CONTROL,'G');
+		RegisterHotKey(m_hWnd,uiACCELAR_ID_OPENTASK,HIWORD(dw),LOWORD(dw));
+		dw = Globe::GetHotKeyOpenNotify();
+		RegisterHotKey(m_hWnd,uiACCELAR_ID_OPENNOTIFY,HIWORD(dw),LOWORD(dw));
 
 		return TRUE;
 	}
@@ -147,7 +155,8 @@ public:
 		pLoop->RemoveIdleHandler(this);
 
 		//反注册快捷键
-		UnregisterHotKey(m_hWnd, uiACCELAR_ID_SHOWMAINDLG);
+		UnregisterHotKey(m_hWnd, uiACCELAR_ID_OPENTASK);
+		UnregisterHotKey(m_hWnd, uiACCELAR_ID_OPENNOTIFY);
 
 		//g_DBLog.Log("MAIN",0,1,0,"退出");
 		LOG_MAIN(LOG_CONST::MMV_EXIT,0,"退出");
@@ -161,18 +170,16 @@ public:
 		//id为你自己定义的一个ID值，
 		//对一个线程来讲其值必需在0x0000 - 0xBFFF范围之内，
 		//对DLL来讲其值必需在0xC000 - 0xFFFF 范围之内，在同一进程内该值必须唯一
-		if (wParam==uiACCELAR_ID_SHOWMAINDLG)
+		if (wParam==uiACCELAR_ID_OPENTASK)
 		{
 			OpenTodo();
-			//if(IsWindowVisible())
-			//{
-			//	ShowWindow(SW_HIDE);
-			//}
-			//else
-			//{
-			//	ShowWindow(SW_SHOW);
-			//}
+			//this->PostMessage(WM_ICON,IDR_MAINFRAME,WM_RBUTTONUP);
 		}
+		else if (wParam == uiACCELAR_ID_OPENNOTIFY)
+		{
+			OpenTask();
+		}
+
 		return 0;
 	}
 	LRESULT OnAppAbout(WORD /*wNotifyCode*/, WORD /*wID*/, HWND /*hWndCtl*/, BOOL& /*bHandled*/)
@@ -186,6 +193,23 @@ public:
 	{
 		COpinionDlg dlg;
 		dlg.DoModal();
+
+		//////////////////////////////////////////////////////////////////////////
+		//重新注册快捷键
+		//todo : 应当检查一下，并不需要每次都全部重新注册的。
+		//////////////////////////////////////////////////////////////////////////
+
+		//反注册快捷键
+		UnregisterHotKey(m_hWnd, uiACCELAR_ID_OPENTASK);
+		UnregisterHotKey(m_hWnd, uiACCELAR_ID_OPENNOTIFY);
+
+		//注册快捷键
+		DWORD dw = Globe::GetHotKeyOpenTask();
+		ATLTRACE("dw1=%d,%d\n",LOWORD(dw),HIWORD(dw));
+		//RegisterHotKey(m_hWnd,uiACCELAR_ID_SHOWMAINDLG,MOD_CONTROL,'G');
+		RegisterHotKey(m_hWnd,uiACCELAR_ID_OPENTASK,HIWORD(dw),LOWORD(dw));
+		dw = Globe::GetHotKeyOpenNotify();
+		RegisterHotKey(m_hWnd,uiACCELAR_ID_OPENNOTIFY,HIWORD(dw),LOWORD(dw));
 		return 0;
 	}
 
@@ -201,14 +225,17 @@ public:
 	{
 		//TaskViewDlg dlg;
 		//CSimpleTaskViewDlg dlg;
-		CTaskListDialog dlg;
-		dlg.DoModal();
+
+		//CTaskListDialog dlg;
+		//dlg.DoModal();
+
+		OpenTask();
 		return 0;
 	}
 
 	LRESULT OnBtnOpenTaskDB(WORD /*wNotifyCode*/, WORD /*wID*/, HWND /*hWndCtl*/, BOOL& /*bHandled*/)
 	{
-		ShellExecute(NULL,NULL,GlobeFuns::GetAppDirectory().GetBuffer(0),NULL,NULL,SW_SHOW);
+		ShellExecute(NULL,NULL,GlobeFuns::GetAppDirectory().c_str(),NULL,NULL,SW_SHOW);
 		
 		return 0;
 	}
@@ -326,10 +353,23 @@ private:
 	//用此函数todo，避免多次启动todo实例。使用快捷键的时候很容易导致这种问题。
 	void OpenTodo()
 	{
-		static DialogToDo *pDlg  = NULL;
+		DoModalOnce<DialogToDo>();
+	}
+	//用此函数todo，避免多次启动todo实例。使用快捷键的时候很容易导致这种问题。
+	void OpenTask()
+	{
+		DoModalOnce<CTaskListDialog>();
+	}
+
+	//模板函数：T_dlg类型的对话框同时只能domodal一个
+	//再次调用的时候，如果发现该对话框已经存在，则闪烁窗口提示
+	template<class T_dlg>
+	void DoModalOnce()
+	{
+		static T_dlg *pDlg  = NULL;
 		if (pDlg==NULL)
 		{
-			DialogToDo dlg;
+			T_dlg dlg;
 			pDlg = &dlg;
 			dlg.DoModal();
 			pDlg = NULL;

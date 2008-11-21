@@ -223,6 +223,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\DBSetting.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\DialogToDo.cpp"
 				>
 			</File>
@@ -232,6 +236,10 @@
 			</File>
 			<File
 				RelativePath=".\DialogToDoHistory.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\Globe.cpp"
 				>
 			</File>
 			<File
@@ -320,6 +328,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\DBSetting.h"
+				>
+			</File>
+			<File
 				RelativePath=".\DialogToDo.h"
 				>
 			</File>
@@ -337,6 +349,10 @@
 			</File>
 			<File
 				RelativePath=".\ListCtrl\DropArrows.h"
+				>
+			</File>
+			<File
+				RelativePath=".\Globe.h"
 				>
 			</File>
 			<File

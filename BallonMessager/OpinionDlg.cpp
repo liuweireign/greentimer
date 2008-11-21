@@ -3,10 +3,17 @@
 
 #include "stdafx.h"
 #include "OpinionDlg.h"
+#include "TSelfStart.h"
+#include "Globe.h"
 
 // COpinionDlg
 COpinionDlg::COpinionDlg()
 {
+	char buf[_MAX_PATH];
+	::GetModuleFileName(NULL,buf,_MAX_PATH);
+	TSelfStart tss("GreenTimer",buf);
+
+	m_bChkSelfStart = tss.IsSelfStart()?TRUE:FALSE;
 	m_bChkStartinfo = FALSE;
 }
 
@@ -29,12 +36,32 @@ LRESULT COpinionDlg::OnInitDialog(UINT uMsg, WPARAM wParam, LPARAM lParam, BOOL&
 	HICON hIconSmall = (HICON)::LoadImage(_Module.GetResourceInstance(), MAKEINTRESOURCE(IDR_MAINFRAME), 
 		IMAGE_ICON, ::GetSystemMetrics(SM_CXSMICON), ::GetSystemMetrics(SM_CYSMICON), LR_DEFAULTCOLOR);
 	SetIcon(hIconSmall, FALSE);
+
+	m_hotkeyOpenTask = GetDlgItem(IDC_HOTKEY_TASKLIST);
+	m_hotkeyOpenNotify = GetDlgItem(IDC_HOTKEY_NOTIFY);
+
+	DWORD dw = Globe::GetHotKeyOpenTask();
+	ATLTRACE("dw1=%d,%d\n",LOWORD(dw),HIWORD(dw));
+	m_hotkeyOpenTask.SetHotKey(LOWORD(dw),HIWORD(dw));
+	dw = Globe::GetHotKeyOpenNotify();
+	ATLTRACE("dw2=%d,%d\n",LOWORD(dw),HIWORD(dw));
+	m_hotkeyOpenNotify.SetHotKey(LOWORD(dw),HIWORD(dw));
 	return 1;  // Let the system set the focus
 }
 
 LRESULT COpinionDlg::OnClickedOK(WORD wNotifyCode, WORD wID, HWND hWndCtl, BOOL& bHandled)
 {
 	DoDataExchange(TRUE);
+
+	WORD dw1,dw2;
+	m_hotkeyOpenTask.GetHotKey(dw1,dw2);
+	Globe::SetHotKeyOpenTask(MAKELONG(dw1,dw2));
+	ATLTRACE("dw1=%d,%d\n",dw1,dw2);
+
+	m_hotkeyOpenNotify.GetHotKey(dw1,dw2);
+	Globe::SetHotKeyOpenNotify(MAKELONG(dw1,dw2));
+	ATLTRACE("dw2=%d,%d\n",dw1,dw2);
+
 	EndDialog(wID);
 	return 0;
 }
@@ -42,5 +69,25 @@ LRESULT COpinionDlg::OnClickedOK(WORD wNotifyCode, WORD wID, HWND hWndCtl, BOOL&
 LRESULT COpinionDlg::OnClickedCancel(WORD wNotifyCode, WORD wID, HWND hWndCtl, BOOL& bHandled)
 {
 	EndDialog(wID);
+	return 0;
+}
+
+LRESULT COpinionDlg::OnClickedSelfStart( WORD wNotifyCode, WORD wID, HWND hWndCtl, BOOL& bHandled )
+{
+	DoDataExchange(TRUE);
+
+	char buf[_MAX_PATH];
+	::GetModuleFileName(NULL,buf,_MAX_PATH);
+	TSelfStart tss("GreenTimer",buf);
+
+	if(m_bChkSelfStart)
+	{
+		tss.SetSelfStart();
+	}
+	else
+	{
+		tss.RemoveSelfStart();
+	}
+
 	return 0;
 }

@@ -4,6 +4,7 @@
 #include "SQLite/CppSQLite3.h"
 #include "GlobeFuns.h"
 #include "DBLog.h"
+#include "globe.h"
 
 using namespace std;
 
@@ -184,7 +185,7 @@ bool CheckCreateTable(CppSQLite3DB &dbTask)
 
 TodoSet::TodoSet()
 {
-	m_strDB = GlobeFuns::GetAppDirectory() + _T("task.db");
+	m_strDB = Globe::GetDBPath();
 
 	//RecoverDataFromV1();
 }
@@ -531,7 +532,7 @@ void TodoSet::GetHistoryTodoList( std::set<int> &taskIDs )
 	}
 
 	CppSQLite3Buffer buf;
-	buf.format("select id from T_todo2 where state==%d;",(int)ToDoTask::TS_DELETED);
+	buf.format("select id from T_todo2 where state=%d;",(int)ToDoTask::TS_DELETED);
 	CppSQLite3Query q = dbTask.execQuery(buf);
 	while(!q.eof())
 	{
@@ -568,7 +569,7 @@ int TodoSet::GetTaskCount( int iState )
 	CppSQLite3Buffer buf;
 	if (iState>=0)
 	{
-		buf.format("select count(*) as count from T_todo2 where state==%d;",iState);
+		buf.format("select count(*) as count from T_todo2 where state=%d;",iState);
 	}
 	else
 	{
