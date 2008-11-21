@@ -6,7 +6,7 @@
 using namespace ATL;
 
 // 取得程序运行的目录（以反斜线\结尾）
-ATL::CString GlobeFuns::GetAppDirectory( bool bEndWithBackSlash/*=true*/ )
+std::string GlobeFuns::GetAppDirectory( bool bEndWithBackSlash/*=true*/ )
 {
 	//取系统路径
 	char buf[_MAX_PATH];

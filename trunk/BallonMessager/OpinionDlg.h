@@ -13,6 +13,7 @@ class COpinionDlg :
 	public CWinDataExchange<COpinionDlg>,
 	public CDialogResize<COpinionDlg>	
 {
+	BOOL m_bChkSelfStart;
 	BOOL m_bChkStartinfo;
 public:
 	COpinionDlg();
@@ -22,12 +23,14 @@ public:
     BEGIN_MSG_MAP(COpinionDlg)
 		MESSAGE_HANDLER(WM_INITDIALOG, OnInitDialog)
         COMMAND_HANDLER(IDOK, BN_CLICKED, OnClickedOK)
-        COMMAND_HANDLER(IDCANCEL, BN_CLICKED, OnClickedCancel)
+		COMMAND_HANDLER(IDCANCEL, BN_CLICKED, OnClickedCancel)
+		COMMAND_HANDLER(IDC_CHK_SELFSTART, BN_CLICKED, OnClickedSelfStart)
 		CHAIN_MSG_MAP(CDialogResize<COpinionDlg>)
     END_MSG_MAP()
 
 	BEGIN_DDX_MAP(COpinionDlg)
 		DDX_CHECK(IDC_CHK_STARTINFO, m_bChkStartinfo)
+		DDX_CHECK(IDC_CHK_SELFSTART, m_bChkSelfStart)
 	END_DDX_MAP()
 
 	BEGIN_DLGRESIZE_MAP(COpinionDlg)
@@ -39,6 +42,11 @@ public:
 	LRESULT OnInitDialog(UINT uMsg, WPARAM wParam, LPARAM lParam, BOOL& bHandled);
 	LRESULT OnClickedOK(WORD wNotifyCode, WORD wID, HWND hWndCtl, BOOL& bHandled);
 	LRESULT OnClickedCancel(WORD wNotifyCode, WORD wID, HWND hWndCtl, BOOL& bHandled);
+	LRESULT OnClickedSelfStart(WORD wNotifyCode, WORD wID, HWND hWndCtl, BOOL& bHandled);
+
+private:
+	CHotKeyCtrl m_hotkeyOpenTask;
+	CHotKeyCtrl m_hotkeyOpenNotify;
 };
 
 

@@ -61,7 +61,9 @@
 #define IDC_HOTKEY_TASKLIST             1021
 #define IDC_HOTKEY_NEWTASK              1023
 #define IDC_HOTKEY_REMIND               1024
+#define IDC_HOTKEY_NOTIFY               1024
 #define IDC_HOTKEY_NEWREMIND            1025
+#define IDC_HOTKEY_MAINMENU             1026
 #define ID_32775                        32775
 #define ID_32776                        32776
 #define ID_32777                        32777
