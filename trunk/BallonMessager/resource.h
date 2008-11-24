@@ -19,6 +19,8 @@
 #define ID_EDIT_DELETEFOREVER           8
 #define ID_ADD_SHOWRECYCLE2             9
 #define ID_ADD_SHOWSTATICS              9
+#define ID_CMD_TODO2                    9
+#define ID_CMD_OPNION                   9
 #define IDD_ABOUTBOX                    100
 #define IDD_ADDTODAYTASKDLG             102
 #define IDD_TASKLISTDIALOG              103
@@ -51,7 +53,6 @@
 #define IDC_DATETIMEPICKER_TIME         1012
 #define IDC_CMB_TASKTYPE                1013
 #define IDC_CHK_HIDEOUTTIME             1014
-#define IDC_CMB_TASKTYPE2               1014
 #define IDC_CMB_TASKMONTHWEEK           1014
 #define IDC_SPIN_MINUTE                 1016
 #define IDC_CHECK1                      1017
@@ -61,6 +62,7 @@
 #define IDC_EDT_REMARK                  1019
 #define IDC_CHK_AUTOSAVE                1020
 #define IDC_HOTKEY_TASKLIST             1021
+#define IDC_STA_SITE                    1022
 #define IDC_HOTKEY_NEWTASK              1023
 #define IDC_HOTKEY_REMIND               1024
 #define IDC_HOTKEY_NOTIFY               1024
@@ -98,7 +100,7 @@
 #ifndef APSTUDIO_READONLY_SYMBOLS
 #define _APS_NEXT_RESOURCE_VALUE        209
 #define _APS_NEXT_COMMAND_VALUE         32804
-#define _APS_NEXT_CONTROL_VALUE         1022
+#define _APS_NEXT_CONTROL_VALUE         1023
 #define _APS_NEXT_SYMED_VALUE           109
 #endif
 #endif

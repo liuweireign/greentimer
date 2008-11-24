@@ -35,14 +35,14 @@ public:
 		else if (Type==TT_WEEKLY)
 		{
 			ATL::CString str;
-			str.Format("周%d %d:%d",
-				GetMonthWeek(TaskTime),TaskTime.GetHour(),TaskTime.GetMinute());
+			str.Format("%s %d:%d",
+				GetWeekDayName(GetMonthWeek(TaskTime)),TaskTime.GetHour(),TaskTime.GetMinute());
 			return str;
 		}
 		else if (Type==TT_MONTHLY)
 		{
 			ATL::CString str;
-			str.Format("月%d %d:%d",
+			str.Format("第%d日 %d:%d",
 				GetMonthWeek(TaskTime),TaskTime.GetHour(),TaskTime.GetMinute());
 			return str;
 		}

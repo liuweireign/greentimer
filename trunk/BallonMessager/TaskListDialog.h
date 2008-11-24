@@ -10,7 +10,8 @@
 // CTaskListDialog
 
 class CTaskListDialog : 
-	public CAxDialogImpl<CTaskListDialog>
+	public CAxDialogImpl<CTaskListDialog>,
+	public CDialogResize<CTaskListDialog>	
 {
 public:
 	CTaskListDialog()
@@ -33,8 +34,18 @@ BEGIN_MSG_MAP(CTaskListDialog)
 	NOTIFY_HANDLER(IDC_LST_TASK, NM_DBLCLK, OnNMDblclkLstTask)
 	COMMAND_HANDLER(IDC_CHK_HIDEOUTTIME, BN_CLICKED, OnBnClickedChkHideouttime)
 	CHAIN_MSG_MAP(CAxDialogImpl<CTaskListDialog>)
+	CHAIN_MSG_MAP(CDialogResize<CTaskListDialog>)
 END_MSG_MAP()
 
+BEGIN_DLGRESIZE_MAP(CTaskListDialog)
+	DLGRESIZE_CONTROL(IDC_LST_TASK,DLSZ_SIZE_X|DLSZ_SIZE_Y)
+	DLGRESIZE_CONTROL(IDOK,DLSZ_MOVE_X)
+	DLGRESIZE_CONTROL(IDCANCEL,DLSZ_MOVE_X)
+	DLGRESIZE_CONTROL(ID_BTN_ADD,DLSZ_MOVE_X)
+	DLGRESIZE_CONTROL(ID_BTN_DEL,DLSZ_MOVE_X)
+	DLGRESIZE_CONTROL(ID_BTN_EDIT,DLSZ_MOVE_X)
+	DLGRESIZE_CONTROL(IDC_CHK_HIDEOUTTIME,DLSZ_MOVE_X)
+END_DLGRESIZE_MAP()
 // 处理程序原型: 
 //  LRESULT MessageHandler(UINT uMsg, WPARAM wParam, LPARAM lParam, BOOL& bHandled);
 //  LRESULT CommandHandler(WORD wNotifyCode, WORD wID, HWND hWndCtl, BOOL& bHandled);

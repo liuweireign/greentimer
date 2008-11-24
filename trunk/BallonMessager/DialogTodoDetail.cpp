@@ -21,6 +21,8 @@ LRESULT CDialogTodoDetail::OnInitDialog( UINT uMsg, WPARAM wParam, LPARAM lParam
 {
 	CAxDialogImpl<CDialogTodoDetail>::OnInitDialog(uMsg, wParam, lParam, bHandled);
 
+	DlgResize_Init();
+
 	// center the dialog on the screen
 	CenterWindow();
 

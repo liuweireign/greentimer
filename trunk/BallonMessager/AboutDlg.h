@@ -3,6 +3,7 @@
 /////////////////////////////////////////////////////////////////////////////
 
 #pragma once
+#include <atlctrlx.h>
 
 class CAboutDlg : public CDialogImpl<CAboutDlg>
 {
@@ -31,6 +32,8 @@ public:
 			IMAGE_ICON, ::GetSystemMetrics(SM_CXSMICON), ::GetSystemMetrics(SM_CYSMICON), LR_DEFAULTCOLOR);
 		SetIcon(hIconSmall, FALSE);
 
+		m_siteLink.SubclassWindow(GetDlgItem(IDC_STA_SITE));
+		m_siteLink.SetHyperLink(_T("http://code.google.com/p/greentimer"));
 		return TRUE;
 	}
 
@@ -39,4 +42,6 @@ public:
 		EndDialog(wID);
 		return 0;
 	}
+private:
+	CHyperLink m_siteLink;
 };
