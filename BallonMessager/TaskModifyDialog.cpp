@@ -33,14 +33,12 @@ LRESULT CTaskModifyDialog::OnInitDialog( UINT uMsg, WPARAM wParam, LPARAM lParam
 	ITask::GetTaskTypes(vecTaskTypes);
 	ShowToCombox(IDC_CMB_TASKTYPE,vecTaskTypes);
 
-	//选择每周提醒和每月提醒时，combo框中的内容不一样的。这里先准备好这些内容
-	m_vecWeekDay.push_back("星期一");
-	m_vecWeekDay.push_back("星期二");
-	m_vecWeekDay.push_back("星期三");
-	m_vecWeekDay.push_back("星期四");
-	m_vecWeekDay.push_back("星期五");
-	m_vecWeekDay.push_back("星期六");
-	m_vecWeekDay.push_back("星期日");
+	//准备好日期与月份各日的名称
+	for(int i=0;i<7;i++)
+	{
+		m_vecWeekDay.push_back(ITask::GetWeekDayName(i).GetBuffer(0));
+	}
+	
 	for(int i=1;i<32;i++)
 	{
 		ATL::CString strMonthday;
@@ -188,8 +186,8 @@ void CTaskModifyDialog::ShowToCombox( int idCtrl, vector<string> &vecClass )
 	for (unsigned int i=0;i<vecClass.size();i++)
 	{
 		TCHAR *cls = (TCHAR *)vecClass[i].data();
-		ATLTRACE("cmbClass.AddString:%s \n",cls);
-		ATLTRACE("cmbClass.AddStringT:%s \n",vecClass[i].c_str());
+		//ATLTRACE("cmbClass.AddString:%s \n",cls);
+		//ATLTRACE("cmbClass.AddStringT:%s \n",vecClass[i].c_str());
 		cmbClass.AddString(vecClass[i].c_str());
 		//cmbClass.InsertString(i,vecClass[i].c_str());
 		cmbClass.SetTopIndex(cmbClass.GetCount()-1);

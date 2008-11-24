@@ -9,11 +9,6 @@
 // COpinionDlg
 COpinionDlg::COpinionDlg()
 {
-	char buf[_MAX_PATH];
-	::GetModuleFileName(NULL,buf,_MAX_PATH);
-	TSelfStart tss("GreenTimer",buf);
-
-	m_bChkSelfStart = tss.IsSelfStart()?TRUE:FALSE;
 	m_bChkStartinfo = FALSE;
 }
 
@@ -23,7 +18,6 @@ COpinionDlg::~COpinionDlg()
 
 LRESULT COpinionDlg::OnInitDialog(UINT uMsg, WPARAM wParam, LPARAM lParam, BOOL& bHandled)
 {
-	DoDataExchange();
 	DlgResize_Init(false);
 
 	// center the dialog on the screen
@@ -37,6 +31,12 @@ LRESULT COpinionDlg::OnInitDialog(UINT uMsg, WPARAM wParam, LPARAM lParam, BOOL&
 		IMAGE_ICON, ::GetSystemMetrics(SM_CXSMICON), ::GetSystemMetrics(SM_CYSMICON), LR_DEFAULTCOLOR);
 	SetIcon(hIconSmall, FALSE);
 
+	char buf[_MAX_PATH];
+	::GetModuleFileName(NULL,buf,_MAX_PATH);
+	TSelfStart tss("GreenTimer",buf);
+
+	m_bChkSelfStart = tss.IsSelfStart()?TRUE:FALSE;
+
 	m_hotkeyOpenTask = GetDlgItem(IDC_HOTKEY_TASKLIST);
 	m_hotkeyOpenNotify = GetDlgItem(IDC_HOTKEY_NOTIFY);
 
@@ -46,6 +46,8 @@ LRESULT COpinionDlg::OnInitDialog(UINT uMsg, WPARAM wParam, LPARAM lParam, BOOL&
 	dw = Globe::GetHotKeyOpenNotify();
 	ATLTRACE("dw2=%d,%d\n",LOWORD(dw),HIWORD(dw));
 	m_hotkeyOpenNotify.SetHotKey(LOWORD(dw),HIWORD(dw));
+
+	DoDataExchange();
 	return 1;  // Let the system set the focus
 }
 
