@@ -9,7 +9,8 @@
 // CDialogTodoDetail
 
 class CDialogTodoDetail : 
-	public CAxDialogImpl<CDialogTodoDetail>
+	public CAxDialogImpl<CDialogTodoDetail>,
+	public CDialogResize<CDialogTodoDetail>	
 {
 public:
 	CDialogTodoDetail(int iTodoID,bool bReadOnly=false);
@@ -28,7 +29,17 @@ BEGIN_MSG_MAP(CDialogTodoDetail)
 	COMMAND_HANDLER(IDC_CHK_AUTOSAVE, BN_CLICKED, OnBnClickedChkAutosave)
 	COMMAND_HANDLER(IDC_EDT_REMARK, EN_CHANGE, OnEnChangeEdtRemark)
 	CHAIN_MSG_MAP(CAxDialogImpl<CDialogTodoDetail>)
+	CHAIN_MSG_MAP(CDialogResize<CDialogTodoDetail>)
 END_MSG_MAP()
+
+BEGIN_DLGRESIZE_MAP(CDialogTodoDetail)
+	DLGRESIZE_CONTROL(IDC_EDT_REMARK,DLSZ_SIZE_X|DLSZ_SIZE_Y)
+	DLGRESIZE_CONTROL(IDOK,DLSZ_MOVE_X)
+	DLGRESIZE_CONTROL(IDCANCEL,DLSZ_MOVE_X)
+	DLGRESIZE_CONTROL(ID_SAVE,DLSZ_MOVE_X)
+	DLGRESIZE_CONTROL(ID_SET_NOTIFY,DLSZ_MOVE_X)
+	DLGRESIZE_CONTROL(IDC_CHK_AUTOSAVE,DLSZ_MOVE_X|DLSZ_MOVE_Y)
+END_DLGRESIZE_MAP()
 private:
 	int m_id;
 

@@ -9,7 +9,8 @@
 #include "ToDoTask.h"
 
 class CDialogToDoHistory : 
-	public CAxDialogImpl<CDialogToDoHistory>
+	public CAxDialogImpl<CDialogToDoHistory>,
+	public CDialogResize<CDialogToDoHistory>	
 {
 public:
 	CDialogToDoHistory()
@@ -32,8 +33,16 @@ BEGIN_MSG_MAP(CDialogToDoHistory)
 	COMMAND_HANDLER(ID_EDIT_TODO, BN_CLICKED, OnBnClickedEditTodo)
 	COMMAND_HANDLER(ID_EDIT_DELETEFOREVER, BN_CLICKED, OnBnClickedEditDeleteforever)
 	CHAIN_MSG_MAP(CAxDialogImpl<CDialogToDoHistory>)
+	CHAIN_MSG_MAP(CDialogResize<CDialogToDoHistory>)
 END_MSG_MAP()
 
+
+BEGIN_DLGRESIZE_MAP(CDialogToDoHistory)
+	DLGRESIZE_CONTROL(IDC_LIST_TODO,DLSZ_SIZE_X|DLSZ_SIZE_Y)
+	DLGRESIZE_CONTROL(ID_EDIT_TODO,DLSZ_MOVE_X)
+	DLGRESIZE_CONTROL(ID_EDIT_SETLIVE,DLSZ_MOVE_X)
+	DLGRESIZE_CONTROL(ID_EDIT_DELETEFOREVER,DLSZ_MOVE_X)
+END_DLGRESIZE_MAP()
 // 处理程序原型: 
 //  LRESULT MessageHandler(UINT uMsg, WPARAM wParam, LPARAM lParam, BOOL& bHandled);
 //  LRESULT CommandHandler(WORD wNotifyCode, WORD wID, HWND hWndCtl, BOOL& bHandled);

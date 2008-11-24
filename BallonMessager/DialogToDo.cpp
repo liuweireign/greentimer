@@ -56,6 +56,8 @@ LRESULT DialogToDo::OnInitDialog( UINT /*uMsg*/, WPARAM /*wParam*/, LPARAM /*lPa
 		IMAGE_ICON, ::GetSystemMetrics(SM_CXSMICON), ::GetSystemMetrics(SM_CYSMICON), LR_DEFAULTCOLOR);
 	SetIcon(hIconSmall, FALSE);
 
+	DlgResize_Init();
+
 	m_listTodo.SubclassWindow( GetDlgItem( IDC_LIST_TODO ) );
 
 	int iCol = 0;

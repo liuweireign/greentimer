@@ -13,6 +13,7 @@ using namespace std;
 LRESULT CDialogToDoHistory::OnInitDialog( UINT uMsg, WPARAM wParam, LPARAM lParam, BOOL& bHandled )
 {
 	CAxDialogImpl<CDialogToDoHistory>::OnInitDialog(uMsg, wParam, lParam, bHandled);
+	DlgResize_Init();
 
 	// center the dialog on the screen
 	CenterWindow();

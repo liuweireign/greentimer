@@ -116,7 +116,7 @@ bool TaskComp(int idLeft,int idRight)
 		}
 	}
 
-	return taskLeft.Type<taskRight.Type;
+	return taskLeft.Type>taskRight.Type;
 }
 //任务是否已经超时——超时任务默认不显示
 bool IsTaskTimeOut(int id)
@@ -171,6 +171,7 @@ void CTaskListDialog::ReloadTasks()
 LRESULT CTaskListDialog::OnInitDialog( UINT uMsg, WPARAM wParam, LPARAM lParam, BOOL& bHandled )
 {
 	CAxDialogImpl<CTaskListDialog>::OnInitDialog(uMsg, wParam, lParam, bHandled);
+	DlgResize_Init();
 	
 	HICON hIcon = (HICON)::LoadImage(_Module.GetResourceInstance(), MAKEINTRESOURCE(IDR_MAINFRAME), 
 		IMAGE_ICON, ::GetSystemMetrics(SM_CXICON), ::GetSystemMetrics(SM_CYICON), LR_DEFAULTCOLOR);
