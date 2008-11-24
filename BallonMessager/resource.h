@@ -51,6 +51,8 @@
 #define IDC_DATETIMEPICKER_TIME         1012
 #define IDC_CMB_TASKTYPE                1013
 #define IDC_CHK_HIDEOUTTIME             1014
+#define IDC_CMB_TASKTYPE2               1014
+#define IDC_CMB_TASKMONTHWEEK           1014
 #define IDC_SPIN_MINUTE                 1016
 #define IDC_CHECK1                      1017
 #define IDC_CHK_SELFSTART               1017
@@ -63,7 +65,6 @@
 #define IDC_HOTKEY_REMIND               1024
 #define IDC_HOTKEY_NOTIFY               1024
 #define IDC_HOTKEY_NEWREMIND            1025
-#define IDC_HOTKEY_MAINMENU             1026
 #define ID_32775                        32775
 #define ID_32776                        32776
 #define ID_32777                        32777

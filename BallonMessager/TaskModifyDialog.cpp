@@ -25,6 +25,7 @@ LRESULT CTaskModifyDialog::OnInitDialog( UINT uMsg, WPARAM wParam, LPARAM lParam
 
 	m_edtID = GetDlgItem(IDC_EDT_ID);
 	m_edtTips = GetDlgItem(IDC_EDT_TIPS);
+	m_cmbMonthWeek = GetDlgItem(IDC_CMB_TASKMONTHWEEK);
 	m_datePicker = GetDlgItem(IDC_DATETIMEPICKER_DATE);
 	m_timePicker = GetDlgItem(IDC_DATETIMEPICKER_TIME);
 
@@ -32,7 +33,23 @@ LRESULT CTaskModifyDialog::OnInitDialog( UINT uMsg, WPARAM wParam, LPARAM lParam
 	ITask::GetTaskTypes(vecTaskTypes);
 	ShowToCombox(IDC_CMB_TASKTYPE,vecTaskTypes);
 
-	if (m_taskid==0)	//创建任务
+	//选择每周提醒和每月提醒时，combo框中的内容不一样的。这里先准备好这些内容
+	m_vecWeekDay.push_back("星期一");
+	m_vecWeekDay.push_back("星期二");
+	m_vecWeekDay.push_back("星期三");
+	m_vecWeekDay.push_back("星期四");
+	m_vecWeekDay.push_back("星期五");
+	m_vecWeekDay.push_back("星期六");
+	m_vecWeekDay.push_back("星期日");
+	for(int i=1;i<32;i++)
+	{
+		ATL::CString strMonthday;
+		strMonthday.Format("第 %d 天",i);
+		m_vecMonthDay.push_back(strMonthday.GetBuffer(0));
+	}
+	ShowToCombox(IDC_CMB_TASKMONTHWEEK,m_vecWeekDay);
+
+	if (m_taskid==TASKID_NOT_DEFINED)	//创建任务
 	{
 		SetWindowText("创建新提醒");
 		m_edtID.SetWindowText("(待创建)");
@@ -69,7 +86,7 @@ LRESULT CTaskModifyDialog::OnInitDialog( UINT uMsg, WPARAM wParam, LPARAM lParam
 
 LRESULT CTaskModifyDialog::OnClickedOK( WORD wNotifyCode, WORD wID, HWND hWndCtl, BOOL& bHandled )
 {
-	if (m_taskid==0)
+	if (m_taskid==TASKID_NOT_DEFINED)
 	{
 		ITask task;
 		task.CreateTime = CTime::GetCurrentTime();
@@ -191,7 +208,57 @@ LRESULT CTaskModifyDialog::OnCbnSelchangeCmbTasktype(WORD /*wNotifyCode*/, WORD 
 
 void CTaskModifyDialog::EnableControls()
 {
-	m_datePicker.EnableWindow(GetSelTaskType()==ITask::TT_ONCE);
+	switch(GetSelTaskType())
+	{
+	case ITask::TT_ONCE:
+		m_cmbMonthWeek.ShowWindow(SW_HIDE);
+		m_datePicker.ShowWindow(SW_SHOW);
+		m_datePicker.EnableWindow(TRUE);
+		break;
+	case ITask::TT_DAILY:
+		m_cmbMonthWeek.ShowWindow(SW_HIDE);
+		m_datePicker.ShowWindow(SW_SHOW);
+		m_datePicker.EnableWindow(FALSE);
+		break;
+	case ITask::TT_WEEKLY:
+		m_datePicker.ShowWindow(SW_HIDE);
+		m_datePicker.EnableWindow(FALSE);
+		ShowToCombox(IDC_CMB_TASKMONTHWEEK,m_vecWeekDay);
+		if (m_taskid!=TASKID_NOT_DEFINED)	//创建任务
+		{
+			ITask task;
+			if(!g_TaskDB.GetTask(m_taskid,task))
+			{
+				ATLASSERT(FALSE);
+				return;
+			}
+			int iWeekDay = task.TaskTime.GetYear()-CTime(0).GetYear();
+			m_cmbMonthWeek.SetTopIndex(iWeekDay-1);
+			m_cmbMonthWeek.SetCurSel(iWeekDay-1);
+		}
+		m_cmbMonthWeek.ShowWindow(SW_SHOW);
+
+		break;
+	case ITask::TT_MONTHLY:
+		m_datePicker.ShowWindow(SW_HIDE);
+		m_datePicker.EnableWindow(FALSE);
+		ShowToCombox(IDC_CMB_TASKMONTHWEEK,m_vecMonthDay);
+		if (m_taskid!=TASKID_NOT_DEFINED)	//创建任务
+		{
+			ITask task;
+			if(!g_TaskDB.GetTask(m_taskid,task))
+			{
+				ATLASSERT(FALSE);
+				return ;
+			}
+			int iMonthDay = task.TaskTime.GetYear()-CTime(0).GetYear();
+			m_cmbMonthWeek.SetTopIndex(iMonthDay-1);
+			m_cmbMonthWeek.SetCurSel(iMonthDay-1);
+		}
+		m_cmbMonthWeek.ShowWindow(SW_SHOW);
+		break;
+	}
+	
 }
 
 ITask::TaskType CTaskModifyDialog::GetSelTaskType()
@@ -203,12 +270,37 @@ ITask::TaskType CTaskModifyDialog::GetSelTaskType()
 
 ATL::CTime CTaskModifyDialog::GetSelTime()
 {
+	ITask::TaskType type = GetSelTaskType();
 	SYSTEMTIME st;
-	m_datePicker.GetSystemTime(&st);
-	CTime tmDate = st;
 
 	m_timePicker.GetSystemTime(&st);
 	CTime tmTime = st;
 
-	return CTime(tmDate.GetYear(),tmDate.GetMonth(),tmDate.GetDay(),tmTime.GetHour(),tmTime.GetMinute(),tmTime.GetSecond());
+	if (type==ITask::TT_ONCE || type==ITask::TT_DAILY)
+	{
+		m_datePicker.GetSystemTime(&st);
+		CTime tmDate = st;
+		return CTime(tmDate.GetYear(),tmDate.GetMonth(),tmDate.GetDay(),
+			tmTime.GetHour(),tmTime.GetMinute(),tmTime.GetSecond());
+	}
+	else if (type==ITask::TT_WEEKLY)
+	{
+		//构造一个日期，它恰好是一个星期的第n天
+		//todo:星期的第一天是哪天，根据设置会有所不同
+		int iWeekDay = m_cmbMonthWeek.GetCurSel()+1;
+		return CTime(CTime(0).GetYear()+iWeekDay,1,1,
+			tmTime.GetHour(),tmTime.GetMinute(),tmTime.GetSecond());
+	}
+	else if (type==ITask::TT_MONTHLY)
+	{
+		int iMonthDay = m_cmbMonthWeek.GetCurSel() + 1;
+		//todo:这个月份有没有31日？
+		return CTime(CTime(0).GetYear()+iMonthDay,1,1,
+			tmTime.GetHour(),tmTime.GetMinute(),tmTime.GetSecond());
+	}
+	else{
+		ATLASSERT(FALSE);
+		return CTime(0);
+	}
+
 }

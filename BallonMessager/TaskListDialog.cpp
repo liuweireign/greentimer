@@ -81,6 +81,34 @@ bool TaskComp(int idLeft,int idRight)
 			}
 			return taskLeft.TaskTime.GetMinute()<taskRight.TaskTime.GetMinute();
 		}
+		else if (taskLeft.Type==ITask::TT_WEEKLY)	//每周任务，比较周、时分秒
+		{
+			int iLeftWeek = taskLeft.TaskTime.GetYear()-CTime(0).GetYear();
+			int iRightWeek = taskRight.TaskTime.GetYear()-CTime(0).GetYear();
+			if (iLeftWeek!=iRightWeek)
+			{
+				return iLeftWeek<iRightWeek;
+			}
+			if(taskLeft.TaskTime.GetHour()!=taskRight.TaskTime.GetHour())
+			{
+				return taskLeft.TaskTime.GetHour()<taskRight.TaskTime.GetHour();
+			}
+			return taskLeft.TaskTime.GetMinute()<taskRight.TaskTime.GetMinute();
+		}
+		else if (taskLeft.Type==ITask::TT_MONTHLY)	//每日任务，比较月、时分秒
+		{
+			int iLeftMonth = taskLeft.TaskTime.GetYear()-CTime(0).GetYear();
+			int iRightMonth = taskRight.TaskTime.GetYear()-CTime(0).GetYear();
+			if (iLeftMonth!=iRightMonth)
+			{
+				return iLeftMonth<iRightMonth;
+			}
+			if(taskLeft.TaskTime.GetHour()!=taskRight.TaskTime.GetHour())
+			{
+				return taskLeft.TaskTime.GetHour()<taskRight.TaskTime.GetHour();
+			}
+			return taskLeft.TaskTime.GetMinute()<taskRight.TaskTime.GetMinute();
+		}
 		else
 		{
 			ATLASSERT(FALSE);
