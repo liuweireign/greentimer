@@ -12,21 +12,46 @@ public:
 		TT_ONCE = 0,		//仅运行一次
 		TT_DAILY = 1,		//每天运行（精确度为分钟）
 		//TT_DATE = 2,		//在特定的日期提醒一次（精确度为天）
-		//TT_WEEKLY = 3,		//每周一次
-		//TT_MONTHLY = 4,		//每月一次
+		TT_WEEKLY = 3,		//每周一次
+		TT_MONTHLY = 4,		//每月一次
 		//TT_YEARLY = 5,		//每年一次
 	};
 	static TCHAR *GetTaskTypeStr(TaskType type);
 	static TaskType GetTaskType(const string &strName);
 	static void GetTaskTypes(vector<string> &vecTypes);
 
+	static int GetMonthWeek(const CTime &tm);	//对于每周、每月任务，这里用年份来保存
+
 	ATL::CString GetTimeStr() const
 	{
-		if (Type==TT_DAILY)
+		if (Type==TT_ONCE)
+		{
+			return TaskTime.Format("%y-%m-%d %H:%M:%S");
+		}
+		else if (Type==TT_DAILY)
 		{
 			return TaskTime.Format("%H:%M");
 		}
-		return TaskTime.Format("%y-%m-%d %H:%M:%S");
+		else if (Type==TT_WEEKLY)
+		{
+			ATL::CString str;
+			str.Format("周%d %d:%d",
+				GetMonthWeek(TaskTime),TaskTime.GetHour(),TaskTime.GetMinute());
+			return str;
+		}
+		else if (Type==TT_MONTHLY)
+		{
+			ATL::CString str;
+			str.Format("月%d %d:%d",
+				GetMonthWeek(TaskTime),TaskTime.GetHour(),TaskTime.GetMinute());
+			return str;
+		}
+		else
+		{
+			ATLASSERT(FALSE);
+			return "错误！";
+		}
+		
 	}
 	ATL::CString GetIDStr() const
 	{

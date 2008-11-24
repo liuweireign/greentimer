@@ -51,6 +51,51 @@ bool ITask::IsTimeNow()
 				return true;
 			}
 		}
+	case TT_WEEKLY:
+		{
+			//每周运行任务
+			if (tmNow.GetDayOfWeek()==GetMonthWeek(TaskTime)
+				&& tmNow.GetHour()==TaskTime.GetHour() 
+				&& tmNow.GetMinute()==TaskTime.GetMinute())
+			{
+				//避免重复运行。
+				if (tmNow.GetYear()==LastRunTime.GetYear() 
+					&& tmNow.GetMonth()==LastRunTime.GetMonth()
+					&& tmNow.GetDay()==LastRunTime.GetDay()
+					&& tmNow.GetHour()==LastRunTime.GetHour()
+					&& tmNow.GetMinute()==LastRunTime.GetMinute()
+					)
+				{
+					return false;
+				}
+
+				//OK,是运行时间
+				return true;
+			}
+		}
+	case TT_MONTHLY:
+		{
+			//每月运行任务
+			if (tmNow.GetDay()==GetMonthWeek(TaskTime)
+				&& tmNow.GetHour()==TaskTime.GetHour() 
+				&& tmNow.GetMinute()==TaskTime.GetMinute())
+			{
+				//避免重复运行。
+				if (tmNow.GetYear()==LastRunTime.GetYear() 
+					&& tmNow.GetMonth()==LastRunTime.GetMonth()
+					&& tmNow.GetDay()==LastRunTime.GetDay()
+					&& tmNow.GetHour()==LastRunTime.GetHour()
+					&& tmNow.GetMinute()==LastRunTime.GetMinute()
+					)
+				{
+					return false;
+				}
+
+				//OK,是运行时间
+				return true;
+			}
+
+		}
 	}
 	return false;
 }
@@ -65,10 +110,10 @@ TCHAR * ITask::GetTaskTypeStr( TaskType type )
 		return "每天提醒";
 		//case TT_DATE: 
 		//	return "日期提醒";
-		//case TT_WEEKLY: 
-		//	return "每周提醒";
-		//case TT_MONTHLY: 
-		//	return "每月提醒";
+	case TT_WEEKLY: 
+		return "每周提醒";
+	case TT_MONTHLY: 
+		return "每月提醒";
 		//case TT_YEARLY:
 		//	return "每年提醒";
 	default:
@@ -87,6 +132,14 @@ ITask::TaskType ITask::GetTaskType( const string &strName )
 	{
 		return TT_DAILY;
 	}
+	if (strName.compare("每周提醒")==0)
+	{
+		return TT_WEEKLY;
+	}
+	if (strName.compare("每月提醒")==0)
+	{
+		return TT_MONTHLY;
+	}
 	return (TaskType)-1;
 }
 
@@ -95,6 +148,8 @@ void ITask::GetTaskTypes( vector<string> &vecTypes )
 	vecTypes.clear();
 	vecTypes.push_back("一次提醒");
 	vecTypes.push_back("每天提醒");
+	vecTypes.push_back("每周提醒");
+	vecTypes.push_back("每月提醒");
 }
 
 bool ITask::operator == (const ITask &task)
@@ -105,4 +160,9 @@ bool ITask::operator == (const ITask &task)
 		&& LastRunTime == task.LastRunTime
 		&& CreateTime == task.CreateTime
 		&& Tip == task.Tip;	//提示内容
+}
+
+int ITask::GetMonthWeek(const CTime &tm)
+{
+	return tm.GetYear() - CTime(0).GetYear();
 }
