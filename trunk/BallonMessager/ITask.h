@@ -19,7 +19,7 @@ public:
 	static TCHAR *GetTaskTypeStr(TaskType type);
 	static TaskType GetTaskType(const string &strName);
 	static void GetTaskTypes(vector<string> &vecTypes);
-
+	static ATL::CString GetWeekDayName(int iDay);
 	static int GetMonthWeek(const CTime &tm);	//对于每周、每月任务，这里用年份来保存
 
 	ATL::CString GetTimeStr() const
