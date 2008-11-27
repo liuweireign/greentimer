@@ -6,6 +6,25 @@
 #include "TSelfStart.h"
 #include "Globe.h"
 
+//WTL的CHotCtrl把MOD_SHIFT和MOD_ALT两个值搞反了
+//这个函数把它们调过来才行
+//对CHotCtrl设置快捷键之前，或者读取快捷键之后，都要用这个函数将快捷键的MOD参数处理一下
+//tianzuo,2008-11-27
+WORD FIX_CHOTKEY_BUG(WORD dwMod)
+{
+	if (dwMod&MOD_SHIFT)
+	{
+		dwMod &= ~MOD_SHIFT;
+		dwMod |= MOD_ALT;
+	}
+	else if (dwMod&MOD_ALT)
+	{
+		dwMod &= ~MOD_ALT;
+		dwMod |= MOD_SHIFT;
+	}
+	return dwMod;
+}
+
 // COpinionDlg
 COpinionDlg::COpinionDlg()
 {
@@ -41,11 +60,9 @@ LRESULT COpinionDlg::OnInitDialog(UINT uMsg, WPARAM wParam, LPARAM lParam, BOOL&
 	m_hotkeyOpenNotify = GetDlgItem(IDC_HOTKEY_NOTIFY);
 
 	DWORD dw = Globe::GetHotKeyOpenTask();
-	ATLTRACE("dw1=%d,%d\n",LOWORD(dw),HIWORD(dw));
-	m_hotkeyOpenTask.SetHotKey(LOWORD(dw),HIWORD(dw));
+	m_hotkeyOpenTask.SetHotKey(LOWORD(dw),FIX_CHOTKEY_BUG(HIWORD(dw)));
 	dw = Globe::GetHotKeyOpenNotify();
-	ATLTRACE("dw2=%d,%d\n",LOWORD(dw),HIWORD(dw));
-	m_hotkeyOpenNotify.SetHotKey(LOWORD(dw),HIWORD(dw));
+	m_hotkeyOpenNotify.SetHotKey(LOWORD(dw),FIX_CHOTKEY_BUG(HIWORD(dw)));
 
 	DoDataExchange();
 	return 1;  // Let the system set the focus
@@ -57,12 +74,12 @@ LRESULT COpinionDlg::OnClickedOK(WORD wNotifyCode, WORD wID, HWND hWndCtl, BOOL&
 
 	WORD dw1,dw2;
 	m_hotkeyOpenTask.GetHotKey(dw1,dw2);
+	dw2 = FIX_CHOTKEY_BUG(dw2);
 	Globe::SetHotKeyOpenTask(MAKELONG(dw1,dw2));
-	ATLTRACE("dw1=%d,%d\n",dw1,dw2);
 
 	m_hotkeyOpenNotify.GetHotKey(dw1,dw2);
+	dw2 = FIX_CHOTKEY_BUG(dw2);
 	Globe::SetHotKeyOpenNotify(MAKELONG(dw1,dw2));
-	ATLTRACE("dw2=%d,%d\n",dw1,dw2);
 
 	EndDialog(wID);
 	return 0;
