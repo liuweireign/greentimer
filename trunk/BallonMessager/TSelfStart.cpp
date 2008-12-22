@@ -76,7 +76,10 @@ bool TSelfStart::IsSelfStart()
 		return false;
 	}
 	RegCloseKey(hRegKey);
-	return m_strPath==buf;
+
+	//2008-12-22日，发现取得的本地路径盘符时而大写时而小写
+	//return m_strPath==buf;
+	return 0==CString(buf).CompareNoCase(m_strPath.c_str());
 }
 
 bool TSelfStart::RemoveSelfStart()

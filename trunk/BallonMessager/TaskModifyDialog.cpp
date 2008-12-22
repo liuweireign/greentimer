@@ -4,6 +4,7 @@
 #include "TaskModifyDialog.h"
 #include "TaskDB.h"
 #include ".\taskmodifydialog.h"
+#include "Globe.h"
 
 // CTaskModifyDialog
 
@@ -34,7 +35,7 @@ LRESULT CTaskModifyDialog::OnInitDialog( UINT uMsg, WPARAM wParam, LPARAM lParam
 	ShowToCombox(IDC_CMB_TASKTYPE,vecTaskTypes);
 
 	//准备好日期与月份各日的名称
-	for(int i=0;i<7;i++)
+	for(int i=1;i<8;i++)
 	{
 		m_vecWeekDay.push_back(ITask::GetWeekDayName(i).GetBuffer(0));
 	}
@@ -140,6 +141,7 @@ LRESULT CTaskModifyDialog::OnClickedOK( WORD wNotifyCode, WORD wID, HWND hWndCtl
 		g_TaskDB.SaveToDB();
 	}
 
+	Globe::SaveDlgSizeToDB(*this,IDD);
 	EndDialog(wID);
 
 	return 0;
@@ -147,6 +149,7 @@ LRESULT CTaskModifyDialog::OnClickedOK( WORD wNotifyCode, WORD wID, HWND hWndCtl
 
 LRESULT CTaskModifyDialog::OnClickedCancel( WORD wNotifyCode, WORD wID, HWND hWndCtl, BOOL& bHandled )
 {
+	Globe::SaveDlgSizeToDB(*this,IDD);
 	EndDialog(wID);
 	return 0;
 }

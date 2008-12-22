@@ -68,7 +68,6 @@ public:
 	LRESULT OnBnClickedEditTodo(WORD /*wNotifyCode*/, WORD /*wID*/, HWND /*hWndCtl*/, BOOL& /*bHandled*/);
 	LRESULT OnLvnDbClick(int /*idCtrl*/, LPNMHDR pNMHDR, BOOL& /*bHandled*/);
 	LRESULT OnLvnRClick(int /*idCtrl*/, LPNMHDR pNMHDR, BOOL& /*bHandled*/);
-
 private:
 	CListCtrl m_listTodo;
 	CListArray<CString> m_aListPriority;;
