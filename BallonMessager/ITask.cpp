@@ -176,12 +176,12 @@ ATL::CString ITask::GetWeekDayName( int iDay )
 		LOCALE_SDAYNAME3,
 		LOCALE_SDAYNAME4, 
 		LOCALE_SDAYNAME5, 
-		LOCALE_SDAYNAME6   // Saturday
+		LOCALE_SDAYNAME6,   // Saturday
 	};
 	TCHAR strWeekday[256];
 
 	::GetLocaleInfo(LOCALE_USER_DEFAULT,   // Get string for day of the week from system
-		DayOfWeek[iDay],   // Get day of week from CTime
+		DayOfWeek[iDay-1],   // Get day of week from CTime
 		strWeekday, sizeof(strWeekday));
 	return strWeekday;
 }

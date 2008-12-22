@@ -38,6 +38,8 @@ COpinionDlg::~COpinionDlg()
 LRESULT COpinionDlg::OnInitDialog(UINT uMsg, WPARAM wParam, LPARAM lParam, BOOL& bHandled)
 {
 	DlgResize_Init(false);
+	//是否保存过这个窗口的大小，如果是，改变其大小
+	Globe::ReadDlgSizeFromDB(*this,IDD);
 
 	// center the dialog on the screen
 	CenterWindow();
@@ -81,12 +83,14 @@ LRESULT COpinionDlg::OnClickedOK(WORD wNotifyCode, WORD wID, HWND hWndCtl, BOOL&
 	dw2 = FIX_CHOTKEY_BUG(dw2);
 	Globe::SetHotKeyOpenNotify(MAKELONG(dw1,dw2));
 
+	Globe::SaveDlgSizeToDB(*this,IDD);
 	EndDialog(wID);
 	return 0;
 }
 
 LRESULT COpinionDlg::OnClickedCancel(WORD wNotifyCode, WORD wID, HWND hWndCtl, BOOL& bHandled)
 {
+	Globe::SaveDlgSizeToDB(*this,IDD);
 	EndDialog(wID);
 	return 0;
 }

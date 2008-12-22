@@ -4,8 +4,10 @@
 #include "DialogTodoDetail.h"
 #include "GlobeFuns.h"
 #include "DialogToDoHistory.h"
+#include "Globe.h"
 
 using namespace std;
+
 
 std::vector<BOOL> DialogToDo::m_vecPriorityShow;
 std::vector<BOOL> DialogToDo::m_vecStateShow;
@@ -23,6 +25,7 @@ LRESULT DialogToDo::OnBnClickedOk(WORD /*wNotifyCode*/, WORD wID, HWND /*hWndCtl
 {
 	//if (SaveData()==S_OK)
 	{
+		Globe::SaveDlgSizeToDB(*this,IDD);
 		EndDialog(wID);
 	}
 
@@ -31,6 +34,7 @@ LRESULT DialogToDo::OnBnClickedOk(WORD /*wNotifyCode*/, WORD wID, HWND /*hWndCtl
 
 LRESULT DialogToDo::OnBnClickedCancel(WORD /*wNotifyCode*/, WORD /*wID*/, HWND /*hWndCtl*/, BOOL& /*bHandled*/)
 {
+	Globe::SaveDlgSizeToDB(*this,IDD);
 	EndDialog(0);
 
 	return 0;
@@ -45,6 +49,10 @@ LRESULT DialogToDo::OnUserDataSelected( LPNMHDR lpNMHDR )
 
 LRESULT DialogToDo::OnInitDialog( UINT /*uMsg*/, WPARAM /*wParam*/, LPARAM /*lParam*/, BOOL& /*bHandled*/ )
 {
+	DlgResize_Init();
+
+	//是否保存过这个窗口的大小，如果是，改变其大小
+	Globe::ReadDlgSizeFromDB(*this,IDD);
 	// center the dialog on the screen
 	CenterWindow();
 
@@ -55,8 +63,6 @@ LRESULT DialogToDo::OnInitDialog( UINT /*uMsg*/, WPARAM /*wParam*/, LPARAM /*lPa
 	HICON hIconSmall = (HICON)::LoadImage(_Module.GetResourceInstance(), MAKEINTRESOURCE(IDR_MAINFRAME), 
 		IMAGE_ICON, ::GetSystemMetrics(SM_CXSMICON), ::GetSystemMetrics(SM_CYSMICON), LR_DEFAULTCOLOR);
 	SetIcon(hIconSmall, FALSE);
-
-	DlgResize_Init();
 
 	m_listTodo.SubclassWindow( GetDlgItem( IDC_LIST_TODO ) );
 
@@ -110,6 +116,7 @@ LRESULT DialogToDo::OnInitDialog( UINT /*uMsg*/, WPARAM /*wParam*/, LPARAM /*lPa
 	btn.SetCheck(m_bHideFinished);
 
 	ReloadTodos();
+
 	return S_OK;
 }
 LRESULT DialogToDo::OnBnClickedAddTodo(WORD /*wNotifyCode*/, WORD /*wID*/, HWND /*hWndCtl*/, BOOL& /*bHandled*/)

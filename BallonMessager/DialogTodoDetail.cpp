@@ -4,6 +4,7 @@
 #include "DialogTodoDetail.h"
 #include "ToDoTask.h"
 #include ".\dialogtododetail.h"
+#include "Globe.h"
 
 // CDialogTodoDetail
 
@@ -22,6 +23,8 @@ LRESULT CDialogTodoDetail::OnInitDialog( UINT uMsg, WPARAM wParam, LPARAM lParam
 	CAxDialogImpl<CDialogTodoDetail>::OnInitDialog(uMsg, wParam, lParam, bHandled);
 
 	DlgResize_Init();
+	//是否保存过这个窗口的大小，如果是，改变其大小
+	Globe::ReadDlgSizeFromDB(*this,IDD);
 
 	// center the dialog on the screen
 	CenterWindow();
@@ -61,6 +64,7 @@ LRESULT CDialogTodoDetail::OnInitDialog( UINT uMsg, WPARAM wParam, LPARAM lParam
 LRESULT CDialogTodoDetail::OnClickedOK( WORD wNotifyCode, WORD wID, HWND hWndCtl, BOOL& bHandled )
 {
 	SaveToDB();
+	Globe::SaveDlgSizeToDB(*this,IDD);
 	EndDialog(wID);
 	return 0;
 }
@@ -83,6 +87,7 @@ LRESULT CDialogTodoDetail::OnClickedCancel( WORD wNotifyCode, WORD wID, HWND hWn
 			//点击“否”即不保存，仍然关闭。
 		}
 	}
+	Globe::SaveDlgSizeToDB(*this,IDD);
 	EndDialog(wID);
 	return 0;
 }

@@ -377,6 +377,8 @@ private:
 		}
 		else
 		{
+			pDlg->ShowWindow(SW_SHOWNORMAL);
+			pDlg->BringWindowToTop();
 			pDlg->FlashWindow(TRUE);
 		}
 	}

@@ -34,7 +34,7 @@ BEGIN
     DEFPUSHBUTTON   "OK",IDOK,169,77,50,14
     ICON            IDR_MAINFRAME,IDC_STATIC,27,14,20,20
     GROUPBOX        "",IDC_STATIC,7,3,212,73
-    LTEXT           "绿色时间管理 V3.0 正式版",IDC_STATIC,51,22,140,11
+    LTEXT           "绿色时间管理 V3.1 正式版",IDC_STATIC,51,22,140,11
     LTEXT           "官方网站:",IDC_STATIC,27,52,38,10
     LTEXT           "skymountain and Jame Yu, 保留一切权利",IDC_STATIC,27,37,172,13
     LTEXT           "http://code.google.com/p/greentimer",IDC_STA_SITE,42,63,177,10
@@ -96,8 +96,8 @@ IDR_MAINFRAME           ICON                    "res\\BallonMessager.ico"
 //
 
 VS_VERSION_INFO VERSIONINFO
- FILEVERSION 3,0,2,1
- PRODUCTVERSION 3,0,2,1
+ FILEVERSION 3,1,2,1
+ PRODUCTVERSION 3,2,2,1
  FILEFLAGSMASK 0x3fL
 #ifdef _DEBUG
  FILEFLAGS 0x1L
@@ -114,13 +114,13 @@ BEGIN
         BEGIN
             VALUE "Comments", "http://code.google.com/p/greentimer"
             VALUE "CompanyName", "http://code.google.com/p/greentimer"
-            VALUE "FileDescription", "绿色时间管理 3.0 正式版"
-            VALUE "FileVersion", "3, 0, 2, 1"
-            VALUE "InternalName", "绿色时间管理 3.0 正式版"
+            VALUE "FileDescription", "绿色时间管理 3.1 正式版"
+            VALUE "FileVersion", "3, 1, 2, 1"
+            VALUE "InternalName", "绿色时间管理 3.1 正式版"
             VALUE "LegalCopyright", "Copyright 2008"
             VALUE "OriginalFilename", "Greentimer.exe"
             VALUE "ProductName", "Green timer"
-            VALUE "ProductVersion", "3, 0, 2, 1"
+            VALUE "ProductVersion", "3, 2, 2, 1"
         END
     END
     BLOCK "VarFileInfo"

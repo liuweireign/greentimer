@@ -6,6 +6,7 @@
 #include "GlobeFuns.h"
 #include ".\dialogtodohistory.h"
 #include ".\DialogTodoDetail.h"
+#include "Globe.h"
 using namespace std;
 
 // CDialogToDoHistory
@@ -14,6 +15,8 @@ LRESULT CDialogToDoHistory::OnInitDialog( UINT uMsg, WPARAM wParam, LPARAM lPara
 {
 	CAxDialogImpl<CDialogToDoHistory>::OnInitDialog(uMsg, wParam, lParam, bHandled);
 	DlgResize_Init();
+	//是否保存过这个窗口的大小，如果是，改变其大小
+	Globe::ReadDlgSizeFromDB(*this,IDD);
 
 	// center the dialog on the screen
 	CenterWindow();
@@ -73,12 +76,14 @@ LRESULT CDialogToDoHistory::OnInitDialog( UINT uMsg, WPARAM wParam, LPARAM lPara
 
 LRESULT CDialogToDoHistory::OnClickedOK( WORD wNotifyCode, WORD wID, HWND hWndCtl, BOOL& bHandled )
 {
+	Globe::SaveDlgSizeToDB(*this,IDD);
 	EndDialog(wID);
 	return 0;
 }
 
 LRESULT CDialogToDoHistory::OnClickedCancel( WORD wNotifyCode, WORD wID, HWND hWndCtl, BOOL& bHandled )
 {
+	Globe::SaveDlgSizeToDB(*this,IDD);
 	EndDialog(wID);
 	return 0;
 }

@@ -10,6 +10,7 @@
 //#include ".\OpinionDlg.h"
 #include "GlobeFuns.h"
 #include "TaskModifyDialog.h"
+#include "Globe.h"
 
 // CTaskListDialog
 
@@ -172,6 +173,8 @@ LRESULT CTaskListDialog::OnInitDialog( UINT uMsg, WPARAM wParam, LPARAM lParam, 
 {
 	CAxDialogImpl<CTaskListDialog>::OnInitDialog(uMsg, wParam, lParam, bHandled);
 	DlgResize_Init();
+	//是否保存过这个窗口的大小，如果是，改变其大小
+	Globe::ReadDlgSizeFromDB(*this,IDD);
 	
 	HICON hIcon = (HICON)::LoadImage(_Module.GetResourceInstance(), MAKEINTRESOURCE(IDR_MAINFRAME), 
 		IMAGE_ICON, ::GetSystemMetrics(SM_CXICON), ::GetSystemMetrics(SM_CYICON), LR_DEFAULTCOLOR);
@@ -196,12 +199,14 @@ LRESULT CTaskListDialog::OnInitDialog( UINT uMsg, WPARAM wParam, LPARAM lParam, 
 
 LRESULT CTaskListDialog::OnClickedOK( WORD wNotifyCode, WORD wID, HWND hWndCtl, BOOL& bHandled )
 {
+	Globe::SaveDlgSizeToDB(*this,IDD);
 	EndDialog(wID);
 	return 0;
 }
 
 LRESULT CTaskListDialog::OnClickedCancel( WORD wNotifyCode, WORD wID, HWND hWndCtl, BOOL& bHandled )
 {
+	Globe::SaveDlgSizeToDB(*this,IDD);
 	EndDialog(wID);
 	return 0;
 }
