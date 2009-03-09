@@ -6,6 +6,7 @@ GreenTimer没有主界面，启动时仅会在托盘区显示一个图标。遇到整点的时候，它会自动在
 
 2、如何编译GreenTimer（如果你不是程序开发人员，那么不必看这一节）
 答：
+GreenTimer主程序工程文件在svn目录下，路径是BallonMessager\BallonMessager.sln。
 GreenTimer使用VC++2003开发，所以你必须要安装有VC++2003。（vc其它版本也行，不过暂时没有提供工程文件，你可能需要hack一下）。
 然后，你需要安装WTL。
    * WTL可以在开发包中的compile_resource目录下找到。下载后，双击自解压到任意一个目录。然后把到WTL下的include目录添加为VC++的include目录即可（工具->选项->项目->vc++目录->包含文件）。
