@@ -51,7 +51,7 @@ DWORD WINAPI ThreadDownload(LPVOID s)
 	if(!curl) {
 		return 0;
 	}
-	NetLogger::WriteLog(50,1,"开始下载....");
+	NetLogger::WriteLog(50,1,"Start downloading....");
 
 	curl_easy_setopt(curl, CURLOPT_URL, "http://greentimer.googlecode.com/svn/trunk/compile_resource/WTL80_sf.exe");
 	curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, OnData);
@@ -63,13 +63,13 @@ DWORD WINAPI ThreadDownload(LPVOID s)
 	res = curl_easy_perform(curl);
 	if(0!=res)
 	{
-		NetLogger::WriteLog(50,1,"下载出错！");
+		NetLogger::WriteLog(50,1,"Download error ");
 		return 0;
 	}
 
 	/* always cleanup */
 	curl_easy_cleanup(curl);
-	NetLogger::WriteLog(50,1,"下载完成，程序退出....");
+	NetLogger::WriteLog(50,1,"Download is finished....");
 
 	return 0;
 }
@@ -87,7 +87,7 @@ BOOL CMainDlg::OnIdle()
 
 LRESULT CMainDlg::OnInitDialog(UINT /*uMsg*/, WPARAM /*wParam*/, LPARAM /*lParam*/, BOOL& /*bHandled*/)
 {
-	NetLogger::WriteLog(50,1,"测试程序启动....");
+	NetLogger::WriteLog(50,1,"Test program starting....");
 	// center the dialog on the screen
 	CenterWindow();
 
@@ -118,7 +118,7 @@ LRESULT CMainDlg::OnInitDialog(UINT /*uMsg*/, WPARAM /*wParam*/, LPARAM /*lParam
 
 LRESULT CMainDlg::OnDestroy(UINT /*uMsg*/, WPARAM /*wParam*/, LPARAM /*lParam*/, BOOL& /*bHandled*/)
 {
-	NetLogger::WriteLog(50,1,"测试程序退出....");
+	NetLogger::WriteLog(50,1,"Test program exit....");
 
 	// unregister message filtering and idle updates
 	CMessageLoop* pLoop = _Module.GetMessageLoop();

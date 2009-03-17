@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="gb2312"?>
 <VisualStudioProject
 	ProjectType="Visual C++"
-	Version="9.00"
+	Version="8.00"
 	Name="AutoUpdateLib"
 	ProjectGUID="{411EB6E5-EAC7-4AA2-B7D0-5806DF566546}"
 	RootNamespace="AutoUpdateLib"
