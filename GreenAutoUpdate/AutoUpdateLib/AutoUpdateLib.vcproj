@@ -204,6 +204,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\NetLogger.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\stdafx.cpp"
 				>
 				<FileConfiguration
@@ -223,6 +227,10 @@
 					/>
 				</FileConfiguration>
 			</File>
+			<File
+				RelativePath=".\URLEncode.cpp"
+				>
+			</File>
 		</Filter>
 		<Filter
 			Name="Header Files"
@@ -237,11 +245,19 @@
 				>
 			</File>
 			<File
+				RelativePath=".\NetLogger.h"
+				>
+			</File>
+			<File
 				RelativePath=".\resource.h"
 				>
 			</File>
 			<File
 				RelativePath=".\stdafx.h"
+				>
+			</File>
+			<File
+				RelativePath=".\URLEncode.h"
 				>
 			</File>
 		</Filter>
