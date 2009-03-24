@@ -19,11 +19,11 @@ Task.db数据库内部包含四张表,分别名为：设置表，日志表，提
   * CREATE TABLE T_todo2(id integer PRIMARY KEY AUTOINCREMENT, title char[128], priority integer, state integer, time_create integer, time_start integer, time_finish integer, remark char[64*1024]);
 
 这四张表是互相完全独立的，没有互相引用关系，可以放心修改一张表内的数据而不会引起其它表数据的损坏。
-日志、提醒、任务表都有一个id字段，是表的主键，按SQLite3的特性，是自动有索引的；
-另外为了效率，手工创建了三个索引：
-CREATE INDEX idx_id on T_Setting(key);
-CREATE INDEX idx_time on T_log(time_log);
-CREATE INDEX idx_todo2_time_create on T_todo2(time_create);
+
+关于索引：日志、提醒、任务表都有一个id字段，是表的主键，按SQLite3的特性，是内部自动建立有索引的；另外为了提高效率，手工创建了三个索引：
+  * CREATE INDEX idx_id on T_Setting(key);
+  * CREATE INDEX idx_time on T_log(time_log);
+  * CREATE INDEX idx_todo2_time_create on T_todo2(time_create);
 
 = T_Setting =
 保存设置数据。
