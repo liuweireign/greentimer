@@ -50,7 +50,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories=".\;..\curlpp-0.7.0\curl\include"
+				AdditionalIncludeDirectories=".\"
 				PreprocessorDefinitions="WIN32;_WINDOWS;STRICT;_DEBUG"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
@@ -73,7 +73,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="sqlite3.lib comsupp.lib"
+				AdditionalDependencies="sqlite3.lib comsupp.lib curl\libcurl.lib"
 				LinkIncremental="2"
 				AdditionalLibraryDirectories="sqlite;"
 				DelayLoadDLLs=""
@@ -166,7 +166,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="sqlite3.lib comsupp.lib"
+				AdditionalDependencies="sqlite3.lib comsupp.lib curl\libcurl.lib"
 				OutputFile="$(OutDir)/GreenTimer.exe"
 				LinkIncremental="1"
 				AdditionalLibraryDirectories="sqlite;"

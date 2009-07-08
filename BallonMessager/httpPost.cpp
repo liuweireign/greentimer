@@ -8,10 +8,11 @@ const char * debugLogFile = "out.htm";
 
 const char * serverPostUrl = "http://192.168.92.128/post.php";
 
-httpPost::httpPost(void)
+httpPost::httpPost(const char * url)
 : m_pPost(NULL)
 , m_pLast(NULL)
 , m_pCurl(NULL)
+, m_strServerUrl(url)
 {
 }
 
@@ -23,7 +24,7 @@ size_t httpPost::OnData( void *ptr, size_t size, size_t nmemb, void *pInstance)
 	post->resultBuffer.append((char *)ptr, size*nmemb);
 
 #ifdef _DEBUG
-	std::ofstream &ofs = post->ofs;
+	std::ofstream &ofs = post->m_ofs;
 	ofs.write((char *)ptr,len);
 #endif
 
@@ -40,7 +41,7 @@ httpPost::~httpPost(void)
 		curl_easy_cleanup(m_pCurl);
 
 #ifdef _DEBUG
-	ofs.close();
+	m_ofs.close();
 #endif
 }
 
@@ -101,10 +102,10 @@ bool httpPost::init(void)
 	curl_easy_setopt(m_pCurl, CURLOPT_VERBOSE, 1);
 
 	try{
-		ofs.open(debugLogFile,std::ios_base::binary);
+		m_ofs.open(debugLogFile,std::ios_base::binary);
 	}catch (...)
 	{
-		ofs.close();
+		m_ofs.close();
 		return false;
 	}
 	curl_easy_setopt(m_pCurl, CURLOPT_WRITEFUNCTION, OnData);
