@@ -1,5 +1,5 @@
 #include ".\httppost.h"
-
+#include <ATLTRACE.H>
 
 #ifdef _DEBUG
 #include <fstream>
@@ -64,6 +64,20 @@ bool httpPost::doPost(void)
 		return false;
 }
 
+bool httpPost::addBinField( const char* name, const char* value, int iValueLen )
+{
+	ATLASSERT(name);
+	ATLASSERT(value);
+	ATLASSERT(iValueLen>0);
+
+	return CURL_FORMADD_OK == curl_formadd(
+		&m_pPost, &m_pLast, 
+		CURLFORM_COPYNAME, name,
+		CURLFORM_COPYCONTENTS, value, 
+		CURLFORM_CONTENTSLENGTH, iValueLen,
+		CURLFORM_END);
+
+}
 // 为post增加一个field
 bool httpPost::addField(const char* name, const char* value, const char* mime_type)
 {
