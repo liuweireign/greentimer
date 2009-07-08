@@ -13,21 +13,21 @@ httpPost::httpPost(void)
 , m_pLast(NULL)
 , m_pCurl(NULL)
 {
-#ifdef _DEBUG
-	m_httpPostOnDataParm.ofs = &ofs;
-#endif
-	m_httpPostOnDataParm.resultBuf = std::string();
 }
 
-size_t httpPost::OnData( void *ptr, size_t size, size_t nmemb, void *stream)
+size_t httpPost::OnData( void *ptr, size_t size, size_t nmemb, void *pInstance)
 {
+	size_t len = size*nmemb;
 
+	class httpPost *post = (class httpPost*)pInstance;
+	post->resultBuffer.append((char *)ptr, size*nmemb);
 
 #ifdef _DEBUG
-	std::ofstream &ofs = *(std::ofstream *)stream;
-	ofs.write((char *)ptr,size*nmemb);
+	std::ofstream &ofs = post->ofs;
+	ofs.write((char *)ptr,len);
 #endif
-	return size*nmemb;
+
+	return len;
 }
 
 
@@ -109,7 +109,7 @@ bool httpPost::init(void)
 	}
 	curl_easy_setopt(m_pCurl, CURLOPT_WRITEFUNCTION, OnData);
 #endif
-	curl_easy_setopt(m_pCurl, CURLOPT_WRITEDATA, &m_httpPostOnDataParm); //这是传递给OnData的第四个参数
+	curl_easy_setopt(m_pCurl, CURLOPT_WRITEDATA, this); //这是传递给OnData的第四个参数
 
 	return true;
 }

@@ -7,14 +7,6 @@
 #include <fstream>
 #endif
 
-typedef struct _httpPostOnDataParm
-{
-#ifdef _DEBUG
-	std::ofstream *ofs;
-#endif
-	std::string& resultBuf;
-
-} httpPostOnDataParm;
 
 class httpPost
 {
@@ -33,7 +25,7 @@ private:
 #endif
 
 	//当数据到达，写入磁盘里
-	static size_t OnData( void *ptr, size_t size, size_t nmemb, void *stream);
+	static size_t OnData( void *ptr, size_t size, size_t nmemb, void *pInstance);
 	
 public:
 	// 为post增加一个field
@@ -49,5 +41,4 @@ public:
 private:
 	//post的result将写到这个buffer里面,可以通过getResult()取得
 	std::string resultBuffer;
-	httpPostOnDataParm m_httpPostOnDataParm;
 };
