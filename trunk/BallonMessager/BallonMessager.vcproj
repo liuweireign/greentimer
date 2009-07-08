@@ -50,7 +50,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories=".\;"
+				AdditionalIncludeDirectories=".\;..\curlpp-0.7.0\curl\include"
 				PreprocessorDefinitions="WIN32;_WINDOWS;STRICT;_DEBUG"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
@@ -247,6 +247,14 @@
 				>
 			</File>
 			<File
+				RelativePath=".\httpPost.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\httpSync.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\ITask.cpp"
 				>
 			</File>
@@ -357,6 +365,14 @@
 			</File>
 			<File
 				RelativePath=".\GlobeFuns.h"
+				>
+			</File>
+			<File
+				RelativePath=".\httpPost.h"
+				>
+			</File>
+			<File
+				RelativePath=".\httpSync.h"
 				>
 			</File>
 			<File
