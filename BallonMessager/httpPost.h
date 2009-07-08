@@ -18,6 +18,7 @@ public:
 	bool init(void);
 
 	// 为post增加一个field
+	bool addBinField(const char* name, const char* value, int iValueLen); //二进制类型
 	bool addField(const char* name, const char* value, const char* mime_type=NULL);
 
 	//阻塞方式进行post数据
