@@ -1,13 +1,20 @@
 #pragma once
 
 #include <curl/curl.h>
+#include <string>
 
 #ifdef _DEBUG
 #include <fstream>
-const char * debugLogFile = "out.htm";
 #endif
 
-const char * serverPostUrl = "http://192.168.92.128/post.php";
+typedef struct _httpPostOnDataParm
+{
+#ifdef _DEBUG
+	std::ofstream *ofs;
+#endif
+	std::string& resultBuf;
+
+} httpPostOnDataParm;
 
 class httpPost
 {
@@ -17,23 +24,30 @@ public:
 	bool doPost(void);
 private:
 	// post所用的头指针,用于curl_easy_setopt(curl, CURLOPT_HTTPPOST, post)的第三个参数
-	struct curl_httppost*post;
+	struct curl_httppost *m_pPost;
 	// post链表的尾指针,用于增加插入数据的速度
-	struct curl_httppost*last;
+	struct curl_httppost *m_pLast;
 
 #ifdef _DEBUG
 	std::ofstream ofs;
-
-	//当数据到达，写入磁盘里，并且显示下载的块数（以点号表示）
-	size_t OnData( void *ptr, size_t size, size_t nmemb, void *stream);
 #endif
+
+	//当数据到达，写入磁盘里
+	static size_t OnData( void *ptr, size_t size, size_t nmemb, void *stream);
 	
 public:
 	// 为post增加一个field
-	CURLFORMcode addField(const char* name, const char* value, const char* mime_type=NULL);
+	bool addField(const char* name, const char* value, const char* mime_type=NULL);
 private:
-	CURL* curl;
+	CURL* m_pCurl;
 public:
 	// initialize the post, if ok return true, otherwise return false
 	bool init(void);
+
+	//取post之后,服务器返回的数据
+	std::string getResult(void);
+private:
+	//post的result将写到这个buffer里面,可以通过getResult()取得
+	std::string resultBuffer;
+	httpPostOnDataParm m_httpPostOnDataParm;
 };
