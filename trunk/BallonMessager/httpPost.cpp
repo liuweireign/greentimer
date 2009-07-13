@@ -110,7 +110,7 @@ bool httpPost::init(void)
 
 	curl_easy_setopt(m_pCurl, CURLOPT_POST, TRUE);
 	curl_easy_setopt(m_pCurl, CURLOPT_URL,
-			serverPostUrl);
+			m_strServerUrl.c_str());
 
 #ifdef _DEBUG
 	curl_easy_setopt(m_pCurl, CURLOPT_VERBOSE, 1);
