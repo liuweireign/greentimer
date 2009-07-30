@@ -1,12 +1,23 @@
 #pragma once
 #include <string>
 
-
+/**
+* 日志记录器.
+*
+* 这个日志将会写入到task.db中去
+* 
+*
+*/
 class DBLog
 {
 public:
 	DBLog(void);
 	~DBLog(void);
+
+	/// 记录日志.
+	/// 
+	/// 参数分别是：模块名、代号、自定义值1、自定义值2、日志内容。
+	/// 自定义值是为了方便程序解析和统计
 	void Log(const char *pModel,int code,int value1,int value2, const char *pMessage);
 private:
 	std::string m_strDB;
@@ -15,6 +26,7 @@ private:
 extern DBLog g_DBLog;
  
 /*
+
 三类日志：
 一、开机关机；
 模块名为"MAIN",code = 0，开机value1=0,关机value1=1;

@@ -6,8 +6,10 @@
 #include <atlhost.h>
 
 
-// CDialogTodoDetail
-
+/**
+* \brief 显示和编辑任务详细信息
+* 主要是显示任务的注释，并且在用户编写注释的时候自动保存它。
+*/
 class CDialogTodoDetail : 
 	public CAxDialogImpl<CDialogTodoDetail>,
 	public CDialogResize<CDialogTodoDetail>	

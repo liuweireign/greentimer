@@ -4,7 +4,11 @@
 
 #pragma once
 #include <atlctrlx.h>
-
+/**
+* About对话框.
+*
+* 主要是版权页
+*/
 class CAboutDlg : public CDialogImpl<CAboutDlg>
 {
 public:

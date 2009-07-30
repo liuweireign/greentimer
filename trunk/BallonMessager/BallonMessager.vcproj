@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="gb2312"?>
 <VisualStudioProject
 	ProjectType="Visual C++"
-	Version="8.00"
+	Version="7.10"
 	Name="BallonMessager"
 	ProjectGUID="{74552DF6-2F71-4EED-ABF8-19254DCB9023}"
 	RootNamespace="BallonMessager"

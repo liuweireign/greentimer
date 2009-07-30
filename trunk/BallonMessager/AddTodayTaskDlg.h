@@ -8,8 +8,13 @@
 #include <atltime.h>
 #include <string>
 
-// CAddTodayTaskDlg
-
+/**
+* 添加“今日任务”对话框（暂未使用）.
+*
+* 此功能的设计目的，是让用户每天开始的时候，把自己的工作计划写下来。
+* 此功能尚未完成
+* \todo 完成“今日任务”功能
+*/
 class CAddTodayTaskDlg : 
 	public CAxDialogImpl<CAddTodayTaskDlg>
 {
