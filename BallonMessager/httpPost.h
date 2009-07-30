@@ -8,6 +8,13 @@
 #endif
 
 
+/**
+ * 发送Http Post数据的封装
+ *
+ * 使用方法：创建对象、init，然后增加一个field，然后doPost（这是同步的），最后用getResult取得返回结果。
+ * 
+ *
+ */
 class httpPost
 {
 public:
