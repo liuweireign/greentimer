@@ -50,14 +50,14 @@ void UploadHandler::handle( SP_HttpRequest * request, SP_HttpResponse * response
 	std::ifstream is(full_path.c_str(), std::ios::in | std::ios::binary);
 	if (!is)
 	{
-		ReturnEmptyBlock(response);
+		ReturnNotFound(response);
 		return;
 	}
 
 	is.seekg(0);
 	if(is.eof() || is.fail())  //fuck,seekg居然连个返回false都不做
 	{
-		ReturnEmptyBlock(response);
+		ReturnNotFound(response);
 		return;
 	}
 
@@ -75,7 +75,7 @@ void UploadHandler::handle( SP_HttpRequest * request, SP_HttpResponse * response
 	}
 }
 
-void UploadHandler::ReturnEmptyBlock( SP_HttpResponse * response)
+void UploadHandler::ReturnNotFound( SP_HttpResponse * response)
 {
 	const char *strEmptyMsg = "Empty!";
 	//构造数据包

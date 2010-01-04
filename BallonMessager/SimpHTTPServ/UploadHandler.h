@@ -28,5 +28,5 @@ public:
 private:
 	char m_pBuffer[c_iBUFFER_SIZE];
 private:
-	void ReturnEmptyBlock(SP_HttpResponse * response);
+	void ReturnNotFound(SP_HttpResponse * response);
 };
