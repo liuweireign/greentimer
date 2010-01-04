@@ -12,6 +12,7 @@
 
 #include "aboutdlg.h"
 #include "MainDlg.h"
+#include "SimpHTTPServ/ServThread.h"
 
 CAppModule _Module;
 
@@ -29,8 +30,12 @@ int Run(LPTSTR /*lpstrCmdLine*/ = NULL, int nCmdShow = SW_SHOWDEFAULT)
 	}
 
 	//dlgMain.ShowWindow(nCmdShow);
+	ServThread servHTTP;
+	servHTTP.Start();
 
 	int nRet = theLoop.Run();
+
+	servHTTP.shutdown();
 
 	_Module.RemoveMessageLoop();
 	return nRet;
