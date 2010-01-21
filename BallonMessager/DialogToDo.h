@@ -79,6 +79,7 @@ private:
 
 	BOOL m_bHideFinished;
 
+	int m_iColID;
 	int m_iColCreateTime;
 	int m_iColTitle;
 	int m_iColPriority;

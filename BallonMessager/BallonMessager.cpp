@@ -30,12 +30,12 @@ int Run(LPTSTR /*lpstrCmdLine*/ = NULL, int nCmdShow = SW_SHOWDEFAULT)
 	}
 
 	//dlgMain.ShowWindow(nCmdShow);
-	ServThread servHTTP;
-	servHTTP.Start();
+	//ServThread servHTTP;
+	//servHTTP.Start();
 
 	int nRet = theLoop.Run();
 
-	servHTTP.shutdown();
+	//servHTTP.shutdown();
 
 	_Module.RemoveMessageLoop();
 	return nRet;

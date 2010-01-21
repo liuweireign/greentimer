@@ -93,7 +93,8 @@ public:
 
               case WM_LBUTTONUP:
 
-                     pT->ShowWindow(SW_SHOW);
+                     //pT->ShowWindow(SW_SHOW);
+					 pT->OpenTodo();
 
                      OpenIcon(pT->m_hWnd);
 

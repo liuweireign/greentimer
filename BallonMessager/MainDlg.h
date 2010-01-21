@@ -350,17 +350,17 @@ public:
 
 		return 0;
 	}
-private:
-	//用此函数todo，避免多次启动todo实例。使用快捷键的时候很容易导致这种问题。
-	void OpenTodo()
-	{
-		DoModalOnce<DialogToDo>();
-	}
 	//用此函数todo，避免多次启动todo实例。使用快捷键的时候很容易导致这种问题。
 	void OpenTask()
 	{
 		DoModalOnce<CTaskListDialog>();
 	}
+	//用此函数todo，避免多次启动todo实例。使用快捷键的时候很容易导致这种问题。
+	void OpenTodo()
+	{
+		DoModalOnce<DialogToDo>();
+	}
+private:
 
 	//模板函数：T_dlg类型的对话框同时只能domodal一个
 	//再次调用的时候，如果发现该对话框已经存在，则闪烁窗口提示
