@@ -68,12 +68,15 @@ LRESULT DialogToDo::OnInitDialog( UINT /*uMsg*/, WPARAM /*wParam*/, LPARAM /*lPa
 
 	int iCol = 0;
 	int iUsedLen = 0;
-	m_listTodo.AddColumn(_T("创建"),70);
+	m_listTodo.AddColumn(_T("序号"),0);
+	m_iColID = iCol++;
+	iUsedLen += 0;
+	m_listTodo.AddColumn(_T("创建"),60);
 	m_iColCreateTime = iCol++;
-	iUsedLen += 70;
-	m_listTodo.AddColumn(_T("任务"),300,ITEM_IMAGE_NONE,FALSE,ITEM_FORMAT_EDIT,ITEM_FLAGS_NONE);
+	iUsedLen += 60;
+	m_listTodo.AddColumn(_T("任务"),260,ITEM_IMAGE_NONE,FALSE,ITEM_FORMAT_EDIT,ITEM_FLAGS_NONE);
 	m_iColTitle = iCol++;
-	iUsedLen += 300;
+	iUsedLen += 260;
 	m_listTodo.AddColumn(_T("重要"),50,ITEM_IMAGE_NONE,FALSE,ITEM_FORMAT_COMBO,ITEM_FLAGS_NONE);
 	m_iColPriority = iCol++;
 	iUsedLen += 50;
@@ -82,7 +85,7 @@ LRESULT DialogToDo::OnInitDialog( UINT /*uMsg*/, WPARAM /*wParam*/, LPARAM /*lPa
 	iUsedLen += 50;
 	CRect rt;
 	m_listTodo.GetClientRect(&rt);
-	m_listTodo.AddColumn(_T("备注"),rt.Width()-iUsedLen);//,ITEM_IMAGE_NONE,FALSE,ITEM_FORMAT_EDIT,ITEM_FLAGS_NONE);
+	m_listTodo.AddColumn(_T("备注"),rt.Width()-iUsedLen-15);//,ITEM_IMAGE_NONE,FALSE,ITEM_FORMAT_EDIT,ITEM_FLAGS_NONE);
 	m_iColRemark = iCol++;
 
 	m_aListPriority.Add(_T("紧急"));	//按顺序初始化，顺序号就是priority
@@ -107,8 +110,8 @@ LRESULT DialogToDo::OnInitDialog( UINT /*uMsg*/, WPARAM /*wParam*/, LPARAM /*lPa
 		m_vecStateShow.push_back(TRUE);
 		m_vecStateShow.push_back(TRUE);
 		m_vecStateShow.push_back(TRUE);
-		m_vecStateShow.push_back(FALSE);
-		m_vecStateShow.push_back(FALSE);
+		m_vecStateShow.push_back(TRUE);
+		m_vecStateShow.push_back(TRUE);
 	}
 
 	CButton btn(GetDlgItem(IDC_CHK_HIDEOUTTIME));
@@ -217,7 +220,9 @@ LRESULT DialogToDo::ReloadTodos()
 		}
 		AddTodoItem(todo);
 	}
-	m_listTodo.SortItems(0,false);
+	m_listTodo.SortItems(m_iColID,true);
+	m_listTodo.SortItems(m_iColState,true);
+
 	m_listTodo.SetRedraw(TRUE);
 
 	if (iHiddenItem>0)
@@ -322,8 +327,11 @@ int DialogToDo::FindItem( int todo_id )
 int DialogToDo::AddTodoItem( ToDoTask &todo )
 {
 	//增加一行
-	int iItem = m_listTodo.AddItem(GlobeFuns::TimeToFriendlyString(todo.tmCreateTime).GetBuffer(0));
+	//int iItem = m_listTodo.AddItem(GlobeFuns::TimeToFriendlyString(todo.tmCreateTime).GetBuffer(0));
+	char buf[128];
+	int iItem = m_listTodo.AddItem(itoa(todo.id,buf,10));
 	m_listTodo.SetItemData(iItem,(DWORD)todo.id);
+	m_listTodo.SetSubItemData(iItem,0,(DWORD)todo.id);
 	ATLASSERT(todo.id!=ToDoTask::ERROR_TASKID);
 
 	//刷新此行显示
@@ -338,10 +346,13 @@ void DialogToDo::UpdateItem( int iItem )
 	ToDoTask todo = g_todoSet.GetToDo(dwId);
 	ATLASSERT(todo.id!=ToDoTask::ERROR_TASKID);
 
+	//m_listTodo.SetItemText(iItem,m_iColID,itoa(todo.id,buf,10));
+
 	COLORREF clrBgn,clrText;
 	m_listTodo.GetItemColours(iItem,m_iColCreateTime,clrBgn,clrText);
 	m_listTodo.SetItemColours(iItem,m_iColCreateTime,clrBgn,RGB(0X66,0X66,0X66));
 	m_listTodo.SetSubItemData(iItem,m_iColCreateTime,GlobeFuns::TimeToInt(todo.tmCreateTime));
+	m_listTodo.SetItemText(iItem,m_iColCreateTime,GlobeFuns::TimeToFriendlyString(todo.tmCreateTime).GetBuffer(0));
 
 	m_listTodo.SetItemText(iItem,m_iColTitle,todo.strTask.c_str());
 
