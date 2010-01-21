@@ -92,6 +92,7 @@ private:
 	int AddTodoItem( ToDoTask &todo );
 	void UpdateItem(int iItem);
 	LRESULT EditTodo();
+	void UpdateCounts();
 
 	bool ShowColMenu(const CPoint &pt,const CListArray<CString> &colData, std::vector<BOOL> &vecSelect);
 public:

@@ -348,7 +348,7 @@ CAPTION "任务安排表"
 FONT 8, "MS Shell Dlg", 400, 0, 0x1
 BEGIN
     CONTROL         "",IDC_LIST_TODO,"SysListView32",LVS_ALIGNLEFT | 
-                    WS_BORDER | WS_TABSTOP,7,7,363,257
+                    WS_BORDER | WS_TABSTOP,7,7,363,243
     PUSHBUTTON      "新建(&N)",ID_ADD_TODO,375,7,50,14
     PUSHBUTTON      "编辑备注(&E)",ID_EDIT_TODO,375,23,50,14
     PUSHBUTTON      "刷新(&R)",ID_ADD_REFRESH,375,40,50,14
@@ -356,10 +356,11 @@ BEGIN
     PUSHBUTTON      "历史任务..(&L)",ID_ADD_SHOWRECYCLE,375,89,50,14
     CONTROL         "隐藏不活跃的任务(&H)",IDC_CHK_HIDEOUTTIME,"Button",
                     BS_AUTOCHECKBOX | BS_MULTILINE | BS_FLAT | NOT 
-                    WS_VISIBLE | WS_TABSTOP,373,231,52,33
+                    WS_VISIBLE | WS_TABSTOP,373,142,52,33
     PUSHBUTTON      "保存(&S)",ID_SAVE,411,122,14,9,NOT WS_VISIBLE
     PUSHBUTTON      "统计分析..(&T)",ID_ADD_SHOWSTATICS,375,107,50,14,NOT 
                     WS_VISIBLE
+    LTEXT           "已完成任务数:",IDC_STA_TASKCOUNT,7,253,232,11
 END
 
 IDD_DIALOGTODODETAIL DIALOGEX 0, 0, 316, 119

@@ -84,10 +84,10 @@
 				Name="VCCLCompilerTool"
 				AdditionalOptions="/EHsc"
 				Optimization="1"
-				AdditionalIncludeDirectories=".\;"
+				AdditionalIncludeDirectories=".\;.\SimpHTTPServ\Thread"
 				PreprocessorDefinitions="WIN32;_WINDOWS;STRICT;NDEBUG"
 				ExceptionHandling="FALSE"
-				RuntimeLibrary="0"
+				RuntimeLibrary="2"
 				UsePrecompiledHeader="0"
 				WarningLevel="3"
 				DebugInformationFormat="0"/>
@@ -95,7 +95,7 @@
 				Name="VCCustomBuildTool"/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="sqlite3.lib comsupp.lib curl\libcurl.lib"
+				AdditionalDependencies="sqlite3.lib comsupp.lib curl\libcurl.lib SimpHTTPServ\spserver_r.lib"
 				OutputFile="$(OutDir)/GreenTimer.exe"
 				LinkIncremental="1"
 				AdditionalLibraryDirectories="sqlite;"

@@ -120,7 +120,8 @@ public:
 			if(g_todoSet.GetStatic(iFinished,iPlaned, iWorking))
 			{
 				CString strTasks;
-				strTasks.Format("您有 %d 件计划任务，其中 %d 件正在处理中。",iPlaned+iWorking, iWorking);
+				//strTasks.Format("您有 %d 件计划任务，其中 %d 件正在处理中。",iPlaned+iWorking, iWorking);
+				strTasks.Format("%d 个任务已完成，%d 个任务需要处理",iFinished,iPlaned+iWorking);
 				strMsg += strTasks;
 			}
 			BalloonToolTips(strMsg);

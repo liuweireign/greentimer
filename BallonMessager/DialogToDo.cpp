@@ -136,6 +136,8 @@ LRESULT DialogToDo::OnBnClickedAddTodo(WORD /*wNotifyCode*/, WORD /*wID*/, HWND 
 	m_listTodo.SetFocusItem(iItem,m_iColTitle);
 	m_listTodo.SelectItem(iItem);
 	m_listTodo.EditItem(iItem,m_iColTitle);
+
+	UpdateCounts();
 	return 0;
 }
 
@@ -168,6 +170,8 @@ LRESULT DialogToDo::SaveData(int iItem)
 		MessageBox("保存数据时候出现未知错误。");
 		return 0;
 	}
+
+	UpdateCounts();
 
 	return 0;
 }
@@ -245,6 +249,9 @@ LRESULT DialogToDo::ReloadTodos()
 		strHint.Format(_T("共 %d 项，已全部显示"),m_listTodo.GetItemCount());
 		SetDlgItemText(IDC_CHK_HIDEOUTTIME,strHint.GetBuffer(0));
 	}
+
+	UpdateCounts();
+
 	return S_OK;
 }
 LRESULT DialogToDo::OnLvnItemchangedListTodo(int /*idCtrl*/, LPNMHDR pNMHDR, BOOL& /*bHandled*/)
@@ -493,4 +500,16 @@ LRESULT DialogToDo::OnBnClickedAddShowstatics(WORD /*wNotifyCode*/, WORD /*wID*/
 	MessageBox("本功能将在下一版本实现，敬请关注。\r\n\r\n如果您愿意参与此项目，请登录 http://code.google.com/p/greentimer/，与我们联系","抱歉");
 
 	return 0;
+}
+
+void DialogToDo::UpdateCounts()
+{
+	CWindow wndCount = GetDlgItem(IDC_STA_TASKCOUNT);
+	int iFinished,iPlaned, iWorking;
+	if(g_todoSet.GetStatic(iFinished,iPlaned, iWorking))
+	{
+		CString strTasks;
+		strTasks.Format("%d 个任务已完成，%d 个任务需要处理",iFinished,iPlaned+iWorking);
+		wndCount.SetWindowText(strTasks);
+	}
 }
