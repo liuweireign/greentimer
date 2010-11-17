@@ -12,7 +12,7 @@
 
 #include "aboutdlg.h"
 #include "MainDlg.h"
-#include "SimpHTTPServ/ServThread.h"
+//#include "SimpHTTPServ/ServThread.h"
 
 CAppModule _Module;
 
