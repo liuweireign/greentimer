@@ -181,17 +181,28 @@ LRESULT DialogToDo::OnBnClickedChkHideouttime(WORD /*wNotifyCode*/, WORD /*wID*/
 	//{
 	//	return S_FALSE;
 	//}
-	//CButton btn(GetDlgItem(IDC_CHK_HIDEOUTTIME));
-	//m_bHideFinished = btn.GetCheck();
+	CButton btn(GetDlgItem(IDC_CHK_HIDEOUTTIME));
+	m_bHideFinished = btn.GetCheck();
 
-	for (int i=0;i<(int)m_vecStateShow.size();i++)
+	if(m_bHideFinished)
 	{
-		m_vecStateShow[i] = TRUE;
+		//全部显示
+		for (int i=0;i<(int)m_vecStateShow.size();i++)
+		{
+			m_vecStateShow[i] = TRUE;
+		}
+		for (int j=0;j<(int)m_vecPriorityShow.size();j++)
+		{
+			m_vecPriorityShow[j] = TRUE;
+		}
 	}
-	for (int j=0;j<(int)m_vecPriorityShow.size();j++)
+	else
 	{
-		m_vecPriorityShow[j] = TRUE;
+		//把已取消、已完成两列设为隐藏
+		m_vecStateShow[3] = FALSE;
+		m_vecStateShow[4] = FALSE;
 	}
+
 
 	ReloadTodos();
 
@@ -231,9 +242,9 @@ LRESULT DialogToDo::ReloadTodos()
 
 	if (iHiddenItem>0)
 	{
-		CButton btn(GetDlgItem(IDC_CHK_HIDEOUTTIME));
-		btn.SetCheck(TRUE);
-		btn.EnableWindow(TRUE);
+		//CButton btn(GetDlgItem(IDC_CHK_HIDEOUTTIME));
+		//btn.SetCheck(TRUE);
+		//btn.EnableWindow(TRUE);
 
 		CString strHint;
 		strHint.Format(_T("已隐藏 %d 项，点击取消。"),iHiddenItem);
@@ -241,9 +252,9 @@ LRESULT DialogToDo::ReloadTodos()
 	}
 	else
 	{
-		CButton btn(GetDlgItem(IDC_CHK_HIDEOUTTIME));
-		btn.SetCheck(FALSE);
-		btn.EnableWindow(FALSE);
+		//CButton btn(GetDlgItem(IDC_CHK_HIDEOUTTIME));
+		//btn.SetCheck(FALSE);
+		//btn.EnableWindow(FALSE);
 
 		CString strHint;
 		strHint.Format(_T("共 %d 项，已全部显示"),m_listTodo.GetItemCount());
