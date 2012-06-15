@@ -80,4 +80,12 @@ CTime GlobeFuns::IntToTime(UINT uiTime)
 {
 	return CTime(0)+CTimeSpan(0,0,0,uiTime);
 }
+
+std::string GlobeFuns::Int2Str( int number,int radix/*=10*/ )
+{
+	const int BUFF_SIZE = 64;
+	char pBuffer[BUFF_SIZE];
+	_itoa_s(number,pBuffer,BUFF_SIZE,radix);
+	return pBuffer;
+}
 //////////////////////////////////////////////////////////////////////////

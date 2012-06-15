@@ -15,4 +15,6 @@ public:
 
 	static UINT TimeToInt(const CTime &t);
 	static CTime IntToTime(UINT uiTime);
+
+	static string Int2Str( int number,int radix=10 );
 };

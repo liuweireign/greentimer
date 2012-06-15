@@ -8,11 +8,13 @@
 #include <atldlgs.h>
 #include <atlmisc.h>
 
+#include <algorithm>
+
 #include "resource.h"
 
 #include "aboutdlg.h"
 #include "MainDlg.h"
-//#include "SimpHTTPServ/ServThread.h"
+#include "httpserv.h"
 
 CAppModule _Module;
 
@@ -21,6 +23,8 @@ int Run(LPTSTR /*lpstrCmdLine*/ = NULL, int nCmdShow = SW_SHOWDEFAULT)
 	CMessageLoop theLoop;
 	_Module.AddMessageLoop(&theLoop);
 
+	TServ::httpserv();
+
 	CMainDlg dlgMain;
 
 	if(dlgMain.Create(NULL) == NULL)
@@ -28,6 +32,7 @@ int Run(LPTSTR /*lpstrCmdLine*/ = NULL, int nCmdShow = SW_SHOWDEFAULT)
 		ATLTRACE(_T("Main dialog creation failed!\n"));
 		return 0;
 	}
+
 
 	//dlgMain.ShowWindow(nCmdShow);
 	//ServThread servHTTP;

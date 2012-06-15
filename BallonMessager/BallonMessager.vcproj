@@ -1,98 +1,170 @@
 <?xml version="1.0" encoding="gb2312"?>
 <VisualStudioProject
 	ProjectType="Visual C++"
-	Version="7.10"
+	Version="8.00"
 	Name="BallonMessager"
 	ProjectGUID="{74552DF6-2F71-4EED-ABF8-19254DCB9023}"
-	RootNamespace="BallonMessager">
+	RootNamespace="BallonMessager"
+	>
 	<Platforms>
 		<Platform
-			Name="Win32"/>
+			Name="Win32"
+		/>
 	</Platforms>
+	<ToolFiles>
+	</ToolFiles>
 	<Configurations>
 		<Configuration
 			Name="Debug|Win32"
 			OutputDirectory="Debug"
 			IntermediateDirectory="Debug"
 			ConfigurationType="1"
-			ATLMinimizesCRunTimeLibraryUsage="FALSE"
-			CharacterSet="2">
+			InheritedPropertySheets="$(VCInstallDir)VCProjectDefaults\UpgradeFromVC71.vsprops"
+			ATLMinimizesCRunTimeLibraryUsage="false"
+			CharacterSet="2"
+			>
+			<Tool
+				Name="VCPreBuildEventTool"
+			/>
+			<Tool
+				Name="VCCustomBuildTool"
+			/>
+			<Tool
+				Name="VCXMLDataGeneratorTool"
+			/>
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"
+			/>
+			<Tool
+				Name="VCMIDLTool"
+				PreprocessorDefinitions="_DEBUG"
+				MkTypLibCompatible="false"
+				TargetEnvironment="1"
+				GenerateStublessProxies="true"
+				TypeLibraryName="$(IntDir)/BallonMessager.tlb"
+				HeaderFileName="BallonMessager.h"
+				DLLDataFileName=""
+				InterfaceIdentifierFileName="BallonMessager_i.c"
+				ProxyFileName="BallonMessager_p.c"
+			/>
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories=".\;.\SimpHTTPServ\Thread"
+				AdditionalIncludeDirectories=".\;.\SimpHTTPServ\Thread;.\spserver"
 				PreprocessorDefinitions="WIN32;_WINDOWS;STRICT;_DEBUG"
-				MinimalRebuild="TRUE"
+				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
 				UsePrecompiledHeader="0"
 				WarningLevel="3"
-				DebugInformationFormat="4"/>
+				DebugInformationFormat="4"
+			/>
 			<Tool
-				Name="VCCustomBuildTool"/>
+				Name="VCManagedResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCResourceCompilerTool"
+				PreprocessorDefinitions="_DEBUG"
+				Culture="1033"
+				AdditionalIncludeDirectories="$(IntDir)"
+			/>
+			<Tool
+				Name="VCPreLinkEventTool"
+			/>
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalDependencies="sqlite3.lib comsupp.lib curl\libcurl.lib SimpHTTPServ\spserver_d.lib"
 				LinkIncremental="2"
 				AdditionalLibraryDirectories="sqlite;"
 				DelayLoadDLLs=""
-				GenerateDebugInformation="TRUE"
+				GenerateDebugInformation="true"
 				SubSystem="2"
-				TargetMachine="1"/>
+				TargetMachine="1"
+			/>
 			<Tool
-				Name="VCMIDLTool"
-				PreprocessorDefinitions="_DEBUG"
-				MkTypLibCompatible="FALSE"
-				TargetEnvironment="1"
-				GenerateStublessProxies="TRUE"
-				TypeLibraryName="$(IntDir)/BallonMessager.tlb"
-				HeaderFileName="BallonMessager.h"
-				DLLDataFileName=""
-				InterfaceIdentifierFileName="BallonMessager_i.c"
-				ProxyFileName="BallonMessager_p.c"/>
+				Name="VCALinkTool"
+			/>
 			<Tool
-				Name="VCPostBuildEventTool"/>
+				Name="VCManifestTool"
+				EmbedManifest="false"
+			/>
 			<Tool
-				Name="VCPreBuildEventTool"/>
+				Name="VCXDCMakeTool"
+			/>
 			<Tool
-				Name="VCPreLinkEventTool"/>
+				Name="VCBscMakeTool"
+			/>
 			<Tool
-				Name="VCResourceCompilerTool"
-				PreprocessorDefinitions="_DEBUG"
-				Culture="1033"
-				AdditionalIncludeDirectories="$(IntDir)"/>
+				Name="VCFxCopTool"
+			/>
 			<Tool
-				Name="VCWebServiceProxyGeneratorTool"/>
+				Name="VCAppVerifierTool"
+			/>
 			<Tool
-				Name="VCXMLDataGeneratorTool"/>
+				Name="VCWebDeploymentTool"
+			/>
 			<Tool
-				Name="VCWebDeploymentTool"/>
-			<Tool
-				Name="VCManagedWrapperGeneratorTool"/>
-			<Tool
-				Name="VCAuxiliaryManagedWrapperGeneratorTool"/>
+				Name="VCPostBuildEventTool"
+			/>
 		</Configuration>
 		<Configuration
 			Name="Release|Win32"
 			OutputDirectory="Release"
 			IntermediateDirectory="Release_obj"
 			ConfigurationType="1"
+			InheritedPropertySheets="$(VCInstallDir)VCProjectDefaults\UpgradeFromVC71.vsprops"
 			UseOfATL="0"
-			ATLMinimizesCRunTimeLibraryUsage="FALSE"
-			CharacterSet="2">
+			ATLMinimizesCRunTimeLibraryUsage="false"
+			CharacterSet="2"
+			>
+			<Tool
+				Name="VCPreBuildEventTool"
+			/>
+			<Tool
+				Name="VCCustomBuildTool"
+			/>
+			<Tool
+				Name="VCXMLDataGeneratorTool"
+			/>
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"
+			/>
+			<Tool
+				Name="VCMIDLTool"
+				PreprocessorDefinitions="NDEBUG"
+				MkTypLibCompatible="false"
+				TargetEnvironment="1"
+				GenerateStublessProxies="true"
+				TypeLibraryName="$(IntDir)/BallonMessager.tlb"
+				HeaderFileName="BallonMessager.h"
+				DLLDataFileName=""
+				InterfaceIdentifierFileName="BallonMessager_i.c"
+				ProxyFileName="BallonMessager_p.c"
+			/>
 			<Tool
 				Name="VCCLCompilerTool"
 				AdditionalOptions="/EHsc"
 				Optimization="1"
-				AdditionalIncludeDirectories=".\;.\SimpHTTPServ\Thread"
+				AdditionalIncludeDirectories=".\;.\SimpHTTPServ\Thread;.\spserver"
 				PreprocessorDefinitions="WIN32;_WINDOWS;STRICT;NDEBUG"
-				ExceptionHandling="FALSE"
+				ExceptionHandling="0"
 				RuntimeLibrary="2"
 				UsePrecompiledHeader="0"
 				WarningLevel="3"
-				DebugInformationFormat="0"/>
+				DebugInformationFormat="0"
+			/>
 			<Tool
-				Name="VCCustomBuildTool"/>
+				Name="VCManagedResourceCompilerTool"
+			/>
+			<Tool
+				Name="VCResourceCompilerTool"
+				PreprocessorDefinitions="NDEBUG"
+				Culture="1033"
+				AdditionalIncludeDirectories="$(IntDir)"
+			/>
+			<Tool
+				Name="VCPreLinkEventTool"
+			/>
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalDependencies="sqlite3.lib comsupp.lib curl\libcurl.lib SimpHTTPServ\spserver_r.lib"
@@ -100,39 +172,32 @@
 				LinkIncremental="1"
 				AdditionalLibraryDirectories="sqlite;"
 				SubSystem="2"
-				TargetMachine="1"/>
+				TargetMachine="1"
+			/>
 			<Tool
-				Name="VCMIDLTool"
-				PreprocessorDefinitions="NDEBUG"
-				MkTypLibCompatible="FALSE"
-				TargetEnvironment="1"
-				GenerateStublessProxies="TRUE"
-				TypeLibraryName="$(IntDir)/BallonMessager.tlb"
-				HeaderFileName="BallonMessager.h"
-				DLLDataFileName=""
-				InterfaceIdentifierFileName="BallonMessager_i.c"
-				ProxyFileName="BallonMessager_p.c"/>
+				Name="VCALinkTool"
+			/>
 			<Tool
-				Name="VCPostBuildEventTool"/>
+				Name="VCManifestTool"
+			/>
 			<Tool
-				Name="VCPreBuildEventTool"/>
+				Name="VCXDCMakeTool"
+			/>
 			<Tool
-				Name="VCPreLinkEventTool"/>
+				Name="VCBscMakeTool"
+			/>
 			<Tool
-				Name="VCResourceCompilerTool"
-				PreprocessorDefinitions="NDEBUG"
-				Culture="1033"
-				AdditionalIncludeDirectories="$(IntDir)"/>
+				Name="VCFxCopTool"
+			/>
 			<Tool
-				Name="VCWebServiceProxyGeneratorTool"/>
+				Name="VCAppVerifierTool"
+			/>
 			<Tool
-				Name="VCXMLDataGeneratorTool"/>
+				Name="VCWebDeploymentTool"
+			/>
 			<Tool
-				Name="VCWebDeploymentTool"/>
-			<Tool
-				Name="VCManagedWrapperGeneratorTool"/>
-			<Tool
-				Name="VCAuxiliaryManagedWrapperGeneratorTool"/>
+				Name="VCPostBuildEventTool"
+			/>
 		</Configuration>
 	</Configurations>
 	<References>
@@ -140,243 +205,332 @@
 	<Files>
 		<Filter
 			Name="Source Files"
-			Filter="cpp;c;cxx;def;odl;idl;hpj;bat;asm">
+			Filter="cpp;c;cxx;def;odl;idl;hpj;bat;asm"
+			>
 			<File
-				RelativePath=".\AddTodayTaskDlg.cpp">
+				RelativePath=".\AddTodayTaskDlg.cpp"
+				>
 			</File>
 			<File
-				RelativePath=".\BallonMessager.cpp">
+				RelativePath=".\BallonMessager.cpp"
+				>
 			</File>
 			<File
-				RelativePath=".\SQLite\CppSQLite3.cpp">
+				RelativePath=".\SQLite\CppSQLite3.cpp"
+				>
 			</File>
 			<File
-				RelativePath=".\DBLog.cpp">
+				RelativePath=".\DBLog.cpp"
+				>
 			</File>
 			<File
-				RelativePath=".\DBSetting.cpp">
+				RelativePath=".\DBSetting.cpp"
+				>
 			</File>
 			<File
-				RelativePath=".\DialogToDo.cpp">
+				RelativePath=".\DialogToDo.cpp"
+				>
 			</File>
 			<File
-				RelativePath=".\DialogTodoDetail.cpp">
+				RelativePath=".\DialogTodoDetail.cpp"
+				>
 			</File>
 			<File
-				RelativePath=".\DialogToDoHistory.cpp">
+				RelativePath=".\DialogToDoHistory.cpp"
+				>
 			</File>
 			<File
-				RelativePath=".\Globe.cpp">
+				RelativePath=".\Globe.cpp"
+				>
 			</File>
 			<File
-				RelativePath=".\GlobeFuns.cpp">
+				RelativePath=".\GlobeFuns.cpp"
+				>
 			</File>
 			<File
-				RelativePath=".\httpPost.cpp">
+				RelativePath=".\httpPost.cpp"
+				>
 			</File>
 			<File
-				RelativePath=".\httpSync.cpp">
+				RelativePath=".\HttpServ.cpp"
+				>
 			</File>
 			<File
-				RelativePath=".\ITask.cpp">
+				RelativePath=".\httpSync.cpp"
+				>
 			</File>
 			<File
-				RelativePath=".\OpinionDlg.cpp">
+				RelativePath=".\ITask.cpp"
+				>
 			</File>
 			<File
-				RelativePath=".\QuickRemind.cpp">
+				RelativePath=".\KeyValueDB.cpp"
+				>
 			</File>
 			<File
-				RelativePath=".\stdafx.cpp">
+				RelativePath=".\Mime.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\OpinionDlg.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\QuickRemind.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\stdafx.cpp"
+				>
 				<FileConfiguration
-					Name="Debug|Win32">
+					Name="Debug|Win32"
+					>
 					<Tool
 						Name="VCCLCompilerTool"
-						UsePrecompiledHeader="1"/>
+						UsePrecompiledHeader="1"
+					/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release|Win32">
+					Name="Release|Win32"
+					>
 					<Tool
 						Name="VCCLCompilerTool"
-						UsePrecompiledHeader="1"/>
+						UsePrecompiledHeader="1"
+					/>
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath=".\TaskDB.cpp">
+				RelativePath=".\strCoding.cpp"
+				>
 			</File>
 			<File
-				RelativePath=".\TaskListDialog.cpp">
+				RelativePath=".\StrFuns.cpp"
+				>
 			</File>
 			<File
-				RelativePath=".\TaskModifyDialog.cpp">
+				RelativePath=".\TaskDB.cpp"
+				>
 			</File>
 			<File
-				RelativePath=".\ThreadLock.cpp">
+				RelativePath=".\TaskListDialog.cpp"
+				>
 			</File>
 			<File
-				RelativePath=".\ToDoTask.cpp">
+				RelativePath=".\TaskModifyDialog.cpp"
+				>
 			</File>
 			<File
-				RelativePath=".\TSelfStart.cpp">
+				RelativePath=".\ThreadLock.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\ToDoTask.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\TSelfStart.cpp"
+				>
 			</File>
 		</Filter>
 		<Filter
 			Name="Header Files"
-			Filter="h;hpp;hxx;hm;inl;inc">
+			Filter="h;hpp;hxx;hm;inl;inc"
+			>
 			<File
-				RelativePath=".\AboutDlg.h">
+				RelativePath=".\AboutDlg.h"
+				>
 			</File>
 			<File
-				RelativePath=".\AddTodayTaskDlg.h">
+				RelativePath=".\AddTodayTaskDlg.h"
+				>
 			</File>
 			<File
-				RelativePath=".\ContextMenu.h">
+				RelativePath=".\ContextMenu.h"
+				>
 			</File>
 			<File
-				RelativePath=".\SQLite\CppSQLite3.h">
+				RelativePath=".\SQLite\CppSQLite3.h"
+				>
 			</File>
 			<File
-				RelativePath=".\DBLog.h">
+				RelativePath=".\DBLog.h"
+				>
 			</File>
 			<File
-				RelativePath=".\DBSetting.h">
+				RelativePath=".\DBSetting.h"
+				>
 			</File>
 			<File
-				RelativePath=".\DialogToDo.h">
+				RelativePath=".\DialogToDo.h"
+				>
 			</File>
 			<File
-				RelativePath=".\DialogTodoDetail.h">
+				RelativePath=".\DialogTodoDetail.h"
+				>
 			</File>
 			<File
-				RelativePath=".\DialogToDoHistory.h">
+				RelativePath=".\DialogToDoHistory.h"
+				>
 			</File>
 			<File
-				RelativePath=".\ListCtrl\DragDrop.h">
+				RelativePath=".\ListCtrl\DragDrop.h"
+				>
 			</File>
 			<File
-				RelativePath=".\ListCtrl\DropArrows.h">
+				RelativePath=".\ListCtrl\DropArrows.h"
+				>
 			</File>
 			<File
-				RelativePath=".\Globe.h">
+				RelativePath=".\Globe.h"
+				>
 			</File>
 			<File
-				RelativePath=".\GlobeFuns.h">
+				RelativePath=".\GlobeFuns.h"
+				>
 			</File>
 			<File
-				RelativePath=".\httpPost.h">
+				RelativePath=".\httpPost.h"
+				>
 			</File>
 			<File
-				RelativePath=".\httpSync.h">
+				RelativePath=".\HttpServ.h"
+				>
 			</File>
 			<File
-				RelativePath=".\ITask.h">
+				RelativePath=".\httpSync.h"
+				>
 			</File>
 			<File
-				RelativePath=".\ListCtrl\ListCombo.h">
+				RelativePath=".\ITask.h"
+				>
 			</File>
 			<File
-				RelativePath=".\ListCtrl\ListCtrl.h">
+				RelativePath=".\KeyValueDB.h"
+				>
 			</File>
 			<File
-				RelativePath=".\ListCtrl\ListDate.h">
+				RelativePath=".\ListCtrl\ListCombo.h"
+				>
 			</File>
 			<File
-				RelativePath=".\ListCtrl\ListEdit.h">
+				RelativePath=".\ListCtrl\ListCtrl.h"
+				>
 			</File>
 			<File
-				RelativePath=".\ListCtrl\ListTypes.h">
+				RelativePath=".\ListCtrl\ListDate.h"
+				>
 			</File>
 			<File
-				RelativePath=".\MainDlg.h">
+				RelativePath=".\ListCtrl\ListEdit.h"
+				>
 			</File>
 			<File
-				RelativePath=".\myiconmenu.h">
+				RelativePath=".\ListCtrl\ListTypes.h"
+				>
 			</File>
 			<File
-				RelativePath=".\OpinionDlg.h">
+				RelativePath=".\MainDlg.h"
+				>
 			</File>
 			<File
-				RelativePath=".\QuickRemind.h">
+				RelativePath=".\Mime.h"
+				>
 			</File>
 			<File
-				RelativePath=".\resource.h">
+				RelativePath=".\myiconmenu.h"
+				>
 			</File>
 			<File
-				RelativePath=".\ShellIcon.h">
+				RelativePath=".\OpinionDlg.h"
+				>
 			</File>
 			<File
-				RelativePath=".\SQLite\sqlite3.h">
+				RelativePath=".\QuickRemind.h"
+				>
 			</File>
 			<File
-				RelativePath=".\stdafx.h">
+				RelativePath=".\resource.h"
+				>
 			</File>
 			<File
-				RelativePath=".\TaskDB.h">
+				RelativePath=".\ShellIcon.h"
+				>
 			</File>
 			<File
-				RelativePath=".\TaskListDialog.h">
+				RelativePath=".\SQLite\sqlite3.h"
+				>
 			</File>
 			<File
-				RelativePath=".\TaskModifyDialog.h">
+				RelativePath=".\stdafx.h"
+				>
 			</File>
 			<File
-				RelativePath=".\ThreadLock.h">
+				RelativePath=".\strCoding.h"
+				>
 			</File>
 			<File
-				RelativePath=".\ListCtrl\TitleTip.h">
+				RelativePath=".\StrFuns.h"
+				>
 			</File>
 			<File
-				RelativePath=".\ToDoTask.h">
+				RelativePath=".\TaskDB.h"
+				>
 			</File>
 			<File
-				RelativePath=".\TSelfStart.h">
+				RelativePath=".\TaskListDialog.h"
+				>
+			</File>
+			<File
+				RelativePath=".\TaskModifyDialog.h"
+				>
+			</File>
+			<File
+				RelativePath=".\ThreadLock.h"
+				>
+			</File>
+			<File
+				RelativePath=".\ListCtrl\TitleTip.h"
+				>
+			</File>
+			<File
+				RelativePath=".\ToDoTask.h"
+				>
+			</File>
+			<File
+				RelativePath=".\TSelfStart.h"
+				>
 			</File>
 		</Filter>
 		<Filter
 			Name="Resource Files"
-			Filter="rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;jpg;jpeg;jpe;manifest">
+			Filter="rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;jpg;jpeg;jpe;manifest"
+			>
 			<File
-				RelativePath=".\res\BallonMessager.ico">
+				RelativePath=".\res\BallonMessager.ico"
+				>
 			</File>
 			<File
-				RelativePath=".\BallonMessager.rc">
+				RelativePath=".\BallonMessager.rc"
+				>
 			</File>
 			<File
-				RelativePath=".\res\IDB_LISTITEMS.bmp">
+				RelativePath=".\res\IDB_LISTITEMS.bmp"
+				>
 			</File>
 			<File
-				RelativePath=".\res\IDC_DIVIDER.cur">
+				RelativePath=".\res\IDC_DIVIDER.cur"
+				>
 			</File>
 			<File
-				RelativePath=".\res\IDC_HYPERLINK.cur">
-			</File>
-		</Filter>
-		<Filter
-			Name="SimpHTTPServ"
-			Filter="">
-			<File
-				RelativePath=".\SimpHTTPServ\Thread\win32\jmutex.cpp">
-			</File>
-			<File
-				RelativePath=".\SimpHTTPServ\Thread\win32\jthread.cpp">
-			</File>
-			<File
-				RelativePath=".\SimpHTTPServ\ServThread.cpp">
-			</File>
-			<File
-				RelativePath=".\SimpHTTPServ\ServThread.h">
-			</File>
-			<File
-				RelativePath=".\SimpHTTPServ\UploadHandler.cpp">
-			</File>
-			<File
-				RelativePath=".\SimpHTTPServ\UploadHandler.h">
+				RelativePath=".\res\IDC_HYPERLINK.cur"
+				>
 			</File>
 		</Filter>
 	</Files>
 	<Globals>
 		<Global
 			Name="RESOURCE_FILE"
-			Value="BallonMessager.rc"/>
+			Value="BallonMessager.rc"
+		/>
 	</Globals>
 </VisualStudioProject>
