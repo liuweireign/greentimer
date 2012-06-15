@@ -19,6 +19,8 @@ public:
 	/// 参数分别是：模块名、代号、自定义值1、自定义值2、日志内容。
 	/// 自定义值是为了方便程序解析和统计
 	void Log(const char *pModel,int code,int value1,int value2, const char *pMessage);
+
+	string ReadLog(int offset,int count);
 private:
 	std::string m_strDB;
 };

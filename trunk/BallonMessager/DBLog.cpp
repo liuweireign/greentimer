@@ -75,6 +75,72 @@ void DBLog::Log( const char *pModel,int code,int value1,int value2, const char *
 	}
 }
 
+std::string DBLog::ReadLog( int offset,int count )
+{
+	string strRes = "<html><head><meta http-equiv=\"Content-Type\" content=\"text/html; charset=GBK\"></head><body>";
+
+	//打开数据库
+	CppSQLite3DB dbTask;
+	dbTask.open(m_strDB.c_str());
+	CheckCreateLogTable(dbTask);
+	CppSQLite3Buffer strSql;
+
+	try{
+		int total = 0;
+		{
+
+			strSql.format("select count(*) from T_Log where type=%d",1);
+			CppSQLite3Query q = dbTask.execQuery(strSql);
+			total = q.getIntField(0);
+			strRes += (string)"(" + GlobeFuns::Int2Str(total) + ")";
+			int pages = total/count + 1;
+			for(int i=0;i<pages;i++){
+				strRes += (string)"<a href='/api/readlog?offset=" + GlobeFuns::Int2Str(i*count) + "&count=" + GlobeFuns::Int2Str(count) + "'"  + ">第" + GlobeFuns::Int2Str(i+1) + "页</a> ";
+			}
+		}
+
+
+		strSql.format("select * from T_Log where type=%d order by time_log desc limit %d,%d;",1,offset,count);
+		//strSql.format("select * from T_Log order by time_log desc limit 100;");
+		CppSQLite3Query q = dbTask.execQuery(strSql);
+		if (q.eof())
+		{
+			strRes += "<br/>(None)";
+		}
+
+		while (!q.eof())
+		{
+			//time,modal,type,level,param2,text);
+
+			//"modal char[128],"
+			//	"time_log integer, "		//时间
+			//	"type integer, "		//状态
+			//	"value1 integer, "		//值1
+			//	"value2 integer, "		//值2
+			//	"message char[1024]);"	//提示语句
+
+			int type = q.getIntField("type");
+			CTime time = GlobeFuns::IntToTime(q.getIntField("time_log"));
+			string modal = q.getStringField("modal");
+			string level = GlobeFuns::Int2Str(q.getIntField("value1"));
+			string text = q.getStringField("message");
+
+			strRes += (string)"<br/>" + GlobeFuns::TimeToString(time).GetBuffer(0) + " " + modal + " " + level + " " + text;
+
+			q.nextRow();
+		}
+
+	}
+	catch(CppSQLite3Exception &exp)
+	{
+		exp;
+		strRes += (string)"(" + exp.errorCodeAsString(exp.errorCode()) + ")" + exp.errorMessage();
+		strRes += (string)"<body></html>";
+		return strRes;
+	}
+	strRes += (string)"<body></html>";
+	return strRes;
+}
 
 const char *LOG_CONST::MODAL_MAIN = "MAIN";
 const char *LOG_CONST::MODAL_NOTIFY = "NOTIFY";
