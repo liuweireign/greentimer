@@ -1,0 +1,583 @@
+// Microsoft Visual C++ generated resource script.
+//
+#include "resource.h"
+
+#define APSTUDIO_READONLY_SYMBOLS
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 2 resource.
+//
+#include "atlres.h"
+
+/////////////////////////////////////////////////////////////////////////////
+#undef APSTUDIO_READONLY_SYMBOLS
+
+/////////////////////////////////////////////////////////////////////////////
+// 非特定语言(系统默认值) resources
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_NEUSD)
+#ifdef _WIN32
+LANGUAGE LANG_NEUTRAL, SUBLANG_SYS_DEFAULT
+#pragma code_page(936)
+#endif //_WIN32
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Dialog
+//
+
+IDD_ABOUTBOX DIALOGEX 0, 0, 226, 98
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "关于绿色时间管理"
+FONT 8, "MS Shell Dlg", 0, 0, 0x0
+BEGIN
+    DEFPUSHBUTTON   "OK",IDOK,169,77,50,14
+    ICON            IDR_MAINFRAME,IDC_STATIC,27,14,20,20
+    GROUPBOX        "",IDC_STATIC,7,3,212,73
+    LTEXT           "绿色时间管理 V3.1 正式版",IDC_STATIC,51,22,140,11
+    LTEXT           "官方网站:",IDC_STATIC,27,52,38,10
+    LTEXT           "skymountain and Jame Yu, 保留一切权利",IDC_STATIC,27,37,172,13
+    LTEXT           "http://code.google.com/p/greentimer",IDC_STA_SITE,42,63,177,10
+END
+
+IDD_MAINDLG DIALOGEX 0, 0, 221, 78
+STYLE DS_SETFONT | DS_FIXEDSYS | WS_MINIMIZEBOX | WS_CAPTION | WS_SYSMENU
+CAPTION "绿色时间管理 r3.0"
+FONT 8, "MS Shell Dlg", 0, 0, 0x0
+BEGIN
+    PUSHBUTTON      "浏览提醒...(&B)",ID_CMD_TASKVIEW,155,7,59,14
+    PUSHBUTTON      "任务安排...(&T)",ID_CMD_TODO,155,24,59,14
+    CONTROL         "开机自启动",IDC_CHK_SELFSTART,"Button",BS_AUTOCHECKBOX | NOT WS_VISIBLE | WS_TABSTOP,7,60,91,11
+    LTEXT           "本程序运行后，会在设定的时间弹出提示。",IDC_STATIC,7,7,128,16
+    LTEXT           "合理安排时间，提高工作效率！",IDC_STATIC,7,26,120,10
+    PUSHBUTTON      "设置...(&O)",ID_CMD_OPNION,155,40,59,14
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// DESIGNINFO
+//
+
+#ifdef APSTUDIO_INVOKED
+GUIDELINES DESIGNINFO 
+BEGIN
+    IDD_ABOUTBOX, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 219
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 91
+    END
+
+    IDD_MAINDLG, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 214
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 71
+    END
+END
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Icon
+//
+
+// Icon with lowest ID value placed first to ensure application icon
+// remains consistent on all systems.
+IDR_MAINFRAME           ICON                    "res\\BallonMessager.ico"
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Version
+//
+
+VS_VERSION_INFO VERSIONINFO
+ FILEVERSION 3,1,2,1
+ PRODUCTVERSION 3,2,2,1
+ FILEFLAGSMASK 0x3fL
+#ifdef _DEBUG
+ FILEFLAGS 0x1L
+#else
+ FILEFLAGS 0x0L
+#endif
+ FILEOS 0x4L
+ FILETYPE 0x2L
+ FILESUBTYPE 0x0L
+BEGIN
+    BLOCK "StringFileInfo"
+    BEGIN
+        BLOCK "080404b0"
+        BEGIN
+            VALUE "Comments", "http://code.google.com/p/greentimer"
+            VALUE "CompanyName", "http://code.google.com/p/greentimer"
+            VALUE "FileDescription", "绿色时间管理 3.1 正式版"
+            VALUE "FileVersion", "3, 1, 2, 1"
+            VALUE "InternalName", "绿色时间管理 3.1 正式版"
+            VALUE "LegalCopyright", "Copyright 2008"
+            VALUE "OriginalFilename", "Greentimer.exe"
+            VALUE "ProductName", "Green timer"
+            VALUE "ProductVersion", "3, 2, 2, 1"
+        END
+    END
+    BLOCK "VarFileInfo"
+    BEGIN
+        VALUE "Translation", 0x804, 1200
+    END
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// String Table
+//
+
+STRINGTABLE 
+BEGIN
+    IDR_MAINFRAME           "Green Timer v1.1"
+END
+
+STRINGTABLE 
+BEGIN
+    ID_FILE_NEW             "Create a new document\nNew"
+    ID_FILE_OPEN            "Open an existing document\nOpen"
+    ID_FILE_CLOSE           "Close the active document\nClose"
+    ID_FILE_SAVE            "Save the active document\nSave"
+    ID_FILE_SAVE_AS         "Save the active document with a new name\nSave As"
+    ID_FILE_PAGE_SETUP      "Change the printing options\nPage Setup"
+    ID_FILE_PRINT_SETUP     "Change the printer and printing options\nPrint Setup"
+    ID_FILE_PRINT           "Print the active document\nPrint"
+    ID_FILE_PRINT_PREVIEW   "Display full pages\nPrint Preview"
+END
+
+STRINGTABLE 
+BEGIN
+    ID_APP_ABOUT            "Display program information, version number and copyright\nAbout"
+    ID_APP_EXIT             "Quit the application; prompts to save documents\nExit"
+END
+
+STRINGTABLE 
+BEGIN
+    ID_NEXT_PANE            "Switch to the next window pane\nNext Pane"
+    ID_PREV_PANE            "Switch back to the previous window pane\nPrevious Pane"
+END
+
+STRINGTABLE 
+BEGIN
+    ID_WINDOW_NEW           "Open another window for the active document\nNew Window"
+    ID_WINDOW_ARRANGE       "Arrange icons at the bottom of the window\nArrange Icons"
+    ID_WINDOW_CASCADE       "Arrange windows so they overlap\nCascade Windows"
+    ID_WINDOW_TILE_HORZ     "Arrange windows as non-overlapping tiles\nTile Windows"
+    ID_WINDOW_TILE_VERT     "Arrange windows as non-overlapping tiles\nTile Windows"
+    ID_WINDOW_SPLIT         "Split the active window into panes\nSplit"
+END
+
+STRINGTABLE 
+BEGIN
+    ID_EDIT_CLEAR           "Erase the selection\nErase"
+    ID_EDIT_CLEAR_ALL       "Erase everything\nErase All"
+    ID_EDIT_COPY            "Copy the selection and put it on the Clipboard\nCopy"
+    ID_EDIT_CUT             "Cut the selection and put it on the Clipboard\nCut"
+    ID_EDIT_FIND            "Find the specified text\nFind"
+    ID_EDIT_PASTE           "Insert Clipboard contents\nPaste"
+    ID_EDIT_REPEAT          "Repeat the last action\nRepeat"
+    ID_EDIT_REPLACE         "Replace specific text with different text\nReplace"
+    ID_EDIT_SELECT_ALL      "Select the entire document\nSelect All"
+    ID_EDIT_UNDO            "Undo the last action\nUndo"
+    ID_EDIT_REDO            "Redo the previously undone action\nRedo"
+END
+
+STRINGTABLE 
+BEGIN
+    ATL_IDS_SCSIZE          "Change the window size"
+    ATL_IDS_SCMOVE          "Change the window position"
+    ATL_IDS_SCMINIMIZE      "Reduce the window to an icon"
+    ATL_IDS_SCMAXIMIZE      "Enlarge the window to full size"
+    ATL_IDS_SCNEXTWINDOW    "Switch to the next document window"
+    ATL_IDS_SCPREVWINDOW    "Switch to the previous document window"
+    ATL_IDS_SCCLOSE         "Close the active window and prompts to save the documents"
+END
+
+STRINGTABLE 
+BEGIN
+    ATL_IDS_SCRESTORE       "Restore the window to normal size"
+    ATL_IDS_SCTASKLIST      "Activate Task List"
+    ATL_IDS_MDICHILD        "Activate this window"
+END
+
+STRINGTABLE 
+BEGIN
+    ATL_IDS_IDLEMESSAGE     "Ready"
+END
+
+STRINGTABLE 
+BEGIN
+    ATL_IDS_MRU_FILE        "Open this document"
+END
+
+#endif    // 非特定语言(系统默认值) resources
+/////////////////////////////////////////////////////////////////////////////
+
+
+/////////////////////////////////////////////////////////////////////////////
+// 中文(中华人民共和国) resources
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_CHS)
+#ifdef _WIN32
+LANGUAGE LANG_CHINESE, SUBLANG_CHINESE_SIMPLIFIED
+#pragma code_page(936)
+#endif //_WIN32
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Dialog
+//
+
+IDD_DLG_SETUP DIALOGEX 0, 0, 249, 138
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "增加提醒"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    EDITTEXT        IDC_HOUR,28,22,40,14,ES_AUTOHSCROLL | ES_NUMBER
+    CONTROL         "",IDC_SPIN1,"msctls_updown32",UDS_SETBUDDYINT | UDS_ALIGNRIGHT | UDS_AUTOBUDDY | UDS_ARROWKEYS,68,22,11,14
+    EDITTEXT        IDC_MINUTE,99,22,40,14,ES_AUTOHSCROLL | ES_NUMBER
+    CONTROL         "",IDC_SPIN2,"msctls_updown32",UDS_SETBUDDYINT | UDS_ALIGNRIGHT | UDS_AUTOBUDDY | UDS_ARROWKEYS,139,22,11,14
+    EDITTEXT        IDC_EDT_INPUT,28,60,141,71,ES_MULTILINE | ES_AUTOVSCROLL | WS_VSCROLL
+    DEFPUSHBUTTON   "确定",IDOK,192,99,50,14
+    PUSHBUTTON      "取消",IDCANCEL,192,117,50,14
+    LTEXT           "时:",IDC_STATIC,12,25,12,8
+    LTEXT           "分:",IDC_STATIC,82,25,12,8
+    LTEXT           "提醒消息:",IDC_STATIC,12,45,36,8
+END
+
+IDD_ADDTODAYTASKDLG DIALOGEX 0, 0, 385, 199
+STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "今天的日程安排"
+FONT 9, "宋体", 0, 0, 0x0
+BEGIN
+    DEFPUSHBUTTON   "确定",IDOK,328,7,50,16
+    PUSHBUTTON      "取消",IDCANCEL,328,26,50,16
+    EDITTEXT        IDC_EDT_TODAYTASK,7,32,316,160,ES_MULTILINE | ES_AUTOVSCROLL | ES_AUTOHSCROLL | ES_WANTRETURN
+    LTEXT           "按“小时:分钟 任务”的格式，写下你今天的工作计划。计划数不限。",IDC_STATIC,7,7,280,10
+    LTEXT           "例如：“10:30 到一号会议室开会，准备计划书。”",IDC_STATIC,7,19,189,10
+END
+
+IDD_TASKLISTDIALOG DIALOGEX 0, 0, 394, 211
+STYLE DS_SETFONT | WS_MAXIMIZEBOX | WS_POPUP | WS_CAPTION | WS_SYSMENU | WS_THICKFRAME
+CAPTION "提醒列表"
+FONT 9, "宋体", 0, 0, 0x0
+BEGIN
+    DEFPUSHBUTTON   "确定(&O)",IDOK,337,7,50,16
+    PUSHBUTTON      "取消(&C)",IDCANCEL,337,26,50,16
+    PUSHBUTTON      "增加(&A)",ID_BTN_ADD,337,68,50,16
+    PUSHBUTTON      "修改(&M)",ID_BTN_EDIT,337,89,50,16
+    PUSHBUTTON      "删除(&D)",ID_BTN_DEL,337,111,50,16
+    CONTROL         "",IDC_LST_TASK,"SysListView32",LVS_REPORT | LVS_SHOWSELALWAYS | LVS_ALIGNLEFT | WS_BORDER | WS_TABSTOP,7,7,326,197
+    CONTROL         "隐藏已过时的任务(&H)",IDC_CHK_HIDEOUTTIME,"Button",BS_AUTOCHECKBOX | BS_MULTILINE | WS_TABSTOP,339,129,48,27
+END
+
+IDD_TASKMODIFYDIALOG DIALOGEX 0, 0, 254, 126
+STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "编辑提醒"
+FONT 9, "宋体", 0, 0, 0x0
+BEGIN
+    COMBOBOX        IDC_CMB_TASKTYPE,54,19,59,67,CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
+    CONTROL         "",IDC_DATETIMEPICKER_DATE,"SysDateTimePick32",DTS_RIGHTALIGN | DTS_UPDOWN | WS_TABSTOP,54,37,60,13
+    CONTROL         "",IDC_DATETIMEPICKER_TIME,"SysDateTimePick32",DTS_RIGHTALIGN | DTS_UPDOWN | WS_TABSTOP | 0x8,116,37,50,14
+    EDITTEXT        IDC_EDT_TIPS,10,62,180,57,ES_MULTILINE | ES_AUTOVSCROLL | ES_WANTRETURN | WS_VSCROLL
+    DEFPUSHBUTTON   "确定(&O)",IDOK,197,7,50,16
+    PUSHBUTTON      "取消(&C)",IDCANCEL,197,26,50,16
+    RTEXT           "提醒类型:",IDC_STATIC,3,23,42,9
+    RTEXT           "提示时间:",IDC_STATIC,3,39,42,9
+    RTEXT           "提示语句:",IDC_STATIC,3,52,42,9
+    EDITTEXT        IDC_EDT_ID,53,7,58,12,ES_AUTOHSCROLL | ES_READONLY | NOT WS_BORDER
+    RTEXT           "提醒编号:",IDC_STATIC,3,7,42,9
+    COMBOBOX        IDC_CMB_TASKMONTHWEEK,54,37,48,67,CBS_DROPDOWNLIST | WS_VSCROLL | WS_TABSTOP
+END
+
+IDD_QUICKREMIND DIALOGEX 0, 0, 186, 95
+STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "快速提醒"
+FONT 9, "宋体", 0, 0, 0x0
+BEGIN
+    EDITTEXT        IDC_EDT_MINITE,19,9,31,12,ES_AUTOHSCROLL | ES_NUMBER
+    CONTROL         "",IDC_SPIN_MINUTE,"msctls_updown32",UDS_SETBUDDYINT | UDS_ALIGNRIGHT | UDS_AUTOBUDDY | UDS_ARROWKEYS | UDS_NOTHOUSANDS | UDS_HOTTRACK,27,14,11,14
+    DEFPUSHBUTTON   "确定",IDOK,129,7,50,16
+    PUSHBUTTON      "取消",IDCANCEL,129,26,50,16
+    EDITTEXT        IDC_EDT_TIPS,7,44,120,44,ES_MULTILINE | ES_AUTOVSCROLL
+    LTEXT           "分钟后提醒我一次。",IDC_STATIC,51,11,73,10
+    LTEXT           "提醒语句：",IDC_STATIC,7,33,103,10
+    LTEXT           "在",IDC_STATIC,10,10,8,10
+END
+
+IDD_DLG_TODO DIALOGEX 0, 0, 432, 271
+STYLE DS_SETFONT | DS_FIXEDSYS | WS_MAXIMIZEBOX | WS_POPUP | WS_CAPTION | WS_SYSMENU | WS_THICKFRAME
+CAPTION "任务安排表"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    CONTROL         "",IDC_LIST_TODO,"SysListView32",LVS_ALIGNLEFT | WS_BORDER | WS_TABSTOP,7,7,363,243
+    PUSHBUTTON      "新建(&N)",ID_ADD_TODO,375,7,50,14
+    PUSHBUTTON      "编辑备注(&E)",ID_EDIT_TODO,375,23,50,14
+    PUSHBUTTON      "刷新(&R)",ID_ADD_REFRESH,375,40,50,14
+    PUSHBUTTON      "删除任务(&D)",ID_ADD_DELETE,375,74,50,14
+    PUSHBUTTON      "历史任务..(&L)",ID_ADD_SHOWRECYCLE,375,89,50,14
+    CONTROL         "隐藏不活跃的任务(&H)",IDC_CHK_HIDEOUTTIME,"Button",BS_AUTOCHECKBOX | BS_MULTILINE | BS_FLAT | WS_TABSTOP,373,142,52,33
+    PUSHBUTTON      "保存(&S)",ID_SAVE,411,122,14,9,NOT WS_VISIBLE
+    PUSHBUTTON      "统计分析..(&T)",ID_ADD_SHOWSTATICS,375,107,50,14,NOT WS_VISIBLE
+    LTEXT           "已完成任务数:",IDC_STA_TASKCOUNT,7,253,232,11
+END
+
+IDD_DIALOGTODODETAIL DIALOGEX 0, 0, 316, 119
+STYLE DS_SETFONT | WS_MAXIMIZEBOX | WS_POPUP | WS_CAPTION | WS_SYSMENU | WS_THICKFRAME
+CAPTION "编辑TODO"
+FONT 9, "宋体", 0, 0, 0x0
+BEGIN
+    EDITTEXT        IDC_EDT_REMARK,7,7,239,105,ES_MULTILINE | ES_AUTOVSCROLL | ES_WANTRETURN | WS_VSCROLL
+    DEFPUSHBUTTON   "确定(&O)",IDOK,259,7,50,16
+    PUSHBUTTON      "取消(&C)",IDCANCEL,259,26,50,16
+    PUSHBUTTON      "设定提醒(&N)",ID_SET_NOTIFY,259,65,50,16,NOT WS_VISIBLE
+    LTEXT           "备注：",IDC_STATIC,7,51,42,9,NOT WS_VISIBLE
+    EDITTEXT        IDC_EDT_ID,57,7,58,12,ES_AUTOHSCROLL | ES_READONLY | NOT WS_VISIBLE | NOT WS_BORDER
+    LTEXT           "TODO编号：",IDC_STATIC,7,7,42,9,NOT WS_VISIBLE
+    EDITTEXT        IDC_EDT_NAME,57,20,198,12,ES_AUTOHSCROLL | NOT WS_VISIBLE | NOT WS_BORDER,WS_EX_CLIENTEDGE
+    LTEXT           "TODO标题：",IDC_STATIC,7,20,42,9,NOT WS_VISIBLE
+    PUSHBUTTON      "保存(&S)",ID_SAVE,259,45,50,16
+    CONTROL         "自动保存",IDC_CHK_AUTOSAVE,"Button",BS_AUTOCHECKBOX | BS_MULTILINE | BS_FLAT | WS_DISABLED | WS_TABSTOP,257,101,52,11
+END
+
+IDD_DIALOGTODOHISTORY DIALOGEX 0, 0, 404, 205
+STYLE DS_SETFONT | WS_MAXIMIZEBOX | WS_POPUP | WS_CAPTION | WS_SYSMENU | WS_THICKFRAME
+CAPTION "历史任务查看器"
+FONT 9, "宋体", 0, 0, 0x0
+BEGIN
+    CONTROL         "",IDC_LIST_TODO,"SysListView32",LVS_ALIGNLEFT | WS_BORDER | WS_TABSTOP,7,7,335,191
+    PUSHBUTTON      "编辑备注(&E)",ID_EDIT_TODO,347,7,50,15
+    PUSHBUTTON      "重新激活(&R)",ID_EDIT_SETLIVE,347,37,50,15
+    PUSHBUTTON      "永久删除(&D)",ID_EDIT_DELETEFOREVER,347,55,50,15
+END
+
+IDD_OPINIONDLG DIALOGEX 0, 0, 272, 149
+STYLE DS_SETFONT | WS_POPUP | WS_CLIPCHILDREN | WS_CAPTION | WS_SYSMENU | WS_THICKFRAME
+CAPTION "绿色时间管理 - 设置"
+FONT 9, "MS Sans Serif", 0, 0, 0x0
+BEGIN
+    DEFPUSHBUTTON   "OK",IDOK,215,7,50,16
+    PUSHBUTTON      "Cancel",IDCANCEL,215,26,50,16
+    CONTROL         "开机自启动",IDC_CHK_SELFSTART,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,17,19,91,12
+    CONTROL         "",IDC_HOTKEY_TASKLIST,"msctls_hotkey32",WS_BORDER | WS_TABSTOP,93,101,94,13
+    RTEXT           "打开任务管理器：",IDC_STATIC,19,102,72,12
+    GROUPBOX        "启动",IDC_STATIC,7,7,202,35,0,WS_EX_TRANSPARENT
+    GROUPBOX        "快捷键",IDC_STATIC,7,59,202,82,0,WS_EX_TRANSPARENT
+    LTEXT           "在快捷键编辑框中，按下你想要设定的快捷键。",IDC_STATIC,20,81,176,12
+    CONTROL         "",IDC_HOTKEY_NOTIFY,"msctls_hotkey32",WS_BORDER | WS_TABSTOP,94,120,94,13
+    RTEXT           "浏览提醒列表：",IDC_STATIC,20,121,72,12
+    CONTROL         "启动时弹出通知",IDC_CHK_STARTINFO,"Button",BS_AUTOCHECKBOX | NOT WS_VISIBLE | WS_TABSTOP,174,54,91,12
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// DESIGNINFO
+//
+
+#ifdef APSTUDIO_INVOKED
+GUIDELINES DESIGNINFO 
+BEGIN
+    IDD_DLG_SETUP, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 242
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 131
+    END
+
+    IDD_ADDTODAYTASKDLG, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 378
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 192
+    END
+
+    IDD_TASKLISTDIALOG, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 387
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 204
+    END
+
+    IDD_TASKMODIFYDIALOG, DIALOG
+    BEGIN
+        LEFTMARGIN, 3
+        RIGHTMARGIN, 247
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 119
+    END
+
+    IDD_QUICKREMIND, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 179
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 88
+    END
+
+    IDD_DLG_TODO, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 425
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 264
+    END
+
+    IDD_DIALOGTODODETAIL, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 309
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 112
+    END
+
+    IDD_DIALOGTODOHISTORY, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 397
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 198
+    END
+
+    IDD_OPINIONDLG, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 265
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 142
+    END
+END
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Menu
+//
+
+IDR_MENU_ICON MENU 
+BEGIN
+    POPUP "文件服务器"
+    BEGIN
+        MENUITEM "关于...(&A)",                   ID_APP_ABOUT
+        MENUITEM SEPARATOR
+        MENUITEM "任务安排...(&T)",                 ID_CMD_TODO
+        MENUITEM "历史任务...(&H)",                 ID_APP_TODOHISTORY
+        MENUITEM SEPARATOR
+        MENUITEM "增加提醒...(&N)",                 ID_APP_TASKADD
+        POPUP "快速提醒(N)"
+        BEGIN
+            MENUITEM "10分钟后提醒我(&T)",                ID_MENU_QUICKREMIND_10MIN
+            MENUITEM "一小时后提醒我(&F)",                 ID_MENU_QUICKREMIND_1HOUR
+            MENUITEM "明天这个时间提醒我(&M)",               ID_MENU_QUICKREMIND_TOMORROW
+        END
+        MENUITEM "浏览提醒...(&B)",                 ID_CMD_TASKVIEW
+        MENUITEM SEPARATOR
+        MENUITEM "自定义设置(&O)",                   ID_APP_OPINION
+        MENUITEM "打开task.db所在目录(&D)",           ID_APP_OPEN_TASKDB
+        MENUITEM "显示/隐藏主界面(&S)",                ID_RESUME
+        MENUITEM "退出(&Q)",                      ID_QUIT
+    END
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Bitmap
+//
+
+IDB_LISTITEMS           BITMAP                  "res\\IDB_LISTITEMS.bmp"
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Cursor
+//
+
+IDC_DIVIDER             CURSOR                  "res\\IDC_DIVIDER.cur"
+IDC_HYPERLINK           CURSOR                  "res\\IDC_HYPERLINK.cur"
+#endif    // 中文(中华人民共和国) resources
+/////////////////////////////////////////////////////////////////////////////
+
+
+/////////////////////////////////////////////////////////////////////////////
+// 英语(美国) resources
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENU)
+#ifdef _WIN32
+LANGUAGE LANG_ENGLISH, SUBLANG_ENGLISH_US
+#pragma code_page(1252)
+#endif //_WIN32
+
+#ifdef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// TEXTINCLUDE
+//
+
+1 TEXTINCLUDE 
+BEGIN
+    "resource.h\0"
+END
+
+2 TEXTINCLUDE 
+BEGIN
+    "#include ""atlres.h""\r\n"
+    "\0"
+END
+
+3 TEXTINCLUDE 
+BEGIN
+    "\0"
+END
+
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Accelerator
+//
+
+IDR_MAINFRAME ACCELERATORS 
+BEGIN
+    "N",            ID_FILE_NEW,            VIRTKEY, CONTROL
+    "O",            ID_FILE_OPEN,           VIRTKEY, CONTROL
+    "S",            ID_FILE_SAVE,           VIRTKEY, CONTROL
+    "P",            ID_FILE_PRINT,          VIRTKEY, CONTROL
+    "Z",            ID_EDIT_UNDO,           VIRTKEY, CONTROL
+    "X",            ID_EDIT_CUT,            VIRTKEY, CONTROL
+    "C",            ID_EDIT_COPY,           VIRTKEY, CONTROL
+    "V",            ID_EDIT_PASTE,          VIRTKEY, CONTROL
+    VK_BACK,        ID_EDIT_UNDO,           VIRTKEY, ALT
+    VK_DELETE,      ID_EDIT_CUT,            VIRTKEY, SHIFT
+    VK_INSERT,      ID_EDIT_COPY,           VIRTKEY, CONTROL
+    VK_INSERT,      ID_EDIT_PASTE,          VIRTKEY, SHIFT
+    VK_F6,          ID_NEXT_PANE,           VIRTKEY 
+    VK_F6,          ID_PREV_PANE,           VIRTKEY, SHIFT
+END
+
+#endif    // 英语(美国) resources
+/////////////////////////////////////////////////////////////////////////////
+
+
+
+#ifndef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 3 resource.
+//
+
+/////////////////////////////////////////////////////////////////////////////
+#endif    // not APSTUDIO_INVOKED
+
